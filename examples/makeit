@@ -1,0 +1,6 @@
+ cd ../build; 
+ cmake ../source/c++; 
+ make; 
+ cd -; 
+ g++ -std=c++11 -I../../include -L../../lib simple_interface.cc -lradlib; 
+ ./a.out
