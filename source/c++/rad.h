@@ -18,10 +18,15 @@ class rad {
 
     //////////////////// DATA MEMBERS //////////////////////
 
+    public: 
+
+        constexpr static double sigma = 5.670367E-8;    ///< Stephan-Boltzmann constant
+
     protected:
 
         int    nGG;                           ///< number of gray gases, not including the clear gas
         int    nGGa;                          ///< number of grey gases including the clear gas
+
 
     //////////////////// MEMBER FUNCTIONS /////////////////
 
