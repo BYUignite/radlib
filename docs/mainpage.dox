@@ -1,0 +1,18 @@
+/**
+
+@mainpage
+
+<!-- This is being rendered into HTML code, so you can comment things out using HTML-style comments. -->
+
+<!-- You can also insert LaTeX equations. 
+     An example of an inline equation: \f$ ax^2 + bx + c = 0 \f$. 
+     An example of a nice-looking display equation: \f[ ax^2 + bx + c = 0 \f] -->
+
+<!-- \image html montage_odt.png width=250px
+     ![ODT examples](montage_odt.png#left) -->
+
+<!-- #################################################################### -->
+@section welcome Welcome to RadLib 
+
+*/
+
