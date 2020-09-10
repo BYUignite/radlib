@@ -1,7 +1,0 @@
- cd ../build; 
- cmake -C user_config ../source/c++; 
- make; 
- make install; 
- cd -; 
- g++ -std=c++11 -I../installed/include -L../installed/lib simple_interface.cc -lradlib -o simple_interface.x; 
- ./simple_interface.x
