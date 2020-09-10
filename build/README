@@ -17,14 +17,18 @@ Step 1: run cmake
 
 #--------------------------------------------------------------------------
 Step 2: build the radlib code
-    Run: make -j8
+    Run: make
 
 #--------------------------------------------------------------------------
-Step 3 (OPTIONAL): build documentation
+Step 3: install the library
+    Run: make install
+
+#--------------------------------------------------------------------------
+Step 4 (OPTIONAL): build documentation
     Run: make doxygen
 
 #--------------------------------------------------------------------------
-Step 4: clean the build
+Step 5: clean the build
     Run: make clean
     OR (for a more thorough clean)
     Run: ./clean_this_dir.sh

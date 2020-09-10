@@ -1,4 +1,6 @@
 # radlib user configuration
 
-set(CMAKE_INSTALL_PREFIX "/Users/dol4/Desktop" CACHE STRING "installation location: comment this out to use the default")
+#set(CMAKE_INSTALL_PREFIX "/Users/dol4/Desktop" CACHE STRING "installation location: comment this out to use the default")
+set(CMAKE_INSTALL_PREFIX "../installed" CACHE STRING "installation location: comment this out to use the default")
+
 set(PYTHON               "YES"                 CACHE STRING "build python interface: cython")
