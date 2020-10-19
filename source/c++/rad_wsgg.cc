@@ -69,7 +69,7 @@ void rad_wsgg::get_k_a(const double   T_dmb,
     double Mr = xH2O/(xCO2+1E-6);
     if(Mr<0.01) Mr = 0.01;
     if(Mr>4)    Mr = 4;
-    cout << endl << "Mr = " << Mr << endl; //doldb
+    //cout << endl << "Mr = " << Mr << endl;
 
     double T = T_dmb;
     if(T<500)  T = 500;

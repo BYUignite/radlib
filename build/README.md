@@ -1,28 +1,42 @@
+## Building radlib source code with cmake
 
-## Build source code with cmake. 
+------------------------------------------------------------------
+### SOFTWARE 
 
-* Note: CMakeLists.txt files are in ../source directory and its subdirectories.
-* Note: All files in this folder can be deleted except for user_config, this README, 
-      and the clean_this_dir.sh script.
+Required software:
+    cmake (3.12 or higher)
 
---------------------------------------------------------------------------
+Optional software:
+    doxygen (for building documentation)
 
-### Software required:
-* cmake (3.12 or higher)
-* doxygen (optional; for building documentation)
+------------------------------------------------------------------
+### Build instructions 
 
---------------------------------------------------------------------------
+STEP 1: run cmake
+    Edit the user_config file for settings and paths.
+    RUN: `cmake -C user_config ../source/c++`    
 
-### Build steps
-* Step 1: run cmake
-    * Edit the user_config file for settings and paths.
-    * Run: `cmake -C user_config ../source/c++` 
-* Step 2: build the radlib code
-    * Run: `make`
-* Step 3: install the library
-    * Run: `make install`
-* Step 4 (OPTIONAL): build documentation
-    * Run: `make doxygen`
-* Step 5: clean the build
-    * Run: `make clean`
-    * Or, for a more thorough clean, run: `./clean_this_dir.sh`
+STEP 2: build the radlib code
+    RUN: make -j8
+
+STEP 3 (OPTIONAL):  build documentation
+    RUN: `make doxygen`
+    
+------------------------------------------------------------------
+
+### Cleanup instructions 
+
+Basic cleanup:
+    RUN: `make clean`
+
+Thorough cleanup:
+    RUN: `./clean_this_dir.sh`
+
+------------------------------------------------------------------
+
+### Notes
+
+- `CMakeLists.txt` files are located in `../source` directory and its subdirectories.
+- All files in this folder can be deleted except for user_config and this README.
+- Generating PDF documentation requires pdflatex to be installed on your system. 
+
