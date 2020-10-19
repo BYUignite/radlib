@@ -1,8 +1,11 @@
+import numpy as np
+import sys
+
+sys.path.append('/Users/dol4/codes/radlib/source/python/')
+
 from pyrad import pyrad_planck_mean as rad_planck_mean
 from pyrad import pyrad_wsgg        as rad_wsgg
 from pyrad import pyrad_rcslw       as rad_rcslw
-
-import numpy as np
 
 #--------------------------------------------------------------------------------
 
