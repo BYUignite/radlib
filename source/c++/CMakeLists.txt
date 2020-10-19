@@ -45,7 +45,7 @@ add_definitions(-DRCSLW_DATA_DIR=${RCSLW_DATA_DIR})
 install(TARGETS radlib 
         LIBRARY DESTINATION lib)
 
-FILE(GLOB_RECURSE rcslw_data_files "rcslw_data/*.txt" "rcslw_data/README")
+FILE(GLOB_RECURSE rcslw_data_files "../../data/rcslw_data/*.txt" "../../data/rcslw_data/README")
 install(FILES ${rcslw_data_files} DESTINATION "lib/rcslw_data")
 
 FILE(GLOB_RECURSE radheaders "*.h")
