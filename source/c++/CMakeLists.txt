@@ -14,11 +14,9 @@ target_compile_features(radlib PUBLIC cxx_std_11)
 
 set(CMAKE_CXX_FLAGS_DEBUG   "-ggdb3")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-#set(CMAKE_CXX_FLAGS        "-Wall -Wextra")
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    target_link_libraries(radlib "-framework Accelerate")
-endif()
+#-------- create macro so that source code can access the rcslw data files
+add_definitions(-DRCSLW_DATA_DIR=${INSTALLED_RCSLW_DATA_DIR})
 
 #################### Local source files
 
@@ -30,14 +28,6 @@ target_sources(radlib
         rad_rcslw.cc                 rad_rcslw.h
         multilinear_interpolation.h
 )
-
-#################### 
-
-#set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ../lib)
-
-#################### create macro so that source code can access the rcslw data files
-
-add_definitions(-DRCSLW_DATA_DIR=${INSTALLED_RCSLW_DATA_DIR})
 
 #################### installation
 
@@ -54,12 +44,13 @@ install(FILES ${radheaders} DESTINATION include)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
+    message("made it: ${CMAKE_CURRENT_BINARY_DIR}")
     add_custom_target(doxygen 
-        COMMAND rm -rf ../docs/doxygen/html
-        COMMAND mkdir  ../docs/doxygen/html
-        COMMAND doxygen -s ../docs/Doxyfile
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Building doxygen documentation"
+        COMMAND rm -rf ../../docs/doxygen/html
+        COMMAND mkdir  ../../docs/doxygen/html
+        COMMAND doxygen -s ../../docs/Doxyfile
+        #WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         VERBATIM
     )
 else()
