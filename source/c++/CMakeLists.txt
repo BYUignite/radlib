@@ -44,13 +44,12 @@ install(FILES ${radheaders} DESTINATION include)
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-    message("made it: ${CMAKE_CURRENT_BINARY_DIR}")
     add_custom_target(doxygen 
         COMMENT "Building doxygen documentation"
         COMMAND rm -rf ../../docs/doxygen/html
         COMMAND mkdir  ../../docs/doxygen/html
         COMMAND doxygen -s ../../docs/Doxyfile
-        #WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         VERBATIM
     )
 else()
