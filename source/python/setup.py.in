@@ -1,0 +1,13 @@
+from distutils.core      import setup, Extension
+from Cython.Distutils    import build_ext
+from distutils.extension import Extension
+
+sources_list = ['${CMAKE_CURRENT_SOURCE_DIR}/pyrad.pyx', 
+                '${CMAKE_CURRENT_SOURCE_DIR}/../c++/rad_planck_mean.cc', 
+                '${CMAKE_CURRENT_SOURCE_DIR}/../c++/rad_wsgg.cc', 
+                '${CMAKE_CURRENT_SOURCE_DIR}/../c++/rad_rcslw.cc']
+
+setup(ext_modules=[Extension('pyrad', 
+                             sources=sources_list,
+                             language='c++',
+                             extra_compile_args=['-std=c++11', '-O3', '-DRCSLW_DATA_DIR=${INSTALLED_RCSLW_DATA_DIR}'])], cmdclass={'build_ext':build_ext})

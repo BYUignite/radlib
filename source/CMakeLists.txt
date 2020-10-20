@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
 project(radlib LANGUAGES CXX)
 
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+set(RCSLW_DATA_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../data/rcslw_data")
+get_filename_component(INSTALLED_RCSLW_DATA_DIR "${CMAKE_INSTALL_PREFIX}/rcslw_data" ABSOLUTE)
+
 add_subdirectory(c++)
 add_subdirectory(python)

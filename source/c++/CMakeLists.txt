@@ -37,16 +37,15 @@ target_sources(radlib
 
 #################### create macro so that source code can access the rcslw data files
 
-set(RCSLW_DATA_DIR "${CMAKE_INSTALL_PREFIX}/lib/rcslw_data")
-add_definitions(-DRCSLW_DATA_DIR=${RCSLW_DATA_DIR})
+add_definitions(-DRCSLW_DATA_DIR=${INSTALLED_RCSLW_DATA_DIR})
 
 #################### installation
 
 install(TARGETS radlib 
         LIBRARY DESTINATION lib)
 
-FILE(GLOB_RECURSE rcslw_data_files "../../data/rcslw_data/*.txt" "../../data/rcslw_data/README")
-install(FILES ${rcslw_data_files} DESTINATION "lib/rcslw_data")
+FILE(GLOB_RECURSE rcslw_data_files "${RCSLW_DATA_DIR}/*.txt" "${RCSLW_DATA_DIR}/README.md")
+install(FILES ${rcslw_data_files} DESTINATION ${INSTALLED_RCSLW_DATA_DIR})
 
 FILE(GLOB_RECURSE radheaders "*.h")
 install(FILES ${radheaders} DESTINATION include)
