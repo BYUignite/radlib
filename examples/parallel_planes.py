@@ -12,7 +12,7 @@ def I_IT(x:     NDArray[Any],
          kabs:  NDArray[Any,Any],
          awts:  NDArray[Any,Any],
          Ilo:   NDArray[Any],
-         Ihi:   NDArray[Any]) -> NDArray[Any,Any]
+         Ihi:   NDArray[Any]) -> NDArray[Any,Any]:
     '''
     Compute intensity at each grid point for a given angle.
     Solution using an implicit trapazoid method.
@@ -29,10 +29,9 @@ def I_IT(x:     NDArray[Any],
     n     = len(x)
     nGGa  = len(kabs[0,:])
 
-    double Ib1, Ib2
     mu = np.abs(np.cos(theta))
 
-    I = np.empty((nx, nGGa))
+    I = np.empty((n, nGGa))
 
     if(theta <= np.pi/2):
         I[0] = Ilo
@@ -41,8 +40,7 @@ def I_IT(x:     NDArray[Any],
             Ib2 = sigma/np.pi*T[i]**4
             dx  = x[i+1] - x[i]
             for j in range(nGGa):
-                I[i+1,j] = (I[i,j] + dx/mu*0.5*(kabs[i+1,j]*awts[i+1,j]*Ib1 + kabs[i,j]*(awts[i,j]*Ib2 - I[i,j]))) /
-                            (1.0+dx/mu*0.5*kabs[i+1,j])
+                I[i+1,j] = (I[i,j] + dx/mu*0.5*(kabs[i+1,j]*awts[i+1,j]*Ib1 + kabs[i,j]*(awts[i,j]*Ib2 - I[i,j]))) / (1.0+dx/mu*0.5*kabs[i+1,j])
     else:
         I[n-1] = Ihi
         for i in range(n-1,0,-1):
@@ -50,24 +48,23 @@ def I_IT(x:     NDArray[Any],
             Ib2 = sigma/np.pi*T[i]**4
             dx  = x[i] - x[i-1]
             for j in range(nGGa):
-                I[i-1,j] = (I[i,j] + dx/mu*0.5*(kabs[i-1,j]*awts[i-1,j]*Ib1 + kabs[i,j]*(awts[i,j]*Ib2 - I[i,j]))) /
-                            (1.0+dx/mu*0.5*kabs[i-1,j])
+                I[i-1,j] = (I[i,j] + dx/mu*0.5*(kabs[i-1,j]*awts[i-1,j]*Ib1 + kabs[i,j]*(awts[i,j]*Ib2 - I[i,j]))) / (1.0+dx/mu*0.5*kabs[i-1,j])
 
     return I
 
 ################################################################################
 
-parallel_planes(RAD,
-                L:        float,
-                ntheta:   int, 
-                P:        float, 
-                T:        NDArray[Any],
-                xH2O:     NDArray[Any],
-                xCO2:     NDArray[Any],
-                xCO:      NDArray[Any],
-                xCH4:     NDArray[Any],
-                fvsoot:   NDArray[Any],
-                LzeroIbc: bool =false) -> Tuple[NDArray[Any], NDArray[Any], NDArray[Any], NDArray[Any]]:
+def parallel_planes(RAD,
+                    L:        float,
+                    ntheta:   int, 
+                    P:        float, 
+                    T:        NDArray[Any],
+                    xH2O:     NDArray[Any],
+                    xCO2:     NDArray[Any],
+                    xCO:      NDArray[Any],
+                    xCH4:     NDArray[Any],
+                    fvsoot:   NDArray[Any],
+                    LzeroIbc: bool = False) -> Tuple[NDArray[Any], NDArray[Any], NDArray[Any], NDArray[Any]]:
     '''
     Compute radiative heat flux (q) and volumetric heat source (Q) profiles between parallel planes.
     Solution using simple ray tracing.
@@ -101,7 +98,7 @@ parallel_planes(RAD,
 
     #--------------------- initialize radiative properties
 
-    kabs = np.empty((nx, Rad.get_nGG))
+    kabs = np.empty((nx, RAD.get_nGGa()))
     awts = np.empty_like(kabs)
 
     for i in range(nx):
@@ -121,7 +118,7 @@ parallel_planes(RAD,
 
     for j in range(ntheta):
         I = I_IT(x, theta[j], T, kabs, awts, Ilo, Ihi)
-        for(int i=0; i<nx; ++i):
+        for i in range(nx):
             q[i] += 2.0*np.pi*dtheta*np.cos(theta[j])*np.sin(theta[j])*np.sum(I[i,:])
 
     Q = -(q[1:]-q[:-1])/dx

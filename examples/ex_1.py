@@ -1,4 +1,5 @@
 import numpy as np
+import sys
 
 from parallel_planes import parallel_planes, sigma
 
@@ -37,7 +38,6 @@ for iLcold in range(len(Lcold)):
     Tavg = (Thot*0.5+Tcold*Lcold[iLcold])/L
 
     nx = int(nxh*L/Lhot)
-    x = np.linspace(0,L,nx)
 
     xCO2   = np.full(nx, xco2)
     xCO    = np.full(nx, xco)
@@ -45,18 +45,23 @@ for iLcold in range(len(Lcold)):
     xCH4   = np.full(nx, xch4)
     fvsoot = np.full(nx, fvs)
 
-    T = np.full(nx,Thot)
-    T[x>Lhot] = Tcold
+    x = np.zeros(nx)
+    dx = L/(nx-1)
+    T = np.full(nx, Thot)
+    for i in range(1,nx):        # mimic c++; pythonic gives different grid/T due to roundoff
+        x[i] = x[i-1] + dx
+        T[i] = Thot if x[i] <= Lhot else Tcold
+
 
     rcslw = rad_rcslw(nGG, P, Tavg, xh2o, xco2, xco, fvs)
 
     #--------------------- get q, Q
 
-    x, xQ, q, Q = parallel_planes(rcslw, L, ntheta, P, T, xH2O, xCO2, xCO, xCH4, fvsoot, true)
+    x, xQ, q, Q = parallel_planes(rcslw, L, ntheta, P, T, xH2O, xCO2, xCO, xCH4, fvsoot, True)
 
     #-------------------------------------------------------------------------
 
-    print(f'\n{Lcold[iLcold]}  {q[nx-1]/sigma/Thot**4}')
+    print(f'{Lcold[iLcold]}  {q[nx-1]/sigma/Thot**4}')
 
 print()
 
