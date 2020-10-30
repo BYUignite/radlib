@@ -1,7 +1,8 @@
 import numpy as np
 import sys
 
-from parallel_planes import parallel_planes, sigma
+from cyparallel_planes import parallel_planes
+#from parallel_planes import parallel_planes
 
 sys.path.append('/Users/dol4/codes/radlib/installed/lib/python3.8/site-packages')
 
@@ -28,14 +29,14 @@ xco2=0.0; xco=0.0; xh2o=0.1; xch4=0.0; fvs=0.0
 
 #---------------------
 
-xCO2   = np.full(nx, xco2)
-xCO    = np.full(nx, xco)
-xH2O   = np.full(nx, xh2o)
-xCH4   = np.full(nx, xch4)
-fvsoot = np.full(nx, fvs)
+xCO2   = np.full(nx, xco2, dtype=np.float64)
+xCO    = np.full(nx, xco,  dtype=np.float64)
+xH2O   = np.full(nx, xh2o, dtype=np.float64)
+xCH4   = np.full(nx, xch4, dtype=np.float64)
+fvsoot = np.full(nx, fvs,  dtype=np.float64)
 
 x = np.zeros(nx)
-T = np.full(nx,Twall)
+T = np.full(nx,Twall, dtype=np.float64)
 
 dx = L/(nx-1)
 x[0] = 0.0
