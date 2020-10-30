@@ -1,7 +1,9 @@
 import numpy as np
 import sys
+import time
 
-from parallel_planes import parallel_planes, sigma
+from cyparallel_planes import parallel_planes
+#from parallel_planes import parallel_planes
 
 sys.path.append('/Users/dol4/codes/radlib/installed/lib/python3.8/site-packages')
 
@@ -9,9 +11,13 @@ from pyrad import pyrad_planck_mean as rad_planck_mean
 from pyrad import pyrad_wsgg        as rad_wsgg
 from pyrad import pyrad_rcslw       as rad_rcslw
 
+sigma = 5.670367E-8     # Stephan-Boltzmann constant
+
 ################################################################################
 
 #--------------------- parameters
+
+t0 = time.time()
 
 P      = 101325.0
 Thot   = 2000
@@ -39,15 +45,15 @@ for iLcold in range(len(Lcold)):
 
     nx = int(nxh*L/Lhot)
 
-    xCO2   = np.full(nx, xco2)
-    xCO    = np.full(nx, xco)
-    xH2O   = np.full(nx, xh2o)
-    xCH4   = np.full(nx, xch4)
-    fvsoot = np.full(nx, fvs)
+    xCO2   = np.full(nx, xco2, dtype=np.float64)
+    xCO    = np.full(nx, xco,  dtype=np.float64)
+    xH2O   = np.full(nx, xh2o, dtype=np.float64)
+    xCH4   = np.full(nx, xch4, dtype=np.float64)
+    fvsoot = np.full(nx, fvs,  dtype=np.float64)
 
     x = np.zeros(nx)
     dx = L/(nx-1)
-    T = np.full(nx, Thot)
+    T = np.full(nx, Thot, dtype=np.float64)
     for i in range(1,nx):        # mimic c++; pythonic gives different grid/T due to roundoff
         x[i] = x[i-1] + dx
         T[i] = Thot if x[i] <= Lhot else Tcold
@@ -63,5 +69,6 @@ for iLcold in range(len(Lcold)):
 
     print(f'{Lcold[iLcold]}  {q[nx-1]/sigma/Thot**4}')
 
+print(f'runtime = {time.time()-t0}')
 print()
 
