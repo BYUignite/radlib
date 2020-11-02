@@ -8,3 +8,4 @@
     * This this will create the cyparallel_planes library with can be imported and called from the examples.
     * That is the default and is assumed in the example codes ex_*.py
     * If you want to use parallel_planes.py instead, just switch comments at the top of the example files.
+* The jupyter notebook ```run_and_plot_examples.ipynb``` gives a description of each example, and runs and plots the results for comparison across the various models available.
