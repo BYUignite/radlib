@@ -21,6 +21,10 @@ class rad_wsgg : public rad {
 
         static const double cCoefs[];        ///< map to [i,j,k] of size ni,nj,nk = 4,5,5
         static const double dCoefs[];        ///> map to [i,k]   of size ni,nk    = 4,5
+        static const double bco2[];          ///> map to [i,j]   of size ni,nj    = 4,5
+        static const double bh2o[];          ///> map to [i,j]   of size ni,nj    = 4,5
+        static const double kco2[];          ///> absorption coefficients for pure co2 (size 5 = nGGa)
+        static const double kh2o[];          ///> absorption coefficients for pure h2o (size 5 = nGGa)
 
     //////////////////// MEMBER FUNCTIONS /////////////////
 

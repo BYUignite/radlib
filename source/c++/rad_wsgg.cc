@@ -33,10 +33,24 @@ const double rad_wsgg::cCoefs[100]={ 7.412956e-001, -5.244441e-001,  5.822860e-0
                                      2.317509e-001, -1.656759e-001,  1.052608e-001, -3.219347e-002,  3.386965e-003,
                                     -3.754908e-002,  2.295193e-002, -1.600472e-002,  5.046318e-003, -5.364326e-004};  
 
-const double rad_wsgg::dCoefs[20]={ 3.404288e-002,  6.523048e-002, -4.636852e-002,  1.386835e-002, -1.444993e-003,
-                                    3.509457e-001,  7.465138e-001, -5.293090e-001,  1.594423e-001, -1.663261e-002,
-                                    4.570740e+000,  2.168067e+000, -1.498901e+000,  4.917165e-001, -5.429990e-002,
-                                    1.098169e+002, -5.092359e+001,  2.343236e+001, -5.163892e+000,  4.393889e-001};
+const double rad_wsgg::dCoefs[20]={  3.404288e-002,  6.523048e-002, -4.636852e-002,  1.386835e-002, -1.444993e-003,
+                                     3.509457e-001,  7.465138e-001, -5.293090e-001,  1.594423e-001, -1.663261e-002,
+                                     4.570740e+000,  2.168067e+000, -1.498901e+000,  4.917165e-001, -5.429990e-002,
+                                     1.098169e+002, -5.092359e+001,  2.343236e+001, -5.163892e+000,  4.393889e-001};
+
+const double rad_wsgg::bco2[20]={    8.495135e-001, -1.496812e+000,  1.361406e+000, -5.551699e-001,  8.076589e-002,
+                                    -1.103102e-001,  9.363958e-001, -1.250799e+000,  6.527827e-001, -1.206959e-001,
+                                     1.731716e-001, -5.174223e-001,  8.256840e-001, -4.998864e-001,  1.008743e-001,
+                                     3.995426e-002,  1.423006e-001, -1.649481e-001,  5.140768e-002, -3.497246e-003};
+
+const double rad_wsgg::bh2o[20]={    6.670204e-001, -1.228413e+000,  1.428908e+000, -6.267906e-001,  9.628539e-002,
+                                     2.343433e-001, -3.192256e-001,  8.867348e-001, -5.927787e-001,  1.185824e-001,
+                                    -1.793041e-001,  1.683454e+000, -2.136989e+000,  1.020422e+000, -1.723960e-001,
+                                     3.455969e-001, -7.510442e-001,  6.313180e-001, -2.416500e-001,  3.530972e-002};
+
+const double rad_wsgg::kco2[5]={     0.000000e+000,  3.272772e-002,  4.229655e-001,  4.905367e+000,  1.085440e+002};
+
+const double rad_wsgg::kh2o[5]={     0.000000e+000,  8.047859e-002,  9.557208e-001,  8.005283e+001,  7.613186e+001};
 
 ///////////////////////////////////////////////////////////////////////////////
 /** THIS IS THE CLASS INTERFACE FUNCTION
@@ -66,16 +80,19 @@ void rad_wsgg::get_k_a(const double   T_dmb,
 
     //------------------------
 
-    double Mr = xH2O/(xCO2+1E-6);
-    if(Mr<0.01) Mr = 0.01;
-    if(Mr>4)    Mr = 4;
-    //cout << endl << "Mr = " << Mr << endl;
+    double Mr = xH2O/(xCO2+1E-10);
+    double MrOrig = Mr;
+    if(Mr < 0.1) Mr = 0.1;
+    if(Mr > 4.0) Mr = 4.0;
+    if(MrOrig > 1E8) MrOrig = 1E8;
 
     double T = T_dmb;
     if(T<500)  T = 500;
     if(T>2400) T = 2400;
 
     double Tr = T/1200;
+
+    //-------------- 
 
     const int ni  = 4;
     const int nj  = 5;
@@ -98,14 +115,51 @@ void rad_wsgg::get_k_a(const double   T_dmb,
     
     awts[0] = 1.0;
     for(int i=1; i<nGGa; i++){
+        off = (i-1)*nk;
+        kabs[i] = dCoefs[off+0] + Mr*(dCoefs[off+1] + Mr*(dCoefs[off+2] + Mr*(dCoefs[off+3] + Mr*(dCoefs[off+4]))));
+        kabs[i] *= (P/101325)*(xH2O+xCO2);
+
         awts[i] = b[i-1][0] + Tr*(b[i-1][1] + Tr*(b[i-1][2] + Tr*(b[i-1][3] + Tr*(b[i-1][4]))));
         awts[0] -= awts[i];
     }
 
-    for(int i=1; i<nGGa; i++){
-        off = (i-1)*nk;
-        kabs[i] = dCoefs[off+0] + Mr*(dCoefs[off+1] + Mr*(dCoefs[off+2] + Mr*(dCoefs[off+3] + Mr*(dCoefs[off+4]))));
-        kabs[i] *= (P/101325)*(xH2O+xCO2);
+    //------------- for Mr < 0.01 or Mr > 0.4, linearly interpolate a, k between those bounds and the pure component values
+
+    vector<double> aco2orh2o;
+
+    if(MrOrig < 0.1){
+        aco2orh2o.resize(nGGa);
+        aco2orh2o[0] = 1.0;
+        for(int i=1; i<nGGa; i++){
+            off = nj*(i-1);
+            aco2orh2o[i] = bco2[off+0] + Tr*(bco2[off+1] + Tr*(bco2[off+2] + Tr*(bco2[off+3] + Tr*(bco2[off+4]))));
+            aco2orh2o[0] -= aco2orh2o[i];
+        }
+        //------------------- linearly interpolate k and a
+        double f = (0.01-MrOrig)/0.01;                 // convenience variable
+        awts[0] = 1.0;
+        for(int i=1; i<nGGa; i++){
+            kabs[i] = kco2[i]*(f) + kabs[i]*(1.0-f);
+            awts[i] = aco2orh2o[i]*(f) + awts[i]*(1.0-f);
+            awts[0] -= awts[i];
+        }
+    }
+    if(MrOrig > 4.0){
+        aco2orh2o.resize(nGGa);
+        aco2orh2o[0] = 1.0;
+        for(int i=1; i<nGGa; i++){
+            off = nj*(i-1);
+            aco2orh2o[i] = bh2o[off+0] + Tr*(bh2o[off+1] + Tr*(bh2o[off+2] + Tr*(bh2o[off+3] + Tr*(bh2o[off+4]))));
+            aco2orh2o[0] -= aco2orh2o[i];
+        }
+        //------------------- linearly interpolate k and a
+        double f = (1E8-MrOrig)/(1E8-4.0);             // convenience variable
+        awts[0] = 1.0;
+        for(int i=1; i<nGGa; i++){
+            kabs[i] = kh2o[i]*(f) + kabs[i]*(1.0-f);
+            awts[i] = aco2orh2o[i]*(f) + awts[i]*(1.0-f);
+            awts[0] -= awts[i];
+        }
     }
 
     return;
