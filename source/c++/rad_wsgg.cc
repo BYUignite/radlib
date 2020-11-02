@@ -82,8 +82,8 @@ void rad_wsgg::get_k_a(const double   T_dmb,
 
     double Mr = xH2O/(xCO2+1E-10);
     double MrOrig = Mr;
-    if(Mr < 0.1) Mr = 0.1;
-    if(Mr > 4.0) Mr = 4.0;
+    if(Mr < 0.01) Mr = 0.01;
+    if(Mr > 4.0)  Mr = 4.0;
     if(MrOrig > 1E8) MrOrig = 1E8;
 
     double T = T_dmb;
@@ -127,7 +127,7 @@ void rad_wsgg::get_k_a(const double   T_dmb,
 
     vector<double> aco2orh2o;
 
-    if(MrOrig < 0.1){
+    if(MrOrig < 0.01){
         aco2orh2o.resize(nGGa);
         aco2orh2o[0] = 1.0;
         for(int i=1; i<nGGa; i++){
@@ -137,9 +137,10 @@ void rad_wsgg::get_k_a(const double   T_dmb,
         }
         //------------------- linearly interpolate k and a
         double f = (0.01-MrOrig)/0.01;                 // convenience variable
+        double pfac = P/101325*xCO2;
         awts[0] = 1.0;
         for(int i=1; i<nGGa; i++){
-            kabs[i] = kco2[i]*(f) + kabs[i]*(1.0-f);
+            kabs[i] = kco2[i]*pfac*(f) + kabs[i]*(1.0-f);
             awts[i] = aco2orh2o[i]*(f) + awts[i]*(1.0-f);
             awts[0] -= awts[i];
         }
@@ -154,10 +155,11 @@ void rad_wsgg::get_k_a(const double   T_dmb,
         }
         //------------------- linearly interpolate k and a
         double f = (1E8-MrOrig)/(1E8-4.0);             // convenience variable
+        double pfac = P/101325*xH2O;
         awts[0] = 1.0;
         for(int i=1; i<nGGa; i++){
-            kabs[i] = kh2o[i]*(f) + kabs[i]*(1.0-f);
-            awts[i] = aco2orh2o[i]*(f) + awts[i]*(1.0-f);
+            kabs[i] = kabs[i]*(f) + kh2o[i]*pfac*(1.0-f);
+            awts[i] = awts[i]*(f) + aco2orh2o[i]*(1.0-f);
             awts[0] -= awts[i];
         }
     }
