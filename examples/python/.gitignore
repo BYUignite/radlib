@@ -1,0 +1,5 @@
+*.pdf
+*.c
+*.so
+build
+__pycache__
