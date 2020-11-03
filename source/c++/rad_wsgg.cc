@@ -87,7 +87,8 @@ void rad_wsgg::get_k_a(const double   T_dmb,
     if(MrOrig > 1E8) MrOrig = 1E8;
 
     double T = T_dmb;
-    if(T<500)  T = 500;
+    //if(T<500)  T = 500;       // 500 is in the 2014 paper, but 300 is used in Fig. 2 of the 2020 paper.kjk0
+    if(T<300)  T = 300;
     if(T>2400) T = 2400;
 
     double Tr = T/1200;
