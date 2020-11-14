@@ -1,4 +1,4 @@
-def ex_3(method, nGG=24):
+def ex_B3(method, nGG=4):
 
     import numpy as np
     import sys
@@ -15,16 +15,16 @@ def ex_3(method, nGG=24):
     ################################################################################
     
     #--------------------- parameters
+
+    nGGa = nGG + 1
     
     P      = 101325.0
     L      = 1.0
     ntheta = 101
     nx     = 1001
-    Twall  = 800.0
+    Twall  = 400.0
     
-    nGGa   = nGG+1
-    
-    xco2=0.0; xco=0.0; xh2o=0.12; xch4=0.0; fvs=0.0
+    xco2=0.0; xco=0.0; xh2o=0.0; xch4=0.0; fvs=0.0
     
     #---------------------
     
@@ -37,21 +37,17 @@ def ex_3(method, nGG=24):
     x = np.zeros(nx)
     T = np.full(nx,Twall, dtype=np.float64)
     
-    dx = L/(nx-1)
-    x[0] = 0.0
-    Tavg = T[0]
-    xH2O_avg = 0.0
-    for i in range(1,nx):
-        x[i] = x[i-1] + dx
-        T[i] = 4000*x[i]*(L-x[i])/L/L + Twall
-        xH2O[i] = 0.8*x[i]*(L-x[i])/L/L + xh2o
-        Tavg += T[i]
-        xH2O_avg += xH2O[i]
-    Tavg     /= nx
-    xH2O_avg /= nx
+    x = np.linspace(0,L,nx)
+    for i in range(nx):
+        T[i]    = 400.0 + 1400.0*   np.sin(np.pi*x[i]/L)**2
+        xH2O[i] = 1E-4 + (1.0-1E-4)*np.sin(np.pi*x[i]/L)**2
+        xCO2[i] = 1.0-xH2O[i]
+    xH2O_avg = np.average(xH2O)
+    xCO2_avg = 1.0-xH2O_avg
+    T_avg    = np.average(T)
     
     if method=='rcslw':
-        rad = rad_rcslw(nGG, P, Tavg, xH2O_avg, xco2, xco, fvs)
+        rad = rad_rcslw(nGG, P, T_avg, xH2O_avg, xCO2_avg, xco, fvs)
     elif method=='wsgg':
         rad = rad_wsgg()
     elif method=='planckmean':
@@ -75,9 +71,9 @@ def ex_3(method, nGG=24):
     
     print()
 
-    return xQ, Q
+    return x, xQ, q, Q
 
 ################################################################################
     
 if __name__=='__main__':
-    xQ, Q = ex_3('rcslw', 24)
+    x, xQ, q, Q = ex_B3('wsgg', nGG=4)

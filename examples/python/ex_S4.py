@@ -1,4 +1,4 @@
-def ex_4(method, nGG=24):
+def ex_S4(method, nGG=24):
 
     import numpy as np
     import sys
@@ -83,4 +83,4 @@ def ex_4(method, nGG=24):
 ################################################################################
     
 if __name__=='__main__':
-    xQ, Q = ex_4('rcslw', 24)
+    xQ, Q = ex_S4('rcslw', 24)

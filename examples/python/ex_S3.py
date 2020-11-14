@@ -1,4 +1,4 @@
-def ex_5(method, nGG=24, use_Tmax=False):
+def ex_S3(method, nGG=24):
 
     import numpy as np
     import sys
@@ -13,43 +13,45 @@ def ex_5(method, nGG=24, use_Tmax=False):
     from pyrad import pyrad_rcslw       as rad_rcslw
     
     ################################################################################
-
-
+    
     #--------------------- parameters
     
     P      = 101325.0
-    L      = 2.0
+    L      = 1.0
     ntheta = 101
     nx     = 1001
-    T0     = 1500.0
-    TL     = 500.0
+    Twall  = 800.0
     
     nGGa   = nGG+1
     
-    TT = 1500; xco2=0.0; xco=0.0; xh2o=0.1; fvs=0.0
+    xco2=0.0; xco=0.0; xh2o=0.12; xch4=0.0; fvs=0.0
     
     #---------------------
     
     xCO2   = np.full(nx, xco2, dtype=np.float64)
     xCO    = np.full(nx, xco,  dtype=np.float64)
     xH2O   = np.full(nx, xh2o, dtype=np.float64)
-    xCH4   = np.full(nx, 0.0,  dtype=np.float64)
+    xCH4   = np.full(nx, xch4, dtype=np.float64)
     fvsoot = np.full(nx, fvs,  dtype=np.float64)
     
     x = np.zeros(nx)
-    T = np.full(nx,T0, dtype=np.float64)
+    T = np.full(nx,Twall, dtype=np.float64)
     
     dx = L/(nx-1)
     x[0] = 0.0
     Tavg = T[0]
+    xH2O_avg = 0.0
     for i in range(1,nx):
         x[i] = x[i-1] + dx
-        T[i] = 1000.0 + 500*np.cos(np.pi*x[i]/L)
+        T[i] = 4000*x[i]*(L-x[i])/L/L + Twall
+        xH2O[i] = 0.8*x[i]*(L-x[i])/L/L + xh2o
         Tavg += T[i]
-    Tavg /= nx
+        xH2O_avg += xH2O[i]
+    Tavg     /= nx
+    xH2O_avg /= nx
     
     if method=='rcslw':
-        rad = rad_rcslw(nGG, P, TT if use_Tmax else Tavg, xh2o, xco2, xco, fvs)     # TT gives better results than Tavg
+        rad = rad_rcslw(nGG, P, Tavg, xH2O_avg, xco2, xco, fvs)
     elif method=='wsgg':
         rad = rad_wsgg()
     elif method=='planckmean':
@@ -72,9 +74,10 @@ def ex_5(method, nGG=24, use_Tmax=False):
         #-------------------------------------------------------------------------
     
     print()
+
     return xQ, Q
 
 ################################################################################
-
+    
 if __name__=='__main__':
-    xQ, Q = ex_5('rcslw', 25, True)
+    xQ, Q = ex_S3('rcslw', 24)
