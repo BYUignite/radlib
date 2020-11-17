@@ -1,13 +1,10 @@
 def ex_S1(method, nGG=24):
     
     import numpy as np
-    import sys
     import time
     
     from cyparallel_planes import parallel_planes
     #from parallel_planes import parallel_planes
-    
-    sys.path.append('/Users/dol4/codes/radlib/installed/lib/python3.8/site-packages')
     
     from pyrad import pyrad_planck_mean as rad_planck_mean
     from pyrad import pyrad_wsgg        as rad_wsgg

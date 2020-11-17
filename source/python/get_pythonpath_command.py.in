@@ -1,0 +1,10 @@
+import re
+import glob
+
+p = glob.glob('${PYTHONPATH_PARTIAL}/py*', recursive=False)[0]
+
+p = re.search(r'python[0-9].[0-9]$', p)
+p = p.group()
+
+p = '${PYTHONPATH_PARTIAL}/'+p+'/site-packages'
+print(f'\n  export PYTHONPATH="{p}:$PYTHONPATH"')
