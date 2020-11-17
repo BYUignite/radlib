@@ -7,4 +7,8 @@ p = re.search(r'python[0-9].[0-9]$', p)
 p = p.group()
 
 p = '${PYTHONPATH_PARTIAL}/'+p+'/site-packages'
-print(f'\n  export PYTHONPATH="{p}:$PYTHONPATH"')
+
+print("\n\n*********************** Installation complete *************************")
+print("   To use the Python interface, update your PYTHONPATH environment variable:")
+print("   For example, on Linux/MAC Put the following in your .bashrc file:")
+print(f'\n     export PYTHONPATH="{p}:$PYTHONPATH"')
