@@ -1,5 +1,5 @@
 
-find_program(PYTHON_EXECUTABLE NAMES python python3)
+find_program(PYTHON_EXECUTABLE NAMES python3 python)
 
 if (PYTHON_EXECUTABLE AND BUILD_CYTHON_INTERFACE)
 
