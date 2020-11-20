@@ -497,9 +497,24 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
  *  @param Tb      \input    black temperature
  *  @param fvsoot  \input    soot volume fraction
  *  @return the albdf function F for soot
- *  Note: This comes from Solovjov 2001 and Chang 1984
- *  http://heattransfer.asmedigitalcollection.asme.org/article.aspx?articleid=1444909
- *  http://www.sciencedirect.com/science/article/pii/0735193384900514
+ *  Note: This comes from Solovjov and Webb, J. Heat Transfer, 123(3): 450-457 (2001),
+ *        https://doi.org/10.1115/1.1350824
+ *        and from Chang and Rhee (eq. 5), Int. Comm. Heat and Mass Transfer, 11(5): 451-455 (1984)
+ *        https://doi.org/10.1016/0735-1933(84)90051-4
+ *  For computing csoot, see Radiative Heat Transfer, 3rd edition, by Modest, pages 424-425:
+ *  ksoot = 1.23, 1.95,  1.30,    0.92,  0.71, for
+ *  nsoot = 2.21, 2.63,  2.19,    1.89,  2.31,
+ *          Lee,  Stull, Dalzell, Chang, Felske, respectively
+ *  See also Williams, Shaddix et al. Int. J. Heat and Mass Transfer 50:1616-1630 (2007), 
+ *      https://www.sciencedirect.com/science/article/pii/S0017931006004893
+ *  ksoot = 1.03,    0.56,                0.43,         0.89,     0.80 for
+ *  nsoot = 1.75,    1.57,                1.90,         1.99,     1.55
+ *          Shaddix, Dalzell and Sarofim, Lee and Tien, Krishnan, Mountain and Mulholland, respectively
+ *  Note, these give Planck Mean absorption coefficients of (3.72*csoot/C2)*fv*T, where C2 = 0.014388 m*K
+ *  Hence, (3.72*csoot/C2) = 1361, 1141, 1423, 1476, 835.0 for Lee, Stull, ...
+ *                         = 1817, 1265, 744.2, 1319, 1785 for Shaddix, Dalzell and Sarofim, ...
+ * Shaddix's constants give csoot = 7.03, which is the same as the value of 7 presented in Solovjov 2001 for 
+ *   Eq. 16 proposed by Hottel and Sarofim in their 1967 textbook Radiative Transfer.
  */
 
 double rad_rcslw::F_albdf_soot(const double C, const double Tg, const double Tb, const double fvsoot){
@@ -507,21 +522,21 @@ double rad_rcslw::F_albdf_soot(const double C, const double Tg, const double Tb,
     if (fvsoot < 1E-12)
         return 1.0;
     
-    double csoot = 7.0;                // general soot parameter
-    double hCokb = 0.01438777354;      // m*K = h*Co/kb = Planc*lightSpeed/Boltzmann (for soot)
+    double ksoot = 1.03;                // real part of complex refractive index
+    double nsoot = 1.75;                // imag part of complex refractive index
+    double csoot = 36*M_PI*nsoot*ksoot/(pow((nsoot*nsoot - ksoot*ksoot + 2),2) + 4*pow(nsoot*ksoot,2));
+
+    double hCokb = 0.01438777354;      // h*Co/kb = PlancK*lightSpeed/Boltzmann = 6.62607004E-34 m2*kg/s * 299792458 m/s / 1.38064852E-23 m2*kg/s2*K
     
     double Nconc = P*101325/8.31446/Tg;      // mol/m3
 
     double x = hCokb*C*Nconc / (csoot*fvsoot*Tb);
-
-    vector<double> n = {1, 2, 3};      // sum from n=1 to oo, but n=1 to 3 is enough
-
-    double theSum = 0.0;
+    double sum = 0.0;
     double nx;
-    for(int i=0; i<n.size(); i++){
-        nx = n[i]*x;
-        theSum += exp(-nx)/pow(n[i],4)*(nx*(nx*(nx+3)+6)+6);
+    for(int n=1; n<=3; n++){          // sum from n=1 to oo, but n=1 to 3 is enough
+        nx = n*x;
+        sum += exp(-nx)/pow(n,4)*(nx*(nx*(nx+3)+6)+6);
     }
-    return 1.0 - 15.0/pow(M_PI,4)*theSum;
+    return 1.0 - 15.0/pow(M_PI,4)*sum;
 }
 

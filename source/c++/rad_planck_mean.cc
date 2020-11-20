@@ -29,6 +29,14 @@ const double rad_planck_mean::pmCoefs_CH4[5]   = {6.6334,   -0.0035686, 1.6682E-
  *  @param fvsoot          \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param kabs            \output absorption coefficients (1/m); size = 1 here (1 gas)
  *  @param awts            \output weights (unitless; sums to 1); size = 1 here (1 gas)
+ *  
+ *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
+ *     ksoot = sootfac*fvsoot*T, where sootfac = 3.72*csoot/C2, where C2 = 0.014388 m*K and
+ *             csoot = 36*pi*n*k/[(n^2 - k^2 +2)^2 + 4*(n*k)^2],
+ *             where k is the real part of the complex refractive index, and n is the imaginary part.
+ *             Using Shaddix's model for k, n: k=1.03, n = 1.75, giving sootfac = 1817 (1/K*m)
+ *             Williams, Shaddix et al. Int. J. Heat and Mass Transfer 50:1616-1630 (2007), 
+ *             https://www.sciencedirect.com/science/article/pii/S0017931006004893
  */
 
 void rad_planck_mean::get_k_a(const double   T,
@@ -80,8 +88,8 @@ void rad_planck_mean::get_k_a(const double   T,
 
     //------------- soot
 
-    //if(fvsoot != 0.0){
-    //}
-
+    if(fvsoot != 0.0){
+        kabs[0] += 1817 * fvsoot*T;       // 1817 = 3.72*csoot/C2.
+    }
 
 }
