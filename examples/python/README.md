@@ -3,7 +3,7 @@
 * These will import the pyrad library for the main radiation properties.
 * The solver here is either parallel_planes.py or cyparallel_planes.pyx
 * parallel_planes.py is pure python and is slow.
-* cyparallel_planes.pyx is cython. Build it as:
+* cyparallel_planes.pyx is cython. This is build when the library is installed (make install), but can be simply rebuilt here as:
     * ```python3 setup.py build_ext --inplace```  
     * This this will create the cyparallel_planes library with can be imported and called from the examples.
     * That is the default and is assumed in the example codes ex_*.py
