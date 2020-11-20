@@ -7,6 +7,8 @@
 #pragma once
 
 #include <vector>
+#include <iostream>
+#include <cstdlib>
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -42,6 +44,27 @@ class rad {
                              std::vector<double> &kabs,    ///< absorption coefficient (1/m)
                              std::vector<double> &awts)    ///< gas weight (sum to one)
                              = 0;                          ///< ABSTRACT BASE CLASS 
+
+        virtual void get_k_a(const double   T,             ///< for WSGG
+                             const double   P,
+                             const double   xH2O,
+                             const double   xCO2,
+                             std::vector<double> &kabs,
+                             std::vector<double> &awts){
+            std::cout << std::endl << "rad::get_k_a function being called is not implemented" << std::endl;
+            exit(0);
+        }
+
+        virtual void get_k_a(const double   T,             ///< for RCSLW
+                             const double   xH2O,
+                             const double   xCO2,
+                             const double   xCO,
+                             const double   fvsoot,
+                             std::vector<double> &kabs,
+                             std::vector<double> &awts){
+            std::cout << std::endl << "rad::get_k_a function being called is not implemented" << std::endl;
+            exit(0);
+        }
 
         int get_nGG(){ return nGG; }
         int get_nGGa(){return nGGa; }

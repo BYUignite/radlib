@@ -53,6 +53,19 @@ class rad_rcslw : public rad {
 
     public:
 
+        //-------------- primary interface (note, P is set in constructor)
+
+        void get_k_a(const double   T,             ///< gas temperature (K)
+                     const double   xH2O,          ///< mole fraction H2O
+                     const double   xCO2,          ///< mole fraction CO2
+                     const double   xCO,           ///< mole fraction CO
+                     const double   fvsoot,        ///< volume fraction soot (not ppmv)
+                     std::vector<double> &kabs,    ///< absorption coefficient (1/m)
+                     std::vector<double> &awts);   ///< gas weight (sum to one)
+
+        //-------------- implementation of pure virtual abstract base class function
+        //-------------- just calls the primary interface
+
         void get_k_a(const double   T,             ///< gas temperature (K)
                      const double   P_not_used,    ///< gas pressure (Pa); (interface only, set by constructor)
                      const double   xH2O,          ///< mole fraction H2O
@@ -61,7 +74,9 @@ class rad_rcslw : public rad {
                      const double   xCH4_not_used, ///< mole fraction CH4 (interface only, not used)
                      const double   fvsoot,        ///< volume fraction soot (not ppmv)
                      std::vector<double> &kabs,    ///< absorption coefficient (1/m)
-                     std::vector<double> &awt);    ///< gas weight (sum to one)
+                     std::vector<double> &awts){   ///< gas weight (sum to one)
+            get_k_a(T, xH2O, xCO2, xCO, fvsoot, kabs, awts);
+        }
 
     private:
 

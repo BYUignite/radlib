@@ -40,3 +40,11 @@ target_sources(            ex_B3.x PRIVATE ex_B3.cc parallel_planes.cc)
 target_include_directories(ex_B3.x PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../source/c++)
 target_link_libraries(     ex_B3.x radlib)
 
+install(TARGETS simple_interface.x
+                ex_S1.x 
+                ex_S2.x 
+                ex_S3.x 
+                ex_S4.x 
+                ex_S5.x 
+                ex_B3.x 
+        DESTINATION ${CMAKE_CURRENT_SOURCE_DIR})

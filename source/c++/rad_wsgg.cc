@@ -61,8 +61,6 @@ const double rad_wsgg::kh2o[5]={     0.000000e+000,  8.047859e-002,  9.557208e-0
  *  @param P      \input pressure (Pa)
  *  @param xH2O   \input mole fraction H2O
  *  @param xCO2   \input mole fraction CO2
- *  @param xCO    \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- *  @param xCH4   \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
  *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param kabs   \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
  *  @param awts   \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
@@ -72,9 +70,6 @@ void rad_wsgg::get_k_a(const double   T_dmb,
                        const double   P,
                        const double   xH2O,
                        const double   xCO2,
-                       const double   xCO_not_used,
-                       const double   xCH4_not_used,
-                       const double   fvsoot,
                        vector<double> &kabs,
                        vector<double> &awts) {
 

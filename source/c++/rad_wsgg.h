@@ -30,15 +30,29 @@ class rad_wsgg : public rad {
 
     public:
 
+        //-------------- primary interface (note, P is set in constructor)
+
         void get_k_a(const double   T_dmb,         ///< gas temperature (K)
                      const double   P,             ///< gas pressure (Pa)
                      const double   xH2O,          ///< mole fraction H2O
                      const double   xCO2,          ///< mole fraction CO2
-                     const double   xCO_not_used , ///< mole fraction CO (interface only, not used)
+                     std::vector<double> &kabs,    ///< absorption coefficient (1/m)
+                     std::vector<double> &awts);   ///< gas weight (sum to one)
+
+        //-------------- implementation of pure virtual abstract base class function
+        //-------------- just calls the primary interface
+
+        void get_k_a(const double   T_dmb,         ///< gas temperature (K)
+                     const double   P,             ///< gas pressure (Pa); (interface only, set by constructor)
+                     const double   xH2O,          ///< mole fraction H2O
+                     const double   xCO2,          ///< mole fraction CO2
+                     const double   xCO_not_used,  ///< mole fraction CO
                      const double   xCH4_not_used, ///< mole fraction CH4 (interface only, not used)
                      const double   fvsoot,        ///< volume fraction soot (not ppmv)
                      std::vector<double> &kabs,    ///< absorption coefficient (1/m)
-                     std::vector<double> &awt);    ///< gas weight (sum to one)
+                     std::vector<double> &awts){   ///< gas weight (sum to one)
+            get_k_a(T_dmb, P, xH2O, xCO2, kabs, awts);
+        }
         
     //////////////////// CONSTRUCTOR FUNCTIONS /////////////////
     

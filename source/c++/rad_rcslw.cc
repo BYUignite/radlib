@@ -79,22 +79,18 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
  *  These can then be accessed by the user.
  *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
  *  @param T               \input  gas temperature
- *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
  *  @param xH2O            \input  mole fraction H2O
  *  @param xCO2            \input  mole fraction CO2
  *  @param xCO             \input  mole fraction CO
- *  @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
  *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
  *  @param kabs            \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
  *  @param awts            \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
  */
 
 void rad_rcslw::get_k_a(const double   T,
-                        const double   P_not_used,
                         const double   xH2O,
                         const double   xCO2,
                         const double   xCO,
-                        const double   xCH4_not_used,
                         const double   fvsoot,
                         vector<double> &kabs,
                         vector<double> &awts) {
