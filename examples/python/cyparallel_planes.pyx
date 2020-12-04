@@ -44,7 +44,8 @@ cdef I_IT(np.ndarray[FLOAT, ndim=1] x,
             Ib1 = sigma/3.14159*T[i+1]**4
             Ib2 = sigma/np.pi*T[i]**4
             dx  = x[i+1] - x[i]
-            for j in range(nGGa):
+            I[i+1,0] = I[0,0]           # do the clear gas intensity
+            for j in range(1,nGGa):
                 I[i+1,j] = (I[i,j] + dx/mu*0.5*(kabs[i+1,j]*awts[i+1,j]*Ib1 + kabs[i,j]*(awts[i,j]*Ib2 - I[i,j]))) / (1.0+dx/mu*0.5*kabs[i+1,j])
     else:
         I[n-1] = Ihi
@@ -52,7 +53,8 @@ cdef I_IT(np.ndarray[FLOAT, ndim=1] x,
             Ib1 = sigma/np.pi*T[i-1]**4
             Ib2 = sigma/np.pi*T[i]**4
             dx  = x[i] - x[i-1]
-            for j in range(nGGa):
+            I[i-1,0] = I[n-1,0]         # do the clear gas intensity
+            for j in range(1,nGGa):
                 I[i-1,j] = (I[i,j] + dx/mu*0.5*(kabs[i-1,j]*awts[i-1,j]*Ib1 + kabs[i,j]*(awts[i,j]*Ib2 - I[i,j]))) / (1.0+dx/mu*0.5*kabs[i-1,j])
 
     return I
