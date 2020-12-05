@@ -12,4 +12,5 @@ g++ -O3 -std=c++11 -I$include -L$lib ex_S3.cc parallel_planes.cc -lradlib -o ex_
 g++ -O3 -std=c++11 -I$include -L$lib ex_S4.cc parallel_planes.cc -lradlib -o ex_S4.x; 
 g++ -O3 -std=c++11 -I$include -L$lib ex_S5.cc parallel_planes.cc -lradlib -o ex_S5.x; 
 g++ -O3 -std=c++11 -I$include -L$lib ex_B3.cc parallel_planes.cc -lradlib -o ex_B3.x; 
+g++ -O3 -std=c++11 -I$include -L$lib ex_Sb1.cc parallel_planes.cc -lradlib -o ex_Sb1.x; 
 
