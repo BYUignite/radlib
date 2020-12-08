@@ -3,4 +3,3 @@
 *.x
 build
 setup.py
-get_pythonpath_command.py

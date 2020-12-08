@@ -4,3 +4,4 @@
 *.so
 build
 __pycache__
+get_pythonpath_command.py
