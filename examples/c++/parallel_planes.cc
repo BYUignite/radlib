@@ -41,8 +41,9 @@ void I_IT(const vector<double> &x,
             Ib1 = rad::sigma/M_PI*pow(T[i+1],4.0);
             Ib2 = rad::sigma/M_PI*pow(T[i],4.0);
             dx  = x[i+1] - x[i];
-            I[i+1][0] = I[0][0];          // do the clear gas intensity
-            for(int j=1; j<nGGa; ++j)     // j=1 skips the clear gas, done in previous line
+            //I[i+1][0] = I[0][0];          // do the clear gas intensity
+            //for(int j=1; j<nGGa; ++j)     // j=1 skips the clear gas, done in previous line
+            for(int j=0; j<nGGa; ++j)       // OR, just do all (needed for Planck mean)
                 I[i+1][j] = (I[i][j] + dx/mu*0.5*(kabs[i+1][j]*awts[i+1][j]*Ib1 + kabs[i][j]*(awts[i][j]*Ib2 - I[i][j]))) /
                             (1.0+dx/mu*0.5*kabs[i+1][j]);
         }
@@ -53,11 +54,11 @@ void I_IT(const vector<double> &x,
             Ib1 = rad::sigma/M_PI*pow(T[i-1],4.0);
             Ib2 = rad::sigma/M_PI*pow(T[i],4.0);
             dx  = x[i] - x[i-1];
-            I[i-1][0] = I[n-1][0];         // do the clear gas intensity
-            for(int j=1; j<nGGa; ++j){     // j=1 skips the clear gas, done in previous line
+            //I[i-1][0] = I[n-1][0];         // do the clear gas intensity
+            //for(int j=1; j<nGGa; ++j)      // j=1 skips the clear gas, done in previous line
+            for(int j=0; j<nGGa; ++j)        // OR, just do all (needed for Planck mean)
                 I[i-1][j] = (I[i][j] + dx/mu*0.5*(kabs[i-1][j]*awts[i-1][j]*Ib1 + kabs[i][j]*(awts[i][j]*Ib2 - I[i][j]))) /
                             (1.0+dx/mu*0.5*kabs[i-1][j]);
-            }
         }
     }
 }

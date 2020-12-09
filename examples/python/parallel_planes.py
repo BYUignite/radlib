@@ -39,8 +39,9 @@ def I_IT(x:     NDArray[Any],
             Ib1 = sigma/np.pi*T[i+1]**4
             Ib2 = sigma/np.pi*T[i]**4
             dx  = x[i+1] - x[i]
-            I[i+1,0] = I[0,0]           # do the clear gas intensity
-            for j in range(1,nGGa):     # j=1 skips the clear gas, done in previous line
+            #I[i+1,0] = I[0,0]           # do the clear gas intensity
+            #for j in range(1,nGGa):     # j=1 skips the clear gas, done in previous line
+            for j in range(0,nGGa):      # OR, just do all (needed for Planck mean)     
                 I[i+1,j] = (I[i,j] + dx/mu*0.5*(kabs[i+1,j]*awts[i+1,j]*Ib1 + kabs[i,j]*(awts[i,j]*Ib2 - I[i,j]))) / (1.0+dx/mu*0.5*kabs[i+1,j])
     else:
         I[n-1] = Ihi
@@ -48,8 +49,9 @@ def I_IT(x:     NDArray[Any],
             Ib1 = sigma/np.pi*T[i-1]**4
             Ib2 = sigma/np.pi*T[i]**4
             dx  = x[i] - x[i-1]
-            I[i-1,0] = I[n-1,0]         # do the clear gas intensity
-            for j in range(1,nGGa):     # j=1 skips the clear gas, done in previous line
+            #I[i-1,0] = I[n-1,0]         # do the clear gas intensity
+            #for j in range(1,nGGa):     # j=1 skips the clear gas, done in previous line
+            for j in range(0,nGGa):      # OR, just do all (needed for Planck mean)
                 I[i-1,j] = (I[i,j] + dx/mu*0.5*(kabs[i-1,j]*awts[i-1,j]*Ib1 + kabs[i,j]*(awts[i,j]*Ib2 - I[i,j]))) / (1.0+dx/mu*0.5*kabs[i-1,j])
 
     return I
