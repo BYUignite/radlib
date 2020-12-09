@@ -14,3 +14,7 @@ The library is written in C++ and include C++ and Python interfaces.
 * A simple, one-dimensional radiation solver is included to demonstrate the use of the library and to solve example cases.
 
 A [video](https://youtu.be/eFYMa5AVobI) giving a demonstration of the download, build, install, and run is provided.
+
+### Acknowledgements
+We gratefully acknowledge support and helpful discussions of Vladimir
+Solovjov on the RCSLW model, and Hadi Bordbar on the WSGG model.
