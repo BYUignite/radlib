@@ -66,6 +66,21 @@ const double rad_wsgg::kh2o[5]={     0.000000e+000,  8.047859e-002,  9.557208e-0
  *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param kabs   \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
  *  @param awts   \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
+ * 
+ *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
+ *     ksoot = sootfac*fvsoot*T, where sootfac = 3.72*csoot/C2, where C2 = 0.014388 m*K and
+ *             csoot = 36*pi*n*k/[(n^2 - k^2 +2)^2 + 4*(n*k)^2],
+ *             where k is the real part of the complex refractive index, and n is the imaginary part.
+ *             Using Shaddix's model for k, n: k=1.03, n = 1.75, giving sootfac = 1817 (1/K*m)
+ *             Williams, Shaddix et al. Int. J. Heat and Mass Transfer 50:1616-1630 (2007), 
+ *             https://www.sciencedirect.com/science/article/pii/S0017931006004893
+ * Note, combining the WSGG model with four gray gases and one clear gas with a single gray soot.
+ * The soot absorption coefficient is added to that for each gas (including the clear gas, since
+ *     the soot absorption spectrum is "full"). The weights don't need to be changed.
+ * In the limit of no soot, we recover gas only, and in the limit of only soot, we recover the expected
+ *     behavior. 
+ * dI_j/ds = (kg_j + ks)I_j + (kg_j+ks)a_jIb
+ * This soot addition was suggested by H. Bordbar.
  */
 
 void rad_wsgg::get_k_a(const double   T_dmb,
@@ -163,6 +178,12 @@ void rad_wsgg::get_k_a(const double   T_dmb,
             awts[i] = awts[i]*(f) + aco2orh2o[i]*(1.0-f);
             awts[0] -= awts[i];
         }
+    }
+
+    if(fvsoot > 0.0){
+        double ksoot= 1817 * fvsoot*T;       // 1817 = 3.72*csoot/C2.
+        for(int i=0; i<nGGa; i++)
+            kabs[i] += ksoot;                // add in ksoot to all gases including the clear gas
     }
 
     return;
