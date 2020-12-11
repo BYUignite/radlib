@@ -5,9 +5,9 @@ Provides radiation absorption coefficients for gas mixtures in the context of we
     * Rank Correlated Spectral Line Weighted Sum of Gray Gas (RCSLW) model,
     * Weighted Sum of Gray Gases (WSGG) model,
     * Planck mean (PM) absorption coefficients.
-* Soot is included in the RCSLW and PM models.
+* Soot is included in all three models.
 * The RCSLW model can be used with arbitrary number of gray gases. The PM model assumes one *gas*, and the WSGG model assumes four gray gases.
-* Note, a consistent interface is used for the various models, but not every parameter applies to every model (e.g., WSGG will take a soot parameter but it isn't used).
+* Note, a consistent interface is used for the various models, but not every parameter applies to every model (e.g., CH4 is only used in the PM model).
 
 The library is written in C++ and include C++ and Python interfaces. 
 * Several example cases are shown with comparisons to line-by-line results.
