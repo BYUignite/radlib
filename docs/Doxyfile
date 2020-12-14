@@ -115,7 +115,7 @@ INLINE_INHERITED_MEMB  = NO
 # path before files name in the file list and in the header files. If set
 # to NO the shortest path that makes the file name unique will be used.
 
-FULL_PATH_NAMES        = NO
+FULL_PATH_NAMES        = YES
 
 # If the FULL_PATH_NAMES tag is set to YES then the STRIP_FROM_PATH tag
 # can be used to strip a user-defined part of the path. Stripping is
@@ -420,7 +420,7 @@ INLINE_INFO            = YES
 # alphabetically by member name. If set to NO the members will appear in
 # declaration order.
 
-SORT_MEMBER_DOCS       = YES
+SORT_MEMBER_DOCS       = NO
 
 # If the SORT_BRIEF_DOCS tag is set to YES then doxygen will sort the
 # brief documentation of file, namespace and class members alphabetically
@@ -492,7 +492,7 @@ ENABLED_SECTIONS       =
 # documentation can be controlled using \showinitializer or \hideinitializer
 # command in the documentation regardless of this setting.
 
-MAX_INITIALIZER_LINES  = 30
+MAX_INITIALIZER_LINES  = 1
 
 # Set the SHOW_USED_FILES tag to NO to disable the list of files generated
 # at the bottom of the documentation of classes and structs. If set to YES the
@@ -598,7 +598,9 @@ WARN_LOGFILE           =
 # with spaces.
 
 INPUT                  = ../../source/c++ \
-                         ../../examples   \
+                         ../../source/python \
+                         ../../examples/c++   \
+                         ../../examples/python   \
                          ../../docs
 
 # This tag can be used to specify the character encoding of the source files
@@ -616,9 +618,12 @@ INPUT_ENCODING         = UTF-8
 # *.c *.cc *.cxx *.cpp *.c++ *.java *.ii *.ixx *.ipp *.i++ *.inl *.h *.hh *.hxx
 # *.hpp *.h++ *.idl *.odl *.cs *.php *.php3 *.inc *.m *.mm *.py *.f90
 
-FILE_PATTERNS          = *.c \
+FILE_PATTERNS          =  \
                          *.cc \
                          *.h  \
+                         *.py \
+                         *.pyx \
+                         *.ipynb \
                          *.dox
 
 # The RECURSIVE tag can be used to turn specify whether or not subdirectories
@@ -631,7 +636,9 @@ RECURSIVE              = NO
 # excluded from the INPUT source files. This way you can easily exclude a
 # subdirectory from a directory tree whose root is specified with the INPUT tag.
 
-EXCLUDE                =
+EXCLUDE = ../../examples/python/get_pythonpath_command.py \
+          ../../examples/python/setup.py \
+          ../../source/python/setup.py \
 
 # The EXCLUDE_SYMLINKS tag can be used select whether or not files or
 # directories that are symbolic links (a Unix filesystem feature) are excluded
@@ -1458,7 +1465,7 @@ CLASS_GRAPH            = YES
 # indirect implementation dependencies (inheritance, containment, and
 # class references variables) of the class with other documented classes.
 
-COLLABORATION_GRAPH    = YES
+COLLABORATION_GRAPH    = NO
 
 # If the GROUP_GRAPHS and HAVE_DOT tags are set to YES then doxygen
 # will generate a graph for groups, showing the direct groups dependencies

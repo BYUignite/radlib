@@ -1,3 +1,8 @@
+##
+# @file pyrad.pyx
+# \brief cython file for Python interface to c++ code
+#
+
 from libcpp.vector cimport vector
 
 import numpy as np

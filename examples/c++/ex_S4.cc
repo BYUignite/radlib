@@ -1,3 +1,8 @@
+/**
+ * @file ex_S4.cc
+ * \brief Solovjov 2017 example 4
+ */
+
 #include <iostream>
 #include "rad_rcslw.h"
 #include "rad.h"

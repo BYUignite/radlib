@@ -1,3 +1,8 @@
+## 
+# @file ex_S2.py
+# \brief Solovjov 2017 example 2
+#
+
 def ex_S2(method, nGG=24):
 
     import numpy as np

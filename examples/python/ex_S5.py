@@ -1,3 +1,8 @@
+## 
+# @file ex_S5.py
+# \brief Solovjov 2017 example 5
+#
+
 def ex_S5(method, nGG=24, use_Tmax=False):
 
     import numpy as np

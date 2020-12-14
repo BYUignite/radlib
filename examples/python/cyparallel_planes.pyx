@@ -1,3 +1,8 @@
+##
+# @file cyparallel_planes.pyx
+# \brief 1-D radiative solver, ray tracing, cython
+#
+
 
 import  numpy as np
 cimport numpy as np

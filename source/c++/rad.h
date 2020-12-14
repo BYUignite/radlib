@@ -1,7 +1,7 @@
 /**
  * @file rad.h
  * Header file for class rad
- * Abstract base class
+ * \brief Abstract base class
  */
 
 #pragma once
@@ -10,7 +10,9 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/** Class implementing rad object
+/** Class implementing rad object.
+ * Abstract base class upon which specific radiation property models are built.
+ * get_k_a is the primary interface.
  */
 
 class rad {
@@ -57,6 +59,5 @@ class rad {
         }
 
         virtual ~rad(){}
-
 
 };

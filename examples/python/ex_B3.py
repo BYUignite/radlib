@@ -1,3 +1,8 @@
+##
+# @file ex_B3.py
+# \brief Bordbar 2020 example 3
+#
+
 def ex_B3(method, nGG=4):
 
     import numpy as np

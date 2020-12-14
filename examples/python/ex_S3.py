@@ -1,3 +1,8 @@
+## 
+# @file ex_S3.py
+# \brief Solovjov 2017 example 3
+#
+
 def ex_S3(method, nGG=24):
 
     import numpy as np

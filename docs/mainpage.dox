@@ -2,17 +2,64 @@
 
 @mainpage
 
-<!-- This is being rendered into HTML code, so you can comment things out using HTML-style comments. -->
+<!-- #################################################################### --> 
 
-<!-- You can also insert LaTeX equations. 
-     An example of an inline equation: \f$ ax^2 + bx + c = 0 \f$. 
-     An example of a nice-looking display equation: \f[ ax^2 + bx + c = 0 \f] -->
+# Overview
 
-<!-- \image html montage_odt.png width=250px
-     ![ODT examples](montage_odt.png#left) -->
+[Radlib](https://github.com/BYUignite/radlib.git) is an open-source library for computing radiation properties for gases and soot
+in so-called *participating media*. The radiation properties computed currently include the absorption coefficient \f$\kappa_j\f$ and weight factors \f$a_j\f$ for use in global models for solution of the radiative transport equation:
+\f[\frac{dI_j}{ds} = \kappa_jI_j - \kappa_ja_jI_b,\f]
+where \f$I_j\f$ is the intensity of the \f$j^{th}\f$ gas, and \f$s\f$ is a path length.
+Three models are implemented:
+1. The Planck Mean (PM) model.
+2. The Weighted Sum of Gray Gases (WSGG) model,
+3. The Rank Correlated Spectral Line Weighted Sum of Gray Gases (RCSLW) model,
+These models increase in computational cost and complexity and are summarized below.
 
-<!-- #################################################################### -->
-@section welcome Welcome to RadLib 
+A common application of radiative heat transfer in participating media is combustion in flames and fires. Combustion is a complex process with many physical phenomena. Understanding and implementing the various physical processes is a challenge, and having access to open-source, documented code libraries to facilitate modeling of these process is important. In particular, the relatively new RCSLW model is accurate, but somewhat complex and time consuming to implement and verify. This library provides straightforward access to this model and others. 
+
+# Examples
+
+Radlib is written in C++ and includes a Python interface written in Cython. Examples are provided of heat flux and/or volumetric heat source in one-dimensional configurations. A one-dimensional solver based on ray tracing is used in these configurations. Seven examples from three papers are provided with the code and these can be run using the Jupyter notebook ```run_and_plot_examples.ipynb``` included in the ```examples/python``` folder. These examples include comparison to line-by-line data from the corresponding references and the implemented codes have been validated against these references. The examples are described in ```run_and_plot_examples.ipynb```. In addition, a simple interface code is provided in C++ and Python to demonstrate initializing the library and calling it for a given gas state.
+
+# Models
+
+## Planck Mean
+
+The Planck Mean model is a simple model consisting of curve fits to temperature of absorption coefficients for CH4, CO2, CO, H2O, and soot. These are combined to a single absorption coefficient for a single gas (with \f$a=1\f$). The model is commonly applied to combustion problems because if its simplicity and low computational cost, but it is inaccurate unless applied to optically thin gases with relatively small radiative losses.
+
+## WSGG
+
+There are a number of WSGG models that have been published. A particularly attractive version is that by [Bordbar et al. (2020)](https://doi.org/10.1016/j.icheatmasstransfer.2019.104400), which is an extension of an earlier paper by [Bordbar et al. (2014)](http://dx.doi.org/10.1016/j.combustflame.2014.03.013). This model uses four gray and one clear gas, accounts for arbitrary compositions of CO2 and H2O. The model was extended here to include soot (under Bordbar's guidanance) by adding a single mean soot absorption coefficient to each of the \f$\kappa_j\f$ and leaving the \f$a_j\f$ unchanged. Example ex_Sb1 demonstrates the accuracy of the model with soot. 
+
+## RCSLW
+
+The RCSLW model is an implementation of the model published by [Solovjov et al. (2017)](http://dx.doi.org/10.1016/j.jqsrt.2017.01.034). This is a highly accurate model that improves on the SLW model by relaxing the need of a reference gas. The model can accommodate an arbitrary number of gases and treats arbitrary compositions of CO2, H2O, CO, and soot.  
+
+# Required software, building, and installing the library
+
+The code is intended to be built on Linux and MacOS systems, (or the Linux subsystem for Windows). The build directory includes a readme file that describes the build and installation process. Required software includes:
+* CMake and a C++ compiler, 
+* Doxygen and graphviz to build the (optional) documentation, 
+* Python 3 and Cython to build the (optional) Python interface,
+* Matplotlib, Numpy, and Jupyter (optional) to run the Python examples.
+
+To build the code, the user edits the ```build/user_config``` file to set the installation location, and a flag indicating if the Python interface is to be built (on by default). The default installation location is ```radlib/installed```. The commands run are
+```
+cmake -C user_config ../source
+make
+make install
+make doxygen
+```
+
+To run the python interface, the PYTHONPATH environment variable needs to be updated to include the Python module location. This is detailed upon successful installation of the code.
+
+## Code Ocean Capsule
+A Code Ocean capsule is available that provides a fully executable version of the code. 
+
+## Video
+A [Youtube video](https://youtu.be/eFYMa5AVobI) is provided that demonstrates downloading, installing, and running the examples.
+
+
 
 */
-

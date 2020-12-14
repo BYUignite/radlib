@@ -1,3 +1,8 @@
+/**
+ *  @file simple_interface.cc
+ *  \brief Simple interface: demonstrate calling library for one gas state
+ */
+
 #include "rad_planck_mean.h"
 #include "rad_wsgg.h"
 #include "rad_rcslw.h"

@@ -1,3 +1,8 @@
+/**
+ * @file ex_S5.cc
+ * \brief Solovjov 2017 example 5
+ */
+
 #include <iostream>
 #include <cmath>         // M_PI
 #include "rad_rcslw.h"

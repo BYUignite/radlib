@@ -1,6 +1,6 @@
 /**
  * @file rad_rcslw.h
- * Header file for class rad_rcslw
+ * \brief Header file for child class rad_rcslw
  */
 
 #pragma once
@@ -11,7 +11,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/** Class implementing rcslw object
+/** Class implementing rcslw object.
+ *  Radiation properties for the Rank Correlated, SLW model.
+ *  A variable number of gray gases may be used.
+ *  This is a very accurate model, but somewhat more expensive to compute than others.
+ *  get_k_a is the primary interface.
  */
 
 class rad_rcslw : public rad {
@@ -53,15 +57,15 @@ class rad_rcslw : public rad {
 
     public:
 
-        void get_k_a(const double   T,             ///< gas temperature (K)
-                     const double   P_not_used,    ///< gas pressure (Pa); (interface only, set by constructor)
-                     const double   xH2O,          ///< mole fraction H2O
-                     const double   xCO2,          ///< mole fraction CO2
-                     const double   xCO,           ///< mole fraction CO
-                     const double   xCH4_not_used, ///< mole fraction CH4 (interface only, not used)
-                     const double   fvsoot,        ///< volume fraction soot (not ppmv)
-                     std::vector<double> &kabs,    ///< absorption coefficient (1/m)
-                     std::vector<double> &awt);    ///< gas weight (sum to one)
+        void get_k_a(const double   T,             // gas temperature (K)
+                     const double   P_not_used,    // gas pressure (Pa); (interface only, set by constructor)
+                     const double   xH2O,          // mole fraction H2O
+                     const double   xCO2,          // mole fraction CO2
+                     const double   xCO,           // mole fraction CO
+                     const double   xCH4_not_used, // mole fraction CH4 (interface only, not used)
+                     const double   fvsoot,        // volume fraction soot (not ppmv)
+                     std::vector<double> &kabs,    // absorption coefficient (1/m)
+                     std::vector<double> &awt);    // gas weight (sum to one)
 
     private:
 

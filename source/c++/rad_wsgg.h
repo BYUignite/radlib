@@ -1,6 +1,6 @@
 /**
  * @file rad_wsgg.h
- * Header file for class rad_wsgg
+ * \brief Header file for child class rad_wsgg
  */
 
 #pragma once
@@ -10,7 +10,11 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/** Class implementing rad_wsgg object
+/** Class implementing rad_wsgg object.
+ *  Radiation properties for the WSGG model (Bordbar 2020).
+ *  Four gray gases and one clear gas are assumed.
+ *  This is somewhat less accurate than the RCSLW model, but less computationally expensive.
+ *  get_k_a is the primary interface.
  */
 
 class rad_wsgg : public rad {
@@ -30,15 +34,15 @@ class rad_wsgg : public rad {
 
     public:
 
-        void get_k_a(const double   T_dmb,         ///< gas temperature (K)
-                     const double   P,             ///< gas pressure (Pa)
-                     const double   xH2O,          ///< mole fraction H2O
-                     const double   xCO2,          ///< mole fraction CO2
-                     const double   xCO_not_used , ///< mole fraction CO (interface only, not used)
-                     const double   xCH4_not_used, ///< mole fraction CH4 (interface only, not used)
-                     const double   fvsoot,        ///< volume fraction soot (not ppmv)
-                     std::vector<double> &kabs,    ///< absorption coefficient (1/m)
-                     std::vector<double> &awt);    ///< gas weight (sum to one)
+        void get_k_a(const double   T_dmb,         // gas temperature (K)
+                     const double   P,             // gas pressure (Pa)
+                     const double   xH2O,          // mole fraction H2O
+                     const double   xCO2,          // mole fraction CO2
+                     const double   xCO_not_used , // mole fraction CO (interface only, not used)
+                     const double   xCH4_not_used, // mole fraction CH4 (interface only, not used)
+                     const double   fvsoot,        // volume fraction soot (not ppmv)
+                     std::vector<double> &kabs,    // absorption coefficient (1/m)
+                     std::vector<double> &awt);    // gas weight (sum to one)
         
     //////////////////// CONSTRUCTOR FUNCTIONS /////////////////
     

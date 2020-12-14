@@ -1,6 +1,6 @@
 /**
  * @file rad_planck_mean.h
- * Header file for class rad_planck_mean
+ * \brief Header file for child class rad_planck_mean
  */
 
 #pragma once
@@ -10,7 +10,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/** Class implementing rad_planck_mean object
+/** Class implementing rad_planck_mean object.
+ *  Radiation properties for the Planck Mean model.
+ *  A single "gas" is assumed.
+ *  This is a simple, commonly used model in combustion, but is best for 
+ *  situations that are optically thin with small radiative fractions.
+ *  get_k_a is the primary interface.
  */
 
 class rad_planck_mean : public rad {
@@ -29,15 +34,15 @@ class rad_planck_mean : public rad {
 
     public:
 
-        void get_k_a(const double   T,             ///< gas temperature (K)
-                     const double   P,             ///< gas pressure (Pa)
-                     const double   xH2O,          ///< mole fraction h2o
-                     const double   xCO2,          ///< mole fraction co2
-                     const double   xCO,           ///< mole fraction co
-                     const double   xCH4,          ///< mole fraction ch4
-                     const double   fvsoot,        ///< volume fraction soot (not ppmv)
-                     std::vector<double> &kabs,    ///< absorption coefficient (1/m)
-                     std::vector<double> &awts);   ///< gas weight (sum to one)
+        void get_k_a(const double   T,             // gas temperature (K)
+                     const double   P,             // gas pressure (Pa)
+                     const double   xH2O,          // mole fraction h2o
+                     const double   xCO2,          // mole fraction co2
+                     const double   xCO,           // mole fraction co
+                     const double   xCH4,          // mole fraction ch4
+                     const double   fvsoot,        // volume fraction soot (not ppmv)
+                     std::vector<double> &kabs,    // absorption coefficient (1/m)
+                     std::vector<double> &awts);   // gas weight (sum to one)
         
     //////////////////// CONSTRUCTOR FUNCTIONS /////////////////
     

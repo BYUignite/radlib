@@ -1,6 +1,6 @@
 /**
  * @file rad_rcslw.cc
- * Source file for class rad_rcslw
+ * \brief Source file for child class rad_rcslw
  */
 
 #include <algorithm>
@@ -74,10 +74,12 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/** THIS IS THE CLASS INTERFACE FUNCTION
+/** **This is the class interface function**
  *  Given the gas state, set the k and a vectors.
+ * 
  *  These can then be accessed by the user.
- *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
+ * 
+ *  Return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
  *  @param T               \input  gas temperature
  *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
  *  @param xH2O            \input  mole fraction H2O
@@ -497,23 +499,27 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
  *  @param Tb      \input    black temperature
  *  @param fvsoot  \input    soot volume fraction
  *  @return the albdf function F for soot
- *  Note: This comes from Solovjov and Webb, J. Heat Transfer, 123(3): 450-457 (2001),
- *        https://doi.org/10.1115/1.1350824
- *        and from Chang and Rhee (eq. 5), Int. Comm. Heat and Mass Transfer, 11(5): 451-455 (1984)
- *        https://doi.org/10.1016/0735-1933(84)90051-4
+ *  Note: This comes from Solovjov and Webb, J. Heat Transfer, <a href="https://doi.org/10.1115/1.1350824" target="_blank">123(3):450-457</a> (2001),
+ *        and from Chang and Rhee (eq. 5), Int. Comm. Heat and Mass Transfer, <a href="https://doi.org/10.1016/0735-1933(84)90051-4" target="_blank">11(5):451-455</a> (1984).
+ *
  *  For computing csoot, see Radiative Heat Transfer, 3rd edition, by Modest, pages 424-425:
- *  ksoot = 1.23, 1.95,  1.30,    0.92,  0.71, for
- *  nsoot = 2.21, 2.63,  2.19,    1.89,  2.31,
- *          Lee,  Stull, Dalzell, Chang, Felske, respectively
- *  See also Williams, Shaddix et al. Int. J. Heat and Mass Transfer 50:1616-1630 (2007), 
- *      https://www.sciencedirect.com/science/article/pii/S0017931006004893
- *  ksoot = 1.03,    0.56,                0.43,         0.89,     0.80 for
- *  nsoot = 1.75,    1.57,                1.90,         1.99,     1.55
- *          Shaddix, Dalzell and Sarofim, Lee and Tien, Krishnan, Mountain and Mulholland, respectively
- *  Note, these give Planck Mean absorption coefficients of (3.72*csoot/C2)*fv*T, where C2 = 0.014388 m*K
- *  Hence, (3.72*csoot/C2) = 1361, 1141, 1423, 1476, 835.0 for Lee, Stull, ...
- *                         = 1817, 1265, 744.2, 1319, 1785 for Shaddix, Dalzell and Sarofim, ...
- * Shaddix's constants give csoot = 7.03, which is the same as the value of 7 presented in Solovjov 2001 for 
+\verbatim
+    ksoot = 1.23, 1.95,  1.30,    0.92,  0.71, for
+    nsoot = 2.21, 2.63,  2.19,    1.89,  2.31,
+            Lee,  Stull, Dalzell, Chang, Felske, respectively
+\endverbatim
+ *  See also Williams, Shaddix et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
+\verbatim
+    ksoot = 1.03,    0.56,                0.43,         0.89,     0.80 for
+    nsoot = 1.75,    1.57,                1.90,         1.99,     1.55
+            Shaddix, Dalzell and Sarofim, Lee and Tien, Krishnan, Mountain and Mulholland, respectively
+\endverbatim
+ *  Note, these give Planck Mean absorption coefficients of \f$(3.72*c_{soot}/C_2)*fv*T\f$, where \f$C_2 = 0.014388\, m\cdot K\f$.
+\verbatim
+    Hence, (3.72*csoot/C2) = 1361, 1141, 1423, 1476, 835.0 for Lee, Stull, ...
+                           = 1817, 1265, 744.2, 1319, 1785 for Shaddix, Dalzell and Sarofim, ...
+\endverbatim
+ * Shaddix's constants give \f$c_{soot} = 7.03\f$, which is the same as the value of 7 presented in Solovjov 2001 for 
  *   Eq. 16 proposed by Hottel and Sarofim in their 1967 textbook Radiative Transfer.
  */
 

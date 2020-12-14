@@ -1,3 +1,8 @@
+## 
+# @file ex_Sb1.py
+# \brief Solovjov 2001 example 1
+#
+
 def ex_Sb1(method, fvs, nGG=24):
 
     import numpy as np

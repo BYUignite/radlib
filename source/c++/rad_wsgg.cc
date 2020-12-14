@@ -1,6 +1,6 @@
 /**
  * @file rad_wsgg.cc
- * Source file for class rad_wsgg
+ * \brief Source file for child class rad_wsgg
  */
 
 #include <vector>
@@ -53,7 +53,7 @@ const double rad_wsgg::kco2[5]={     0.000000e+000,  3.272772e-002,  4.229655e-0
 const double rad_wsgg::kh2o[5]={     0.000000e+000,  8.047859e-002,  9.557208e-001,  8.005283e+001,  7.613186e+001};
 
 ///////////////////////////////////////////////////////////////////////////////
-/** THIS IS THE CLASS INTERFACE FUNCTION
+/** **This is the class interface function**
  *  Given the gas state, set the k and a vectors.
  *  These can then be accessed by the user.
  *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
@@ -68,18 +68,21 @@ const double rad_wsgg::kh2o[5]={     0.000000e+000,  8.047859e-002,  9.557208e-0
  *  @param awts   \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
  * 
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
- *     ksoot = sootfac*fvsoot*T, where sootfac = 3.72*csoot/C2, where C2 = 0.014388 m*K and
- *             csoot = 36*pi*n*k/[(n^2 - k^2 +2)^2 + 4*(n*k)^2],
- *             where k is the real part of the complex refractive index, and n is the imaginary part.
- *             Using Shaddix's model for k, n: k=1.03, n = 1.75, giving sootfac = 1817 (1/K*m)
- *             Williams, Shaddix et al. Int. J. Heat and Mass Transfer 50:1616-1630 (2007), 
- *             https://www.sciencedirect.com/science/article/pii/S0017931006004893
- * Note, combining the WSGG model with four gray gases and one clear gas with a single gray soot.
+ * 
+ *     \f$k_{soot} = F_s fv_{soot}T\f$, where \f$F_s = 3.72 c_{soot}/C_2\f$, where \f$C_2 = 0.014388\, m\cdot K\f$ and
+ *             \f$c_{soot} = 36\pi n k/[(n^2 - k^2 +2)^2 + 4 (n k)^2],\f$
+ *             where \f$k\f$ is the real part of the complex refractive index, and \f$n\f$ is the imaginary part.
+ *             Using Shaddix's model for \f$k\f$, \f$n\f$: \f$k=1.03\f$, \f$n = 1.75\f$, giving \f$F_s = 1817\, K^{-1}m^{-1}\f$.
+ *             Reference: Williams, Shaddix, et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
+ * 
+ * Note, combining the WSGG model with four gray gases and one clear gas with a single gray soot component.
  * The soot absorption coefficient is added to that for each gas (including the clear gas, since
  *     the soot absorption spectrum is "full"). The weights don't need to be changed.
  * In the limit of no soot, we recover gas only, and in the limit of only soot, we recover the expected
  *     behavior. 
- * dI_j/ds = (kg_j + ks)I_j + (kg_j+ks)a_jIb
+ * 
+ * \f$dI_j/ds = (kg_j + ks)I_j + (kg_j+ks)a_jIb\f$
+ * 
  * This soot addition was suggested by H. Bordbar.
  */
 

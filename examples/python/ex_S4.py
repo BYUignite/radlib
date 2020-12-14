@@ -1,3 +1,8 @@
+## 
+# @file ex_S4.py
+# \brief Solovjov 2017 example 4
+#
+
 def ex_S4(method, nGG=24):
 
     import numpy as np

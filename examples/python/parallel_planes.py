@@ -1,3 +1,8 @@
+##
+# @file parallel_planes.py
+# \brief 1-D radiative solver, ray tracing, python (slow)
+#
+
 ################################################################################
 
 import numpy as np
