@@ -26,7 +26,7 @@ Radlib is written in C++ and includes a Python interface written in Cython. Exam
 
 ## Planck Mean
 
-The Planck Mean model is a simple model consisting of curve fits to temperature of absorption coefficients for CH4, CO2, CO, H2O, and soot. These are combined to a single absorption coefficient for a single gas (with \f$a=1\f$). The model is commonly applied to combustion problems because if its simplicity and low computational cost, but it is inaccurate unless applied to optically thin gases with relatively small radiative losses.
+The [Planck Mean model](https://tnfworkshop.org/radiation/) is a simple model consisting of curve fits to temperature of absorption coefficients for CH4, CO2, CO, H2O, and soot. These are combined to a single absorption coefficient for a single gas (with \f$a=1\f$). The model is commonly applied to combustion problems because if its simplicity and low computational cost, but it is inaccurate unless applied to optically thin gases with relatively small radiative losses.
 
 ## WSGG
 
