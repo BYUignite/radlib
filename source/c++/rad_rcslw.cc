@@ -532,7 +532,7 @@ double rad_rcslw::F_albdf_soot(const double C, const double Tg, const double Tb,
     double nsoot = 1.75;                // imag part of complex refractive index
     double csoot = 36*M_PI*nsoot*ksoot/(pow((nsoot*nsoot - ksoot*ksoot + 2),2) + 4*pow(nsoot*ksoot,2));
 
-    double hCokb = 0.01438777354;      // h*Co/kb = PlancK*lightSpeed/Boltzmann = 6.62607004E-34 m2*kg/s * 299792458 m/s / 1.38064852E-23 m2*kg/s2*K
+    double hCokb = 0.01438777354;      // h*Co/kb = C2 = PlancK*lightSpeed/Boltzmann = 6.62607004E-34 m2*kg/s * 299792458 m/s / 1.38064852E-23 m2*kg/s2*K
     
     double Nconc = P*101325/8.31446/Tg;      // mol/m3
 
