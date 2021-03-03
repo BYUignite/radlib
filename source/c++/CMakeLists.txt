@@ -34,25 +34,6 @@ target_sources(radlib
 install(TARGETS radlib 
         LIBRARY DESTINATION lib)
 
-FILE(GLOB_RECURSE rcslw_data_files "${RCSLW_DATA_DIR}/*.txt" "${RCSLW_DATA_DIR}/README.md")
-install(FILES ${rcslw_data_files} DESTINATION ${INSTALLED_RCSLW_DATA_DIR})
-
 FILE(GLOB_RECURSE radheaders "*.h")
 install(FILES ${radheaders} DESTINATION include)
-
-#################### Doxygen documentation
-
-find_package(Doxygen)
-if(DOXYGEN_FOUND)
-    add_custom_target(doxygen 
-        COMMENT "Building doxygen documentation"
-        COMMAND rm -rf ../../docs/doxygen/html
-        COMMAND mkdir  ../../docs/doxygen/html
-        COMMAND doxygen -s ../../docs/Doxyfile
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-        VERBATIM
-    )
-else()
-    message("Cannot build documentation because doxygen was not found")
-endif()
 

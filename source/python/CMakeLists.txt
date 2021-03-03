@@ -17,9 +17,5 @@ if (PYTHON_EXECUTABLE AND BUILD_CYTHON_INTERFACE)
 
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY} install --prefix=${CMAKE_INSTALL_PREFIX})")
 
-    FILE(GLOB_RECURSE rcslw_data_files "${RCSLW_DATA_DIR}/*.txt" "${RCSLW_DATA_DIR}/README.md")
-    install(FILES ${rcslw_data_files} DESTINATION ${INSTALLED_RCSLW_DATA_DIR})
-
-
 endif()
 

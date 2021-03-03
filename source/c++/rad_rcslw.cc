@@ -389,10 +389,10 @@ void rad_rcslw::set_Falbdf_CO2_CO_H2O_at_P(){
 
     //--------------------- CO2
     
-    string CO2_file1 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/co2_p" + Pres_1 + ".txt";
-    string CO2_file2 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/co2_p" + Pres_2 + ".txt";
-    //string CO2_file1 = "ALBDF_Tables/co2_p" + Pres_1 + ".txt";
-    //string CO2_file2 = "ALBDF_Tables/co2_p" + Pres_2 + ".txt";
+    string CO2_file1 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/co2_p" + Pres_1 + ".bin";
+    string CO2_file2 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/co2_p" + Pres_2 + ".bin";
+    //string CO2_file1 = "ALBDF_Tables/co2_p" + Pres_1 + ".bin";
+    //string CO2_file2 = "ALBDF_Tables/co2_p" + Pres_2 + ".bin";
 
     vector<double> CO2_F1(nTg*nTb*nC);
     vector<double> CO2_F2(nTg*nTb*nC);
@@ -406,10 +406,10 @@ void rad_rcslw::set_Falbdf_CO2_CO_H2O_at_P(){
 
     //---------------------CO
 
-    string CO_file1 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/co_p" + Pres_1 + ".txt";
-    string CO_file2 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/co_p" + Pres_2 + ".txt";
-    //string CO_file1 = "ALBDF_Tables/co_p" + Pres_1 + ".txt";
-    //string CO_file2 = "ALBDF_Tables/co_p" + Pres_2 + ".txt";
+    string CO_file1 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/co_p" + Pres_1 + ".bin";
+    string CO_file2 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/co_p" + Pres_2 + ".bin";
+    //string CO_file1 = "ALBDF_Tables/co_p" + Pres_1 + ".bin";
+    //string CO_file2 = "ALBDF_Tables/co_p" + Pres_2 + ".bin";
 
     vector<double> CO_F1(nTg*nTb*nC);
     vector<double> CO_F2(nTg*nTb*nC);
@@ -423,10 +423,10 @@ void rad_rcslw::set_Falbdf_CO2_CO_H2O_at_P(){
 
     //---------------------H2O
    
-    string H2O_file1 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/h2o_p" + Pres_1 + ".txt";
-    string H2O_file2 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/h2o_p" + Pres_2 + ".txt";
-    //string H2O_file1 = "ALBDF_Tables/h2o_p" + Pres_1 + ".txt";
-    //string H2O_file2 = "ALBDF_Tables/h2o_p" + Pres_2 + ".txt";
+    string H2O_file1 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/h2o_p" + Pres_1 + ".bin";
+    string H2O_file2 = string(GETSTRINGEDVALUE(RCSLW_DATA_DIR)) + "/h2o_p" + Pres_2 + ".bin";
+    //string H2O_file1 = "ALBDF_Tables/h2o_p" + Pres_1 + ".bin";
+    //string H2O_file2 = "ALBDF_Tables/h2o_p" + Pres_2 + ".bin";
 
     vector<double> H2O_F1(ny_H2O*nTg*nTb*nC); 
     vector<double> H2O_F2(ny_H2O*nTg*nTb*nC); 
@@ -454,14 +454,17 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
                                     vector<double> &myarray){
 
     ifstream ifile;
-    ifile.open(Ptable_file_name);
+    ifile.open(Ptable_file_name, ios::out | ios::binary);
     if(!ifile){
         cout << endl << "error opening file: " << Ptable_file_name << endl;
         exit(0);
     }
+    float data;
     int ntot = nx*ny*nz;
-    for(int ind=0; ind<ntot; ++ind)
-        ifile >> myarray[ind];
+    for(int ind=0; ind<ntot; ++ind){
+        ifile.read((char *) &data, sizeof(data));
+        myarray[ind] = static_cast<double>(data);
+    }
     ifile.close();
     
 }
@@ -481,14 +484,17 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
                                     vector<double> &myarray){
  
     ifstream ifile;
-    ifile.open(Ptable_file_name);
+    ifile.open(Ptable_file_name, ios::out | ios::binary);
     if(!ifile){
         cout << endl << "error opening file: " << Ptable_file_name << endl;
         exit(0);
     }
+    float data;
     int ntot = nx*ny*nz*nw;
-    for(int ind=0; ind<ntot; ++ind)
-        ifile >> myarray[ind];
+    for(int ind=0; ind<ntot; ++ind){
+        ifile.read((char *) &data, sizeof(data));
+        myarray[ind] = static_cast<double>(data);
+    }
     ifile.close();
     
 }
