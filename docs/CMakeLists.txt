@@ -1,9 +1,8 @@
-
 #################### Doxygen documentation
 
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-    add_custom_target(doxygen 
+    add_custom_target(docs
         COMMENT "Building doxygen documentation"
         COMMAND rm -rf ../../docs/doxygen/html
         COMMAND mkdir  ../../docs/doxygen/html
