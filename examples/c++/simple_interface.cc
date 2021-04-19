@@ -3,12 +3,12 @@
  *  \brief Simple interface: demonstrate calling library for one gas state
  */
 
-#include "rad_planck_mean.h"
-#include "rad_wsgg.h"
-#include "rad_rcslw.h"
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include "c++/rad_planck_mean.h"
+#include "c++/rad_wsgg.h"
+#include "c++/rad_rcslw.h"
 
 using namespace std;
 

@@ -15,6 +15,5 @@ if (PYTHON_EXECUTABLE AND BUILD_CYTHON_INTERFACE)
     configure_file(${GETPPCMD_PY_IN} ${GETPPCMD_PY})
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${GETPPCMD_PY})")
 
-
 endif()
 

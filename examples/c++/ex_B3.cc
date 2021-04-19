@@ -4,16 +4,17 @@
  */
 
 #include <iostream>
-#include "rad_rcslw.h"
-#include "rad.h"
 #include <cmath>
+#include "c++/rad_rcslw.h"
+#include "c++/rad.h"
+
 
 using namespace std;
 
-void parallel_planes(rad                  *RAD,
+void parallel_planes(rad               *RAD,
                      const double         L,
                      const int            ntheta,
-                     const double         P, 
+                     const double         P,
                      const vector<double> &T,
                      const vector<double> &xH2O,
                      const vector<double> &xCO2,

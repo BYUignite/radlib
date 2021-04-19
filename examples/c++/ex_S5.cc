@@ -5,8 +5,8 @@
 
 #include <iostream>
 #include <cmath>         // M_PI
-#include "rad_rcslw.h"
-#include "rad.h"
+#include "c++/rad_rcslw.h"
+#include "c++/rad.h"
 
 using namespace std;
 
@@ -67,7 +67,7 @@ int main() {
     }
     Tavg /= nx;
 
-    //rad *rcslw = new rad_rcslw(nGG, P, Tavg, xh2o, xco2, xco, fvs); // TT gives better results than Tavg 
+    //rad *rcslw = new rad_rcslw(nGG, P, Tavg, xh2o, xco2, xco, fvs); // TT gives better results than Tavg
     rad *rcslw = new rad_rcslw(nGG, P, TT, xh2o, xco2, xco, fvs);     // TT gives better results than Tavg 
 
     //--------------------- get q, Q

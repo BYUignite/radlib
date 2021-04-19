@@ -5,15 +5,15 @@
 
 #include <iostream>
 #include <cmath>         // pow
-#include "rad_rcslw.h"
-#include "rad.h"
+#include "c++/rad_rcslw.h"
+#include "c++/rad.h"
 
 using namespace std;
 
 void parallel_planes(rad                  *RAD,
                      const double         L,
                      const int            ntheta,
-                     const double         P, 
+                     const double         P,
                      const vector<double> &T,
                      const vector<double> &xH2O,
                      const vector<double> &xCO2,
@@ -87,7 +87,7 @@ int main() {
 
         //-------------------------------------------------------------------------
 
-        cout << endl << Lcold[iLcold] << "  " << q[nx-1]/rad::sigma/pow(Thot,4.0);
+        cout << endl << Lcold[iLcold] << "  " << q[nx-1] / rad::sigma / pow(Thot, 4.0);
 
     } // end loop over Lcold
 

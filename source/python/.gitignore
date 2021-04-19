@@ -1,5 +1,0 @@
-*.so
-*.cpp
-*.x
-build
-setup.py

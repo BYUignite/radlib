@@ -4,9 +4,10 @@
  */
 
 #include <cmath>          // M_PI, sin, cos
-#include "rad.h"
-
 #include <iostream>   //doldb
+#include "c++/rad.h"
+
+
 
 using namespace std;
 
@@ -73,7 +74,7 @@ void I_IT(const vector<double> &x,
 /** Compute radiative heat flux (q) and volumetric heat source (Q) profiles between parallel planes.
  *  Solution using simple ray tracing.
  *  Pass in T, P, composition profiles on equally spaced points including boundaries.
- *  @param RAD      \input radlib object
+ *  @param RAD      \input rad object
  *  @param L        \input distance (m) between planes
  *  @param ntheta   \input number of ray angles
  *  @param P        \input system pressure (Pa)
