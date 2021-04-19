@@ -5,7 +5,7 @@ endif()
 add_library(radlib "")
 #target_include_directories(rad PRIVATE .)
 
-set(CMAKE_VERBOSE_MAKEFILE ON)
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 #################### Compile options
 
