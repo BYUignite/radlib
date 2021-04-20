@@ -8,14 +8,14 @@ set(CMAKE_CXX_STANDARD 11)
 #set(CMAKE_INSTALL_PREFIX "/Users/yourUserName/Desktop" CACHE STRING "installation location: comment this out to use the default")
 set(CMAKE_INSTALL_PREFIX "../installed" CACHE STRING "installation location: comment this out to use the default")
 
+# ---- option to build cython interface ----
+option(BUILD_CYTHON_INTERFACE "build python interface: cython" ON)
+
 # ---- option to build examples ----
 option(BUILD_EXAMPLES "Build radlib examples" ON)
 
 # ---- option to build documentation ----
-option(BUILD_DOCS "Build radlib docs" ON)
-
-# ---- option to build cython interface ----
-option(BUILD_CYTHON_INTERFACE "build python interface: cython" ON)
+option(BUILD_DOCS "Build radlib docs" OFF)
 
 ############################### RADLIB ###############################
 
