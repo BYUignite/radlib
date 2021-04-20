@@ -3,9 +3,6 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 add_library(radlib "")
-#target_include_directories(rad PRIVATE .)
-
-#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 #################### Compile options
 
@@ -19,8 +16,7 @@ add_definitions(-DRCSLW_DATA_DIR=${INSTALLED_RCSLW_DATA_DIR})
 
 #################### Local source files
 
-target_sources(radlib
-    PRIVATE
+target_sources(radlib PRIVATE
         rad.h
         rad_planck_mean.cc rad_planck_mean.h
         rad_wsgg.cc rad_wsgg.h
@@ -30,9 +26,19 @@ target_sources(radlib
 
 #################### installation
 
-install(TARGETS radlib 
-        LIBRARY DESTINATION lib)
+install(TARGETS radlib
+        EXPORT radlibTargets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        )
 
 FILE(GLOB_RECURSE radheaders "*.h")
 install(FILES ${radheaders} DESTINATION include)
 
+install(EXPORT radlibTargets
+        FILE radlib.cmake
+        NAMESPACE radlib::
+        DESTINATION cmake/radlib
+        )

@@ -6,9 +6,9 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
-#include "c++/rad_planck_mean.h"
-#include "c++/rad_wsgg.h"
-#include "c++/rad_rcslw.h"
+#include "../../src/c++/rad_planck_mean.h"
+#include "../../src/c++/rad_wsgg.h"
+#include "../../src/c++/rad_rcslw.h"
 
 using namespace std;
 

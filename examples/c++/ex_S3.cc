@@ -4,8 +4,8 @@
  */
 
 #include <iostream>
-#include "c++/rad_rcslw.h"
-#include "c++/rad.h"
+#include "../../src/c++/rad_rcslw.h"
+#include "../../src/c++/rad.h"
 
 using namespace std;
 
