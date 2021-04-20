@@ -19,6 +19,10 @@ option(BUILD_CYTHON_INTERFACE "build python interface: cython" ON)
 
 ############################### RADLIB ###############################
 
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)      # Release or Debug
+endif()
+
 project(radlib)
 
 get_filename_component(INSTALLED_RCSLW_DATA_DIR "${CMAKE_INSTALL_PREFIX}/rcslw_data" ABSOLUTE)
@@ -27,8 +31,7 @@ add_subdirectory(../src/c++ ${CMAKE_CURRENT_BINARY_DIR}/src/c++)
 add_subdirectory(../src/python ${CMAKE_CURRENT_BINARY_DIR}/src/python)
 add_subdirectory(../data/rcslw_data ${CMAKE_CURRENT_BINARY_DIR}/data/rcslw_data)
 
-# ---- allow rad to be used in other targets ----
-#target_include_directories(radlib PUBLIC ../src)
+# ---- allow radlib to be used in other targets ----
 target_include_directories(radlib PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
         "$<INSTALL_INTERFACE:include>"
