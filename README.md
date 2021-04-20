@@ -26,7 +26,6 @@ The following directories are included. Key files are also described.
 * ```LICENCE```: Licence file
 * ```README.md```: this readme file
 * ```build```: directory from which to build the code
-    * ```user_config```: user configurations; edit this file before building the code, see below.
 * ```source```: source code. Contains the ```CMakeLists.txt``` file and two subdirectories:
     * ```c++```: includes header and source files for the ```rad``` abstract base class upon which the three current models, ```rad_planck_mean```, ```rad_wsgg```, and ```rad_rcslw``` are built.
     * ```python```: includes the ```pyrad.pyx``` cython interface file and the ```setup.py.in``` file that cmake converts to a ```setup.py``` file that is used for building the python interface.
@@ -36,29 +35,42 @@ The following directories are included. Key files are also described.
 
 ## Required software
 
-The code is intended to be built on Linux and MacOS systems, (or the Linux subsystem for Windows). The build directory includes a readme file that describes the build and installation process.     Required software includes:
-* CMake and a C++ compiler,
-* Doxygen and graphviz to build the (optional) documentation,
-* Python 3 and Cython to build the (optional) Python interface,
-* Matplotlib, Numpy, and Jupyter (optional) to run the Python examples.
+The code is intended to be built on Linux and MacOS systems (or the Linux subsystem for Windows). The build directory includes a README file that describes the build and installation process. 
+
+Required software:
+* CMake 3.15+
+
+Optional software and Python packages for building the Python interface:
+* Python 3.x
+* Cython 0.29.21
+* distutils
+* numpy 
+* glob
+
+Optional Python packages for running the Python examples
+* matplotlib
+* numpy
+* Jupyter
+
+Optional software for building documentation:
+* Doxygen
+* graphviz 
 
 ## Building and installing the library
 
-To build the code, the user edits the ```build/user_config``` file to set the installation location, and a flag indicating if the Python interface is to be built (on by default). The default installation location is ```radlib/installed```. The ommands run are
+First, edit the ```build/CMakeLists.txt``` file to set the installation location. By default, the library is installed to the ```installed``` folder at the top level of the directory structure. This file also contains options to build the python/cython interfaces (```ON``` by default), examples (```ON``` by default, and documentation (```OFF``` by default).  
+
+To build the package, navigate to the ```build``` directory and run the following commands:
 ```
-cmake -C user_config ../source
+cmake .
 make
 make install
-make doxygen
 ```
+To build the documentation (optional), run ```make docs``` from the ```build``` directory or navigate to the ```docs``` directory and run Doxygen directly with ```doxygen Doxyfile```. 
 
 ## Examples
  
-Examples are provided in the ```examples/c++``` and ```examples/python``` directories. 
-* For C++, the examples codes are built as part of the build/installtion process, but there is also a script ```make_examples.sh``` the build the examples from the source. The examples are then executables that can be run. There is another script to run through all of the examples. The output is simple text written to the screen. The examples are repeated in Python, and graphical results are included there.
-* For Python, the same examples are provided in two formats: (1) individual python files that can be executed as, e.g., ```python3 ex_S3.py```. There is also a Jupyter notebook that demonstrates the running of all examples and provides graphical results.
-    * Here's a [link](https://github.com/BYUignite/radlib/blob/master/examples/python/run_and_plot_examples.ipynb) to the to the notebook.
+Examples are provided in the ```examples/c++``` and ```examples/python``` directories and can be built as part of the build/installation process above. The C++ example executables are generated within the ```examples/c++``` folder and can be run individually or as a set with the ```run_examples.sh``` script. The Python examples can be executed directly (e.g. ```python3 ex_S3.py```) or from within the provided Jupyter notebook, which demonstrates all of the examples and provides graphical results. The Jupyter notebook can also be accessed online [here](https://github.com/BYUignite/radlib/blob/master/examples/python/run_and_plot_examples.ipynb).
 
 ## Acknowledgements
-We gratefully acknowledge support and helpful discussions of Vladimir
-Solovjov on the RCSLW model, and Hadi Bordbar on the WSGG model.
+We gratefully acknowledge support and helpful discussions of Vladimir Solovjov on the RCSLW model, and Hadi Bordbar on the WSGG model.
