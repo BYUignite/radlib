@@ -1,7 +1,7 @@
 ## Building RadLib
 
 ------------------------------------------------------------------
-### SOFTWARE 
+### Dependencies
 
 The code is intended to be built on Linux and MacOS systems (or the Linux subsystem for Windows). 
 
