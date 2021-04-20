@@ -1,44 +1,49 @@
-## Building radlib source code with cmake
+## Building RadLib
 
 ------------------------------------------------------------------
-### SOFTWARE 
+### Dependencies
 
-* Required software:
-    * cmake (3.12 or higher)
+The code is intended to be built on Linux and MacOS systems (or the Linux subsystem for Windows). 
 
-* Optional software:
-    * doxygen (for building documentation)
+Required software:
+* CMake 3.15+
+
+Optional software and Python packages for building the Python interface:
+* Python 3.x
+* Cython 0.29.21
+* distutils
+* numpy 
+* glob
+
+Optional Python packages for running the Python examples
+* matplotlib
+* numpy
+* Jupyter
+
+Optional software for building documentation:
+* Doxygen
+* graphviz 
 
 ------------------------------------------------------------------
 ### Build instructions 
 
-* STEP 1: run cmake
-    * Edit the user_config file for settings and paths.
-    * RUN: `cmake -C user_config ../source/`
-
-* STEP 2: build the radlib code
-    * RUN: `make`
-
-* STEP 3: install the code
-    * RUN: `make install`
-
-* STEP 4 (OPTIONAL):  build documentation
-    * RUN: `make doxygen`
+1. Edit the ```build/CMakeLists.txt``` file for settings and paths.
+2. Run CMake: ```cmake .```
+3. Build the code: ```make```
+4. Install the code: ```make install```
+5. (OPTIONAL) Build the documentation: ```make docs```
     
 ------------------------------------------------------------------
 
 ### Cleanup instructions 
 
-* Basic cleanup:
-    * RUN: `make clean`
-
-* Thorough cleanup:
-    * RUN: `./clean_this_dir.sh`
+* Basic cleanup: ```make clean```
+* Thorough cleanup: ```./clean_this_dir.sh```
 
 ------------------------------------------------------------------
 
 ### Notes
 
-* `CMakeLists.txt` files are located in `../source` directory and its subdirectories.
-* All files in this build folder can be deleted except for user_config and this README.md.
+* `CMakeLists.txt` files are located in the ```src``` directory and its subdirectories.
+* All files in this build folder can be deleted except for ```CMakeLists.txt```, ```clean_this_dir.sh```, and this ```README.md```.
 
