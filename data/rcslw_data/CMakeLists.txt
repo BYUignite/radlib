@@ -1,4 +1,4 @@
-add_executable(            writebin.x "")
+add_executable(writebin.x)
 target_compile_features(   writebin.x PUBLIC cxx_std_11)
 target_sources(            writebin.x PRIVATE writebin.cc)
 
