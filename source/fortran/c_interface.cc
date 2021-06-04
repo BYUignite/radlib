@@ -21,9 +21,16 @@ extern "C"{
     }
     //-------------------------------------------------------------------------
 
-    //rad *rad_rcslw_C_interface(){
-    //    return new rad_rcslw();
-    //}
+    rad *rad_rcslw_C_interface(int    *nGG,
+                               double *P,
+                               double *TbTref,
+                               double *xH2O,
+                               double *xCO2,
+                               double *xCO,
+                               double *fvsoot){
+
+        return new rad_rcslw(*nGG, *P, *TbTref, *xH2O, *xCO2, *xCO, *fvsoot);
+    }
     //-------------------------------------------------------------------------
 
     void rad_delete_C_interface(rad *rad_ptr){
