@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(radlib LANGUAGES CXX)
+project(radlib LANGUAGES CXX Fortran)
 
 set(CMAKE_VERBOSE_MAKEFILE ON)
 

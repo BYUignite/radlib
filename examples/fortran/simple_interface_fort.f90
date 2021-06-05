@@ -1,9 +1,11 @@
 
-program test
+program simple_interface_fort
 
     use rad_module
 
     use, intrinsic :: ISO_C_Binding, only: C_ptr
+
+    implicit none
 
     !==========================================================================
 
@@ -31,6 +33,8 @@ program test
     type(C_ptr)                    :: r_rcslw
 
     character(len=100) :: fmt1, fmt2
+
+    integer :: i
 
     !==========================================================================
 
@@ -78,4 +82,4 @@ program test
         write(*,fmt2) kabs_rcslw(i), awts_rcslw(i)
     enddo
 
-end program test
+end program simple_interface_fort
