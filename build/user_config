@@ -3,5 +3,5 @@
 #set(CMAKE_INSTALL_PREFIX "/Users/yourUserName/Desktop" CACHE STRING "installation location: comment this out to use the default")
 set(CMAKE_INSTALL_PREFIX "../installed" CACHE STRING "installation location: comment this out to use the default")
 
-set(BUILD_CYTHON_INTERFACE     "YES"                 CACHE STRING "build python interface: cython")
-set(BUILD_FORTRAN_INTERFACE    "YES"                 CACHE STRING "build python interface: cython")
+set(BUILD_CYTHON_INTERFACE     "YES"   CACHE STRING "build python interface: cython")
+set(BUILD_FORTRAN_INTERFACE    "NO"    CACHE STRING "build python interface: cython")
