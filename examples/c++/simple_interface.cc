@@ -43,37 +43,35 @@ int main() {
 
     //----------------- output results
 
-    cout << endl << "T (K)  = " << T;
-    cout << endl << "P (Pa) = " << P;
-    cout << endl << "xH2O   = " << xH2O;
-    cout << endl << "xCO2   = " << xCO2;
-    cout << endl << "xCO    = " << xCO;
-    cout << endl << "xCH4   = " << xCH4;
+    cout << setprecision(3) << fixed;
+
+    cout << endl << "T (K)  = " << setw(14) << T;
+    cout << endl << "P (Pa) = " << setw(14) << P;
+    cout << endl << "xH2O   = " << setw(14) << xH2O;
+    cout << endl << "xCO2   = " << setw(14) << xCO2;
+    cout << endl << "xCO    = " << setw(14) << xCO;
+    cout << endl << "xCH4   = " << setw(14) << xCH4;
     cout << endl;
 
+    cout << setprecision(8) << fixed;
+
+    cout << endl;
     cout << endl << "Planck Mean:";
-    cout << endl << "   kabs (1/m) = " << setw(12) << kabs_pm[0];
-    for(int i=1; i<kabs_pm.size(); i++)
-        cout << ", " << setw(12) << kabs_pm[i];
-    cout << endl << "   awts       = " << setw(12) << awts_pm[0];
-    for(int i=1; i<awts_pm.size(); i++)
-        cout << ", " << setw(12) << awts_pm[i];
+    cout << endl << "   kabs (1/m),   awts";
+    for(int i=0; i<kabs_pm.size(); i++)
+        cout << endl << setw(14) << kabs_pm[i] << setw(14) << awts_pm[i];
 
+    cout << endl;
     cout << endl << "WSGG:";
-    cout << endl << "   kabs (1/m) = " << setw(12) << kabs_wsgg[0];
-    for(int i=1; i<kabs_wsgg.size(); i++)
-        cout << ", " << setw(12) << kabs_wsgg[i];
-    cout << endl << "   awts       = " << setw(12) << awts_wsgg[0];
-    for(int i=1; i<awts_wsgg.size(); i++)
-        cout << ", " << setw(12) << awts_wsgg[i];
+    cout << endl << "   kabs (1/m),   awts";
+    for(int i=0; i<kabs_wsgg.size(); i++)
+        cout << endl << setw(14) << kabs_wsgg[i] << setw(14) << awts_wsgg[i];
 
+    cout << endl;
     cout << endl << "RCSLW:";
-    cout << endl << "   kabs (1/m) = " << setw(12) << kabs_rcslw[0];
-    for(int i=1; i<kabs_rcslw.size(); i++)
-        cout << ", " << setw(12) << kabs_rcslw[i];
-    cout << endl << "   awts       = " << setw(12) << awts_rcslw[0];
-    for(int i=1; i<awts_rcslw.size(); i++)
-        cout << ", " << setw(12) << awts_rcslw[i];
+    cout << endl << "   kabs (1/m),   awts";
+    for(int i=0; i<kabs_rcslw.size(); i++)
+        cout << endl << setw(14) << kabs_rcslw[i] << setw(14) << awts_rcslw[i];
 
     return 0;
 

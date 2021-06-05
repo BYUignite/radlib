@@ -1,4 +1,5 @@
-find_program(PYTHON_EXECUTABLE NAMES python3 python)
+
+find_program(PYTHON_EXECUTABLE NAMES python python3)
 
 if (PYTHON_EXECUTABLE AND BUILD_CYTHON_INTERFACE)
 
@@ -17,4 +18,10 @@ if (PYTHON_EXECUTABLE AND BUILD_CYTHON_INTERFACE)
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY} install --prefix=${CMAKE_INSTALL_PREFIX})")
 
 endif()
+
+get_cmake_property(_variableNames VARIABLES)
+list (SORT _variableNames)
+foreach (_variableName ${_variableNames})
+    message(STATUS "${_variableName}=${${_variableName}}")
+endforeach()
 
