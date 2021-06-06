@@ -22,7 +22,7 @@ option(BUILD_CYTHON_INTERFACE "build python interface: cython" ON)
 option(BUILD_FORTRAN_INTERFACE "build fortran interface" ON)
 
 # ---- option to build examples ----
-option(BUILD_EXAMPLES "Build radlib examples" OFF)
+option(BUILD_EXAMPLES "Build radlib examples" ON)
 
 # ---- option to build documentation ----
 option(BUILD_DOCS "Build radlib docs" OFF)
