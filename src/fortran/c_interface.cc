@@ -1,6 +1,6 @@
-#include "rad_planck_mean.h"
-#include "rad_wsgg.h"
-#include "rad_rcslw.h"
+#include "../c++/rad_planck_mean.h"
+#include "../c++/rad_wsgg.h"
+#include "../c++/rad_rcslw.h"
 #include <vector>
 
 using namespace std;
@@ -34,7 +34,7 @@ extern "C"{
     //-------------------------------------------------------------------------
 
     void rad_delete_C_interface(rad *rad_ptr){
-        delete rad_ptr;    
+        delete rad_ptr;
     }
     //-------------------------------------------------------------------------
 
@@ -59,8 +59,8 @@ extern "C"{
         rad_ptr->get_k_a(*T, *P, *xH2O, *xCO2, *xCO, *xCH4, *fvsoot, kk, aa);
 
         for(int i=0; i<kk.size(); ++i){
-            kabs[i] = kk[i]; 
-            awts[i] = aa[i]; 
+            kabs[i] = kk[i];
+            awts[i] = aa[i];
         }
 
     }

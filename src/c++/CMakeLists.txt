@@ -17,7 +17,7 @@ target_sources(radlib PRIVATE
         multilinear_interpolation.h
 )
 
-set_target_properties(radlib PROPERTIES PUBLIC_HEADER rad.h;rad_planck_mean.h;rad_rcslw.h;rad_wsgg.h;multilinear_interpolation.h)
+set_target_properties(radlib PROPERTIES PUBLIC_HEADER "rad.h;rad_planck_mean.h;rad_rcslw.h;rad_wsgg.h;multilinear_interpolation.h")
 
 #################### installation
 
