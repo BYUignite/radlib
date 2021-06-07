@@ -14,7 +14,7 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/installed CACHE STRING "installatio
 
 # ---- interface options ----
 option(BUILD_PYTHON_INTERFACE   "build python interface" ON)
-option(BUILD_CYTHON_INTERFACE   "build python interface: cython" OFF)
+option(BUILD_CYTHON_INTERFACE   "build python interface: cython" ON)
 option(BUILD_FORTRAN_INTERFACE  "build fortran interface" ON)
 
 # ---- options to build examples ----
@@ -29,7 +29,7 @@ option(BUILD_DOCS "Build radlib docs" OFF)
 
 project(radlib
         VERSION 1.0
-        LANGUAGES CXX Fortran)
+        LANGUAGES CXX)
 
 add_subdirectory(src/c++ ${CMAKE_CURRENT_BINARY_DIR}/src/c++)
 
@@ -44,6 +44,7 @@ endif()
 
 # ------------- FORTRAN INTERFACE -----------------
 if (BUILD_FORTRAN_INTERFACE)
+    enable_language(Fortran)
     add_subdirectory(src/fortran ${CMAKE_CURRENT_BINARY_DIR}/src/fortran)
 endif()
 
