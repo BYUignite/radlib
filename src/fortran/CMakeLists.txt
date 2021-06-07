@@ -21,4 +21,8 @@ if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
             DESTINATION cmake/radlib_fortran
             )
 
+elseif(!CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
+
+    message([FATAL_ERROR] "No Fortran compiler found")
+
 endif()

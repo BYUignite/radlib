@@ -7,4 +7,8 @@ if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
 
     install(TARGETS simple_interface_fort.x DESTINATION ${CMAKE_CURRENT_SOURCE_DIR})
 
+elseif(!CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
+
+    message([FATAL_ERROR] "No Fortran compiler found")
+
 endif()
