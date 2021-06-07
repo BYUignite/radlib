@@ -1,8 +1,6 @@
-find_program(FORTRAN_COMPILER NAMES gfortran)
+if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
 
-if (FORTRAN_COMPILER AND BUILD_FORTRAN_INTERFACE)
-
-    add_library(radlib_fortran "")
+    add_library(radlib_fortran)
 
     target_sources(radlib_fortran PRIVATE
             rad_module.f90
