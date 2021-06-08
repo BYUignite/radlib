@@ -27,7 +27,7 @@ Optional software for building documentation:
 ------------------------------------------------------------------
 ### Build instructions
 
-1. Navigate to the ```build``` directory
+1. Create a directory ```build``` and navigate to it.
 2. Run CMake: ```cmake ..```
 3. Build radlib: ```make```
 4. Install radlib: ```make install```
