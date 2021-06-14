@@ -32,7 +32,7 @@ Optional software for building documentation:
 3. Build radlib: ```make```
 4. Install radlib: ```make install```
 5. (OPTIONAL) Build documentation: ```make docs```
-6. (CLEANUP) Clean build files: run ```make clean``` from inside ```build``` directory
+6. (CLEANUP) Clean build files: run ```git clean -d -f -x``` from top-level directory
 
 ------------------------------------------------------------------
 ### Default installation locations
