@@ -38,5 +38,6 @@ Optional software for building documentation:
 
 * C++ library file ```libradlib.a``` located in ```build/src/c++```
 * Relocatable package ```radlib.cmake``` located in ```build/src/c++/CMakeFiles/Export/cmake/radlib```
+* Relocatable package ```radlib_fortran.cmake``` located in ```build/src/c++/CMakeFiles/Export/cmake/radlib_fortran```
 * Cleanup: run ```make clean``` from ```build``` directory
 
