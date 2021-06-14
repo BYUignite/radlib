@@ -7,7 +7,7 @@ if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
             c_interface.cc
     )
 
-    target_link_libraries(radlib_fortran radlib -lgfortran)
+    target_link_libraries(radlib_fortran radlib)
     target_include_directories(radlib_fortran PRIVATE "${CMAKE_SOURCE_DIR}/c++")
 
     install(TARGETS radlib_fortran
