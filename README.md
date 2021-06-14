@@ -32,12 +32,14 @@ Optional software for building documentation:
 3. Build radlib: ```make```
 4. Install radlib: ```make install```
 5. (OPTIONAL) Build documentation: ```make docs```
+6. (CLEANUP) Clean build files: run ```make clean``` from inside ```build``` directory
 
 ------------------------------------------------------------------
-### Notes
+### Default installation locations
 
-* C++ library file ```libradlib.a``` located in ```build/src/c++```
-* Relocatable package ```radlib.cmake``` located in ```build/src/c++/CMakeFiles/Export/cmake/radlib```
-* Relocatable package ```radlib_fortran.cmake``` located in ```build/src/c++/CMakeFiles/Export/cmake/radlib_fortran```
-* Cleanup: run ```make clean``` from ```build``` directory
+* C++ library file ```libradlib.a``` located in ```installed/lib``` by default
+* C++ header files located in ```installed/include``` by default
+* Python package ```pyrad.so``` located in ```installed/lib/python_version/site-packages``` by default
+* Relocatable package ```radlib.cmake``` located in ```installed/cmake/radlib``` by default
+* Relocatable package ```radlib_fortran.cmake``` located in ```installed/cmake/radlib_fortran``` by default
 
