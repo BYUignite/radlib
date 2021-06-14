@@ -1,4 +1,4 @@
-if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
+if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE AND BUILD_FORTRAN_EXAMPLES)
 
     add_executable(simple_interface_fort.x)
     target_sources(simple_interface_fort.x PRIVATE simple_interface_fort.f90)
@@ -7,7 +7,7 @@ if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
 
     install(TARGETS simple_interface_fort.x DESTINATION ${CMAKE_CURRENT_SOURCE_DIR})
 
-elseif(!CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
+elseif(!CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_EXAMPLES)
 
     message([FATAL_ERROR] "No Fortran compiler found")
 

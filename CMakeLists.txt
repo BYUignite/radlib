@@ -14,7 +14,6 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/installed CACHE STRING "installatio
 
 # ---- interface options ----
 option(BUILD_PYTHON_INTERFACE   "build python interface" ON)
-option(BUILD_CYTHON_INTERFACE   "build python interface: cython" ON)
 option(BUILD_FORTRAN_INTERFACE  "build fortran interface" ON)
 
 # ---- options to build examples ----

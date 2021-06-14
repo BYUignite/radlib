@@ -1,6 +1,6 @@
 find_program(PYTHON_EXECUTABLE NAMES python python3)
 
-if (PYTHON_EXECUTABLE AND BUILD_CYTHON_INTERFACE)
+if (PYTHON_EXECUTABLE AND BUILD_PYTHON_INTERFACE)
 
     set(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
     set(SETUP_PY    "${CMAKE_CURRENT_SOURCE_DIR}/setup.py")
@@ -15,6 +15,10 @@ if (PYTHON_EXECUTABLE AND BUILD_CYTHON_INTERFACE)
     add_custom_target(python ALL DEPENDS ${OUTPUT})
 
     install(CODE "execute_process(COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY} install --prefix=${CMAKE_INSTALL_PREFIX})")
+
+elseif(!PYTHON_EXECUTABLE AND BUILD_PYTHON_INTERFACE)
+
+    message([FATAL_ERROR] "Python not found")
 
 endif()
 
