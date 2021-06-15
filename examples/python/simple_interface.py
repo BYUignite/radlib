@@ -38,37 +38,28 @@ kabs_rcslw, awts_rcslw  = rcslw.get_k_a(     T, P, xH2O, xCO2, xCO, xCH4, fvsoot
 
 #----------------- output results
 
-print(f"---------------------------")
-print(f"T (K)  = {T:.3f}")
-print(f"P (Pa) = {P:.3f}")
-print(f"xH2O   = {xH2O:.3f}")
-print(f"xCO2   = {xCO2:.3f}")
-print(f"xCO    = {xCO:.3f}")
-print(f"xCH4   = {xCH4:.3f}")
+print()
+print(f"T (K)  = {T:14.3f}")
+print(f"P (Pa) = {P:14.3f}")
+print(f"xH2O   = {xH2O:14.3f}")
+print(f"xCO2   = {xCO2:14.3f}")
+print(f"xCO    = {xCO:14.3f}")
+print(f"xCH4   = {xCH4:14.3f}")
 
-print(f"---------------------------")
+print()
 print("Planck Mean:")
-print(f"   kabs (1/m) = ", end='')
+print("   kabs (1/m),   awts")
 for i in range(len(kabs_pm)):
-    print(f"{kabs_pm[i]:12.3e}", end='\n' if i==len(kabs_pm)-1 else ',')  
-print(f"   awts       = ", end='')
-for i in range(len(awts_pm)):
-    print(f"{awts_pm[i]:12.3e}", end='\n' if i==len(awts_pm)-1 else ',')  
+    print(f"{kabs_pm[i]:14.8f}{awts_pm[i]:14.8f}")
 
-print(f"---------------------------")
+print()
 print("WSGG:")
-print(f"   kabs (1/m) = ", end='')
+print("   kabs (1/m),   awts")
 for i in range(len(kabs_wsgg)):
-    print(f"{kabs_wsgg[i]:12.3e}", end='\n' if i==len(kabs_wsgg)-1 else ',')  
-print(f"   awts       = ", end='')
-for i in range(len(awts_wsgg)):
-    print(f"{awts_wsgg[i]:12.3e}", end='\n' if i==len(awts_wsgg)-1 else ',')  
+    print(f"{kabs_wsgg[i]:14.8f}{awts_wsgg[i]:14.8f}")
 
-print(f"---------------------------")
+print()
 print("RCSLW:")
-print(f"   kabs (1/m) = ", end='')
+print("   kabs (1/m),   awts")
 for i in range(len(kabs_rcslw)):
-    print(f"{kabs_rcslw[i]:12.3e}", end='\n' if i==len(kabs_rcslw)-1 else ',')  
-print(f"   awts       = ", end='')
-for i in range(len(awts_rcslw)):
-    print(f"{awts_rcslw[i]:12.3e}", end='\n' if i==len(awts_rcslw)-1 else ',')  
+    print(f"{kabs_rcslw[i]:14.8f}{awts_rcslw[i]:14.8f}")

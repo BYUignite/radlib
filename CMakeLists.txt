@@ -30,11 +30,15 @@ project(radlib
         VERSION 1.0
         LANGUAGES CXX)
 
-add_subdirectory(src/c++ ${CMAKE_CURRENT_BINARY_DIR}/src/c++)
-
 # ------------- RCSLW data files -----------------
+
 get_filename_component(INSTALLED_RCSLW_DATA_DIR "${CMAKE_INSTALL_PREFIX}/rcslw_data" ABSOLUTE)
 add_subdirectory(data/rcslw_data ${CMAKE_CURRENT_BINARY_DIR}/data/rcslw_data)
+
+# ------------- C++ main code -----------------
+
+add_subdirectory(src/c++ ${CMAKE_CURRENT_BINARY_DIR}/src/c++)
+
 
 # ------------- PYTHON INTERFACE -----------------
 if (BUILD_PYTHON_INTERFACE)
