@@ -5,7 +5,7 @@ add_library(radlib "")
 target_compile_features(radlib PUBLIC cxx_std_11)
 
 #-------- create macro so that source code can access the rcslw data files
-add_definitions(-DRCSLW_DATA_DIR=${INSTALLED_RCSLW_DATA_DIR})
+add_definitions(-DRCSLW_DATA_DIR="${INSTALLED_RCSLW_DATA_DIR}")
 
 #################### Local source files
 
@@ -23,11 +23,11 @@ set_target_properties(radlib PROPERTIES PUBLIC_HEADER "rad.h;rad_planck_mean.h;r
 
 install(TARGETS radlib
         EXPORT radlibTargets
-        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-        INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
-        PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+        LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+        RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+        INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
+        PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}"
         )
 
 install(EXPORT radlibTargets

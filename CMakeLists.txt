@@ -10,7 +10,7 @@ set(CMAKE_BINARY_DIR "${CMAKE_SOURCE_DIR}/build")
 ############################### PROJECT OPTIONS ###############################
 
 # ---- set installation location ----
-set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR}/installed CACHE STRING "installation location")
+set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/installed" CACHE STRING "installation location")
 
 # ---- interface options ----
 option(BUILD_PYTHON_INTERFACE   "build python interface" ON)
@@ -33,22 +33,22 @@ project(radlib
 # ------------- RCSLW data files -----------------
 
 get_filename_component(INSTALLED_RCSLW_DATA_DIR "${CMAKE_INSTALL_PREFIX}/rcslw_data" ABSOLUTE)
-add_subdirectory(data/rcslw_data ${CMAKE_CURRENT_BINARY_DIR}/data/rcslw_data)
+add_subdirectory(data/rcslw_data "${CMAKE_CURRENT_BINARY_DIR}/data/rcslw_data")
 
 # ------------- C++ main code -----------------
 
-add_subdirectory(src/c++ ${CMAKE_CURRENT_BINARY_DIR}/src/c++)
+add_subdirectory(src/c++ "${CMAKE_CURRENT_BINARY_DIR}/src/c++")
 
 
 # ------------- PYTHON INTERFACE -----------------
 if (BUILD_PYTHON_INTERFACE)
-    add_subdirectory(src/python ${CMAKE_CURRENT_BINARY_DIR}/src/python)
+    add_subdirectory(src/python "${CMAKE_CURRENT_BINARY_DIR}/src/python")
 endif()
 
 # ------------- FORTRAN INTERFACE -----------------
 if (BUILD_FORTRAN_INTERFACE)
     enable_language(Fortran)
-    add_subdirectory(src/fortran ${CMAKE_CURRENT_BINARY_DIR}/src/fortran)
+    add_subdirectory(src/fortran "${CMAKE_CURRENT_BINARY_DIR}/src/fortran")
 endif()
 
 # ---- allow radlib to be used in other targets ----
@@ -60,17 +60,17 @@ target_include_directories(radlib PUBLIC
 ############################### EXAMPLES ###############################
 
 if (BUILD_CXX_EXAMPLES)
-    add_subdirectory(examples/c++ ${CMAKE_CURRENT_BINARY_DIR}/examples/c++)
+    add_subdirectory(examples/c++ "${CMAKE_CURRENT_BINARY_DIR}/examples/c++")
 ENDIF()
-if (BUILD_PYTHON_EXAMPLES AND BUILD_PYTHON_INTERFACE)
-    add_subdirectory(examples/python ${CMAKE_CURRENT_BINARY_DIR}/examples/python)
-endif()
 if (BUILD_FORTRAN_EXAMPLES AND BUILD_FORTRAN_INTERFACE)
-    add_subdirectory(examples/fortran ${CMAKE_CURRENT_BINARY_DIR}/examples/fortran)
+    add_subdirectory(examples/fortran "${CMAKE_CURRENT_BINARY_DIR}/examples/fortran")
+endif()
+if (BUILD_PYTHON_EXAMPLES AND BUILD_PYTHON_INTERFACE)
+    add_subdirectory(examples/python "${CMAKE_CURRENT_BINARY_DIR}/examples/python")
 endif()
 
 ############################### DOCUMENTATION ###########################
 
 if (BUILD_DOCS)
-    add_subdirectory(docs ${CMAKE_CURRENT_BINARY_DIR}/docs)
+    add_subdirectory(docs "${CMAKE_CURRENT_BINARY_DIR}/docs")
 endif()

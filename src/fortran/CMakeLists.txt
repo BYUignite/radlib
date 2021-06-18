@@ -15,7 +15,7 @@ if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
 
     install(TARGETS radlib_fortran
             EXPORT radlib_fortranTargets
-            LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+            LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
             )
 
     install(EXPORT radlib_fortranTargets

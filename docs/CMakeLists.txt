@@ -7,7 +7,7 @@ if(DOXYGEN_FOUND)
         COMMAND rm -rf ../../docs/doxygen/html
         COMMAND mkdir  ../../docs/doxygen/html
         COMMAND doxygen -s ../../docs/Doxyfile
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
         VERBATIM
     )
 else()
