@@ -5,7 +5,8 @@ add_library(radlib "")
 target_compile_features(radlib PUBLIC cxx_std_11)
 
 #-------- create macro so that source code can access the rcslw data files
-add_definitions(-DRCSLW_DATA_DIR="${INSTALLED_RCSLW_DATA_DIR}")
+#add_definitions(-DRCSLW_DATA_DIR="${INSTALLED_RCSLW_DATA_DIR}")
+add_definitions(-DRCSLW_DATA_DIR=${INSTALLED_RCSLW_DATA_DIR})
 
 #################### Local source files
 
