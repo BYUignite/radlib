@@ -80,6 +80,9 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
  *  These can then be accessed by the user.
  * 
  *  Return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
+ *  @param kabs            \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
+ *  @param awts            \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
+ *  @param iband           \input which band to compute
  *  @param T               \input  gas temperature
  *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
  *  @param xH2O            \input  mole fraction H2O
@@ -87,8 +90,65 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
  *  @param xCO             \input  mole fraction CO
  *  @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
  *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
+ */
+
+void rad_rcslw::get_k_a_1band(double         &kabs,
+                              double         &awts,
+                              const int      iband,
+                              const double   T,
+                              const double   P_not_used,
+                              const double   xH2O,
+                              const double   xCO2,
+                              const double   xCO,
+                              const double   xCH4_not_used,
+                              const double   fvsoot){
+
+    if(iband < 0 || iband >= nGGa) {
+        cerr << "\n\n***** rad_rcslw::get_k_a_1band: iband out of range *****\n" << endl; 
+        exit(0); 
+    }
+
+    //--------------- kabs
+
+    if(iband==0)
+        kabs = 0.0;
+    else{
+        double Nconc = P*101325/8.31446/T;    // mol/m3
+        double C = get_FI_albdf(F_pts[iband-1], T, Tb, xCO2, xCO, xH2O, fvsoot);
+        kabs = Nconc * C;
+    }
+
+    //--------------- awts
+
+    if(iband==0){
+        double Ct = get_FI_albdf(Ft_pts[0], T, Tb, xCO2, xCO, xH2O, fvsoot);
+        awts = get_F_albdf(Ct, T, T, xCO2, xCO, xH2O, fvsoot);
+    }
+    else{
+        double Ct_i   = get_FI_albdf(Ft_pts[iband],   T, Tb, xCO2, xCO, xH2O, fvsoot);
+        double Ct_im1 = get_FI_albdf(Ft_pts[iband-1], T, Tb, xCO2, xCO, xH2O, fvsoot);
+        awts = get_F_albdf(Ct_i,   T, T, xCO2, xCO, xH2O, fvsoot) - 
+               get_F_albdf(Ct_im1, T, T, xCO2, xCO, xH2O, fvsoot);
+    }
+
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/** **This is the class interface function**
+ *  Given the gas state, set the k and a vectors.
+ * 
+ *  These can then be accessed by the user.
+ * 
+ *  Return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
  *  @param kabs            \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
  *  @param awts            \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
+ *  @param T               \input  gas temperature
+ *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
+ *  @param xH2O            \input  mole fraction H2O
+ *  @param xCO2            \input  mole fraction CO2
+ *  @param xCO             \input  mole fraction CO
+ *  @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
+ *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
  */
 
 void rad_rcslw::get_k_a(vector<double> &kabs,
@@ -103,13 +163,10 @@ void rad_rcslw::get_k_a(vector<double> &kabs,
 
     vector<double> C(nGG);
     vector<double> Ct(nGGa);
-   
     vector<double> FCt(nGGa);
-
 
     for(int j=0; j < nGG; j++)
         C[j] = get_FI_albdf(F_pts[j], T, Tb, xCO2, xCO, xH2O, fvsoot);
-    
     
     for(int j=0; j < nGGa; j++)
         Ct[j] = get_FI_albdf(Ft_pts[j], T, Tb, xCO2, xCO, xH2O, fvsoot);
@@ -129,6 +186,17 @@ void rad_rcslw::get_k_a(vector<double> &kabs,
     for(int j=1; j < nGGa; j++)
         awts[j] = FCt[j] - FCt[j-1];
 
+    //------------------ contents below could be used instead for this whole function, but slower
+
+    //kabs.resize(nGGa);
+    //awts.resize(nGGa);
+
+    //double k, a;
+    //for(int i=0; i<nGGa; i++){
+    //    get_k_a_1band(k, a, i, T, P, xH2O, xCO2, xCO, xCH4_not_used, fvsoot);
+    //    kabs[i] = k;
+    //    awts[i] = a;
+    //}
 }
 
 /////////////////////////////////////////////////////////////

@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <iostream>
+#include <cstdlib>
 #include <cmath>
 #include "rad_wsgg.h"
 
@@ -57,6 +58,9 @@ const double rad_wsgg::kh2o[5]={0.000000e+000, 8.047859e-002, 9.557208e-001, 8.0
  *  Given the gas state, set the k and a vectors.
  *  These can then be accessed by the user.
  *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
+ *  @param kabs            \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
+ *  @param awts            \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
+ *  @param iband  \input which band to compute
  *  @param T      \input gas temperature (K)
  *  @param P      \input pressure (Pa)
  *  @param xH2O   \input mole fraction H2O
@@ -64,8 +68,181 @@ const double rad_wsgg::kh2o[5]={0.000000e+000, 8.047859e-002, 9.557208e-001, 8.0
  *  @param xCO    \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
  *  @param xCH4   \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
  *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
+ * 
+ *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
+ * 
+ *     \f$k_{soot} = F_s fv_{soot}T\f$, where \f$F_s = 3.72 c_{soot}/C_2\f$, where \f$C_2 = 0.014388\, m\cdot K\f$ and
+ *             \f$c_{soot} = 36\pi n k/[(n^2 - k^2 +2)^2 + 4 (n k)^2],\f$
+ *             where \f$k\f$ is the real part of the complex refractive index, and \f$n\f$ is the imaginary part.
+ *             Using Shaddix's model for \f$k\f$, \f$n\f$: \f$k=1.03\f$, \f$n = 1.75\f$, giving \f$F_s = 1817\, K^{-1}m^{-1}\f$.
+ *             Reference: Williams, Shaddix, et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
+ * 
+ * Note, combining the WSGG model with four gray gases and one clear gas with a single gray soot component.
+ * The soot absorption coefficient is added to that for each gas (including the clear gas, since
+ *     the soot absorption spectrum is "full"). The weights don't need to be changed.
+ * In the limit of no soot, we recover gas only, and in the limit of only soot, we recover the expected
+ *     behavior. 
+ * 
+ * \f$dI_j/ds = (kg_j + ks)I_j + (kg_j+ks)a_jIb\f$
+ * 
+ * This soot addition was suggested by H. Bordbar.
+ */
+
+void rad_wsgg::get_k_a_1band(double       &kabs,
+                             double       &awts,
+                             const int    iband,
+                             const double T_dmb,
+                             const double P,
+                             const double xH2O,
+                             const double xCO2,
+                             const double xCO_not_used,
+                             const double xCH4_not_used,
+                             const double fvsoot){
+
+    if(iband < 0 || iband >= nGGa) {
+        cerr << "\n\n***** rad_wsgg::get_k_a_1band: iband out of range *****\n" << endl; 
+        exit(0); 
+    }
+
+    //------------------------
+
+    double Mr = xH2O/(xCO2+1E-10);
+    double MrOrig = Mr;
+    if(Mr < 0.01) Mr = 0.01;
+    if(Mr > 4.0)  Mr = 4.0;
+    if(MrOrig > 1E8) MrOrig = 1E8;
+
+    double T = T_dmb;
+    //if(T<500)  T = 500;       // 500 is in the 2014 paper, but 300 is used in Fig. 2 of the 2020 paper.kjk0
+    if(T<300)  T = 300;
+    if(T>2400) T = 2400;
+
+    double Tr = T/1200;
+
+    //-------------- 
+
+    const int ni  = 4;
+    const int nj  = 5;
+    const int nk  = 5;
+
+    int off;                    // index offset
+
+    //------------- kabs
+
+    if(iband==0)
+        kabs = 0.0;
+    else{
+        off = (iband-1)*nk;
+        kabs = dCoefs[off+0] + Mr*(dCoefs[off+1] + Mr*(dCoefs[off+2] + Mr*(dCoefs[off+3] + Mr*(dCoefs[off+4]))));
+        kabs *= (P/101325)*(xH2O+xCO2);
+    }
+
+    //------------- awts
+
+    int njnk = nj*nk;
+    int injnk;
+    if(iband==0){
+        awts = 1.0;
+        vector<double> b(nj,0.0);
+        for(int i=0; i<ni; i++) {
+            injnk = i*njnk;
+            for(int j=0; j<nj; j++){
+                off = injnk + j*nk;
+                b[j] = cCoefs[off+0] + Mr*(cCoefs[off+1] + Mr*(cCoefs[off+2] + Mr*(cCoefs[off+3] + Mr*(cCoefs[off+4])))); // notationally, cCoefs terms are like cCoefs[i][j][k] where k is +0,+1,etc.
+            }
+            awts -= b[0] + Tr*(b[1] + Tr*(b[2] + Tr*(b[3] + Tr*(b[4]))));
+        }
+    }
+    else{
+        injnk = (iband-1)*njnk;
+        vector<double> b(nj,0.0);
+        for(int j=0; j<nj; j++){
+            off = injnk + j*nk;
+            b[j] = cCoefs[off+0] + Mr*(cCoefs[off+1] + Mr*(cCoefs[off+2] + Mr*(cCoefs[off+3] + Mr*(cCoefs[off+4])))); // notationally, cCoefs terms are like cCoefs[i][j][k] where k is +0,+1,etc.
+        }
+        awts = b[0] + Tr*(b[1] + Tr*(b[2] + Tr*(b[3] + Tr*(b[4]))));
+    }
+
+    //------------- if Mr < 0.01 linear interp k, a between those bounds and the pure component
+
+    if(MrOrig < 0.01){                      // High CO2 low H2O
+
+        double f = (0.01-MrOrig)/0.01;                 // convenience variable
+        double pfac = P/101325*xCO2;
+
+        //---------- kabs
+
+        kabs = kco2[iband]*pfac*(f) + kabs*(1.0-f);
+
+        //---------- awts
+
+        double aco2;
+        if(iband==0){
+            aco2 = 1.0;
+            for(int i=1; i<nGGa; i++){
+                off = nj*(i-1);
+                aco2 -= bco2[off+0] + Tr*(bco2[off+1] + Tr*(bco2[off+2] + Tr*(bco2[off+3] + Tr*(bco2[off+4]))));
+            }
+        }
+        else{
+            off = nj*(iband-1);
+            aco2 = bco2[off+0] + Tr*(bco2[off+1] + Tr*(bco2[off+2] + Tr*(bco2[off+3] + Tr*(bco2[off+4]))));
+        }
+        awts = aco2*(f) + awts*(1.0-f);
+    }
+
+    //------------- if Mr > 0.4, linear interp k, a between those bounds and the pure component
+
+    if(MrOrig > 4.0){                         // High H2O low CO2
+
+        double f = (1E8-MrOrig)/(1E8-4.0);             // convenience variable
+        double pfac = P/101325*xH2O;
+
+        //---------- kabs
+
+        kabs = kabs*(f) + kh2o[iband]*pfac*(1.0-f);
+
+        //---------- awts
+
+        double ah2o;
+        if(iband==0){
+            ah2o = 1.0;
+            for(int i=1; i<nGGa; i++){
+                off = nj*(i-1);
+                ah2o -= bh2o[off+0] + Tr*(bh2o[off+1] + Tr*(bh2o[off+2] + Tr*(bh2o[off+3] + Tr*(bh2o[off+4]))));
+            }
+        }
+        else{
+            off = nj*(iband-1);
+            ah2o = bh2o[off+0] + Tr*(bh2o[off+1] + Tr*(bh2o[off+2] + Tr*(bh2o[off+3] + Tr*(bh2o[off+4]))));
+        }
+        awts = awts*(f) + ah2o*(1.0-f);
+    }
+
+    //--------------------- soot contribution: add ksoot to all gases including the clear gas
+
+    if(fvsoot > 0.0){
+        double ksoot= 1817 * fvsoot*T;       // 1817 = 3.72*csoot/C2.
+        kabs += ksoot;
+    }
+
+    return;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+/** **This is the class interface function**
+ *  Given the gas state, set the k and a vectors.
+ *  These can then be accessed by the user.
+ *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
  *  @param kabs   \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
  *  @param awts   \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
+ *  @param T      \input gas temperature (K)
+ *  @param P      \input pressure (Pa)
+ *  @param xH2O   \input mole fraction H2O
+ *  @param xCO2   \input mole fraction CO2
+ *  @param xCO    \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+ *  @param xCH4   \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+ *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
  * 
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
  * 
@@ -98,95 +275,15 @@ void rad_wsgg::get_k_a(vector<double> &kabs,
 
     //------------------------
 
-    double Mr = xH2O/(xCO2+1E-10);
-    double MrOrig = Mr;
-    if(Mr < 0.01) Mr = 0.01;
-    if(Mr > 4.0)  Mr = 4.0;
-    if(MrOrig > 1E8) MrOrig = 1E8;
 
-    double T = T_dmb;
-    //if(T<500)  T = 500;       // 500 is in the 2014 paper, but 300 is used in Fig. 2 of the 2020 paper.kjk0
-    if(T<300)  T = 300;
-    if(T>2400) T = 2400;
+    kabs.resize(nGGa);
+    awts.resize(nGGa);
 
-    double Tr = T/1200;
-
-    //-------------- 
-
-    const int ni  = 4;
-    const int nj  = 5;
-    const int nk  = 5;
-
-    kabs = vector<double>(nGGa,0.0);
-    awts = vector<double>(nGGa,0.0);
-    vector<vector<double> > b(ni, vector<double>(nj,0.0));
-
-    int njnk = nj*nk;
-    int injnk;
-    int off;
-    for(int i=0; i<ni; i++) {
-        injnk = i*njnk;
-        for(int j=0; j<nj; j++){
-            off = injnk + j*nk;
-            b[i][j] = cCoefs[off+0] + Mr*(cCoefs[off+1] + Mr*(cCoefs[off+2] + Mr*(cCoefs[off+3] + Mr*(cCoefs[off+4])))); // notationally, cCoefs terms are like cCoefs[i][j][k] where k is +0,+1,etc.
-        }
-    }
-    
-    awts[0] = 1.0;
-    for(int i=1; i<nGGa; i++){
-        off = (i-1)*nk;
-        kabs[i] = dCoefs[off+0] + Mr*(dCoefs[off+1] + Mr*(dCoefs[off+2] + Mr*(dCoefs[off+3] + Mr*(dCoefs[off+4]))));
-        kabs[i] *= (P/101325)*(xH2O+xCO2);
-
-        awts[i] = b[i-1][0] + Tr*(b[i-1][1] + Tr*(b[i-1][2] + Tr*(b[i-1][3] + Tr*(b[i-1][4]))));
-        awts[0] -= awts[i];
-    }
-
-    //------------- for Mr < 0.01 or Mr > 0.4, linearly interpolate a, k between those bounds and the pure component values
-
-    vector<double> aco2orh2o;
-
-    if(MrOrig < 0.01){
-        aco2orh2o.resize(nGGa);
-        aco2orh2o[0] = 1.0;
-        for(int i=1; i<nGGa; i++){
-            off = nj*(i-1);
-            aco2orh2o[i] = bco2[off+0] + Tr*(bco2[off+1] + Tr*(bco2[off+2] + Tr*(bco2[off+3] + Tr*(bco2[off+4]))));
-            aco2orh2o[0] -= aco2orh2o[i];
-        }
-        //------------------- linearly interpolate k and a
-        double f = (0.01-MrOrig)/0.01;                 // convenience variable
-        double pfac = P/101325*xCO2;
-        awts[0] = 1.0;
-        for(int i=1; i<nGGa; i++){
-            kabs[i] = kco2[i]*pfac*(f) + kabs[i]*(1.0-f);
-            awts[i] = aco2orh2o[i]*(f) + awts[i]*(1.0-f);
-            awts[0] -= awts[i];
-        }
-    }
-    if(MrOrig > 4.0){
-        aco2orh2o.resize(nGGa);
-        aco2orh2o[0] = 1.0;
-        for(int i=1; i<nGGa; i++){
-            off = nj*(i-1);
-            aco2orh2o[i] = bh2o[off+0] + Tr*(bh2o[off+1] + Tr*(bh2o[off+2] + Tr*(bh2o[off+3] + Tr*(bh2o[off+4]))));
-            aco2orh2o[0] -= aco2orh2o[i];
-        }
-        //------------------- linearly interpolate k and a
-        double f = (1E8-MrOrig)/(1E8-4.0);             // convenience variable
-        double pfac = P/101325*xH2O;
-        awts[0] = 1.0;
-        for(int i=1; i<nGGa; i++){
-            kabs[i] = kabs[i]*(f) + kh2o[i]*pfac*(1.0-f);
-            awts[i] = awts[i]*(f) + aco2orh2o[i]*(1.0-f);
-            awts[0] -= awts[i];
-        }
-    }
-
-    if(fvsoot > 0.0){
-        double ksoot= 1817 * fvsoot*T;       // 1817 = 3.72*csoot/C2.
-        for(int i=0; i<nGGa; i++)
-            kabs[i] += ksoot;                // add in ksoot to all gases including the clear gas
+    double k, a;
+    for(int i=0; i<nGGa; i++){
+        get_k_a_1band(k, a, i, T_dmb, P, xH2O, xCO2, xCO_not_used, xCH4_not_used, fvsoot);
+        kabs[i] = k;
+        awts[i] = a;
     }
 
     return;

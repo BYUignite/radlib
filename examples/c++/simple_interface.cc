@@ -73,12 +73,12 @@ int main() {
     for(int i=0; i<kabs_rcslw.size(); i++)
         cout << endl << setw(14) << kabs_rcslw[i] << setw(14) << awts_rcslw[i];
 
-    return 0;
-
     //----------------- cleanup
 
     delete planckmean;
     delete wsgg;
     delete rcslw;
+
+    return 0;
 
 }

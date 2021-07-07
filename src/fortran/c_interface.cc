@@ -51,10 +51,6 @@ extern "C"{
 
         vector<double> kk(rad_ptr->get_nGGa());
         vector<double> aa(rad_ptr->get_nGGa());
-        for(int i=0; i<kk.size(); ++i){
-            kk[i] = kabs[i];
-            aa[i] = awts[i];
-        }
 
         rad_ptr->get_k_a(kk, aa, *T, *P, *xH2O, *xCO2, *xCO, *xCH4, *fvsoot);
 
