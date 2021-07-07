@@ -41,15 +41,15 @@ const double rad_planck_mean::pmCoefs_CH4[5]   = {6.6334, -0.0035686, 1.6682E-08
  *             Reference: Williams, Shaddix, et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
  */
 
-void rad_planck_mean::get_k_a(const double   T,
+void rad_planck_mean::get_k_a(vector<double> &kabs,
+                              vector<double> &awts,
+                              const double   T,
                               const double   P,
                               const double   xH2O,
                               const double   xCO2,
                               const double   xCO,
                               const double   xCH4,
-                              const double   fvsoot,
-                              vector<double> &kabs,
-                              vector<double> &awts){
+                              const double   fvsoot){
 
     awts.resize(1);  awts[0] = 1.0; 
     kabs.resize(1);  kabs[0] = 0.0;

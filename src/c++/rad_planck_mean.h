@@ -34,15 +34,15 @@ class rad_planck_mean : public rad {
 
     public:
 
-        void get_k_a(const double   T,             // gas temperature (K)
+        void get_k_a(std::vector<double> &kabs,    // absorption coefficient (1/m)
+                     std::vector<double> &awts,    // gas weight (sum to one)
+                     const double   T,             // gas temperature (K)
                      const double   P,             // gas pressure (Pa)
                      const double   xH2O,          // mole fraction h2o
                      const double   xCO2,          // mole fraction co2
                      const double   xCO,           // mole fraction co
                      const double   xCH4,          // mole fraction ch4
-                     const double   fvsoot,        // volume fraction soot (not ppmv)
-                     std::vector<double> &kabs,    // absorption coefficient (1/m)
-                     std::vector<double> &awts);   // gas weight (sum to one)
+                     const double   fvsoot);       // volume fraction soot (not ppmv)
         
     //////////////////// CONSTRUCTOR FUNCTIONS /////////////////
     

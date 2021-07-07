@@ -46,9 +46,9 @@ program simple_interface_fort
 
     !------------------ compute absorption coefficients and weights
 
-    call get_k_a(r_pm,    T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs_pm,    awts_pm)
-    call get_k_a(r_wsgg , T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs_wsgg,  awts_wsgg)
-    call get_k_a(r_rcslw, T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs_rcslw, awts_rcslw)
+    call get_k_a(r_pm,    kabs_pm, awts_pm,       T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
+    call get_k_a(r_wsgg , kabs_wsgg, awts_wsgg,   T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
+    call get_k_a(r_rcslw, kabs_rcslw, awts_rcslw, T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
 
     !------------------ output results
 

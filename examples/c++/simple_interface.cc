@@ -37,9 +37,9 @@ int main() {
 
     //----------------- compute absorption coefficients and weights
 
-    planckmean->get_k_a(T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs_pm,    awts_pm);
-    wsgg->get_k_a(      T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs_wsgg,  awts_wsgg);
-    rcslw->get_k_a(     T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs_rcslw, awts_rcslw);
+    planckmean->get_k_a(kabs_pm, awts_pm,       T, P, xH2O, xCO2, xCO, xCH4, fvsoot);
+    wsgg->get_k_a(      kabs_wsgg, awts_wsgg,   T, P, xH2O, xCO2, xCO, xCH4, fvsoot);
+    rcslw->get_k_a(     kabs_rcslw, awts_rcslw, T, P, xH2O, xCO2, xCO, xCH4, fvsoot);
 
     //----------------- output results
 

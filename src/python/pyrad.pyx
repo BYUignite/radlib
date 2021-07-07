@@ -14,15 +14,15 @@ cdef extern from "../c++/rad.h":
         rad(int, int) except +
         int get_nGG()
         int get_nGGa()
-        void get_k_a(const double, 
+        void get_k_a(vector[double]&, 
+                     vector[double]&,
                      const double, 
                      const double, 
                      const double, 
                      const double, 
                      const double, 
                      const double, 
-                     vector[double]&, 
-                     vector[double]&)
+                     const double) 
 
 #--------------------------------------------------------------------------------
 
@@ -79,7 +79,7 @@ cdef class pyrad:
         cdef vector[double] kabs
         cdef vector[double] awts
 
-        self.radptr.get_k_a(T,P,xH2O,xCO2,xCO,xCH4,fvsoot,  kabs,awts)
+        self.radptr.get_k_a(kabs, awts, T,P,xH2O,xCO2,xCO,xCH4,fvsoot)
 
         return np.array(kabs), np.array(awts)
 

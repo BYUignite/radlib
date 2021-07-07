@@ -86,15 +86,15 @@ const double rad_wsgg::kh2o[5]={0.000000e+000, 8.047859e-002, 9.557208e-001, 8.0
  * This soot addition was suggested by H. Bordbar.
  */
 
-void rad_wsgg::get_k_a(const double   T_dmb,
+void rad_wsgg::get_k_a(vector<double> &kabs,
+                       vector<double> &awts,
+                       const double   T_dmb,
                        const double   P,
                        const double   xH2O,
                        const double   xCO2,
                        const double   xCO_not_used,
                        const double   xCH4_not_used,
-                       const double   fvsoot,
-                       vector<double> &kabs,
-                       vector<double> &awts) {
+                       const double   fvsoot){
 
     //------------------------
 

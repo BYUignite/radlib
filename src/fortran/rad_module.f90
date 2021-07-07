@@ -49,10 +49,12 @@ module rad_module
 
         !----------------------------------------------------------------------
 
-        subroutine get_k_a_C_interface(rad_ptr, T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs, awts) &
+        subroutine get_k_a_C_interface(rad_ptr, kabs, awts, T, P, xH2O, xCO2, xCO, xCH4, fvsoot) &
                 bind(C, name="get_k_a_C_interface")
             import
             type(C_ptr), value           :: rad_ptr
+            real(C_double), dimension(*) :: kabs
+            real(C_double), dimension(*) :: awts
             real(C_double)               :: T
             real(C_double)               :: P
             real(C_double)               :: xH2O
@@ -60,8 +62,6 @@ module rad_module
             real(C_double)               :: xCO
             real(C_double)               :: xCH4
             real(C_double)               :: fvsoot
-            real(C_double), dimension(*) :: kabs
-            real(C_double), dimension(*) :: awts
         end subroutine get_k_a_C_interface
 
         !----------------------------------------------------------------------
@@ -115,8 +115,10 @@ module rad_module
 
         !----------------------------------------------------------------------
 
-        subroutine get_k_a(rad_ptr, T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs, awts)
+        subroutine get_k_a(rad_ptr, kabs, awts, T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
             type(C_ptr),      intent(in)                :: rad_ptr
+            double precision, intent(out), dimension(:) :: kabs
+            double precision, intent(out), dimension(:) :: awts
             double precision, intent(in)                :: T
             double precision, intent(in)                :: P
             double precision, intent(in)                :: xH2O
@@ -124,9 +126,7 @@ module rad_module
             double precision, intent(in)                :: xCO
             double precision, intent(in)                :: xCH4
             double precision, intent(in)                :: fvsoot
-            double precision, intent(out), dimension(:) :: kabs
-            double precision, intent(out), dimension(:) :: awts
-            call get_k_a_C_interface(rad_ptr, T, P, xH2O, xCO2, xCO, xCH4, fvsoot, kabs, awts)
+            call get_k_a_C_interface(rad_ptr, kabs, awts, T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
         end subroutine get_k_a
 
     !==========================================================================

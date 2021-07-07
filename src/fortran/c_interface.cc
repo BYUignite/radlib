@@ -38,16 +38,16 @@ extern "C"{
     }
     //-------------------------------------------------------------------------
 
-    void get_k_a_C_interface(rad *rad_ptr,
+    void get_k_a_C_interface(rad    *rad_ptr,
+                             double *kabs,
+                             double *awts,
                              double *T,
                              double *P,
                              double *xH2O,
                              double *xCO2,
                              double *xCO,
                              double *xCH4,
-                             double *fvsoot,
-                             double *kabs,
-                             double *awts){
+                             double *fvsoot){
 
         vector<double> kk(rad_ptr->get_nGGa());
         vector<double> aa(rad_ptr->get_nGGa());
@@ -56,7 +56,7 @@ extern "C"{
             aa[i] = awts[i];
         }
 
-        rad_ptr->get_k_a(*T, *P, *xH2O, *xCO2, *xCO, *xCH4, *fvsoot, kk, aa);
+        rad_ptr->get_k_a(kk, aa, *T, *P, *xH2O, *xCO2, *xCO, *xCH4, *fvsoot);
 
         for(int i=0; i<kk.size(); ++i){
             kabs[i] = kk[i];

@@ -91,15 +91,15 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
  *  @param awts            \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
  */
 
-void rad_rcslw::get_k_a(const double   T,
+void rad_rcslw::get_k_a(vector<double> &kabs,
+                        vector<double> &awts,
+                        const double   T,
                         const double   P_not_used,
                         const double   xH2O,
                         const double   xCO2,
                         const double   xCO,
                         const double   xCH4_not_used,
-                        const double   fvsoot,
-                        vector<double> &kabs,
-                        vector<double> &awts) {
+                        const double   fvsoot){
 
     vector<double> C(nGG);
     vector<double> Ct(nGGa);
