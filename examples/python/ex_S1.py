@@ -64,7 +64,7 @@ def ex_S1(method, nGG=24):
             T[i] = Thot if x[i] <= Lhot else Tcold
     
         if method=='rcslw':
-            rad = rad_rcslw(nGG, P, Tavg, xh2o, xco2, xco, fvs)
+            rad = rad_rcslw(nGG, Tavg, P, fvs, xh2o, xco2, xco)
         elif method=='wsgg':
             rad = rad_wsgg()
         elif method=='planckmean':

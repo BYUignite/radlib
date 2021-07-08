@@ -62,7 +62,7 @@ int main() {
         x[i] = x[i-1] + dx;
     }
 
-    rad *rcslw = new rad_rcslw(nGG, P, Tconst, xh2o, xco2, xco, fvs);
+    rad *rcslw = new rad_rcslw(nGG, Tconst, P, fvs, xh2o, xco2, xco);
 
     //--------------------- get q, Q
 

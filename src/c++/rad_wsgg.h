@@ -34,26 +34,26 @@ class rad_wsgg : public rad {
 
     public:
 
-        void get_k_a(std::vector<double> &kabs,    // absorption coefficient (1/m)
-                     std::vector<double> &awts,    // gas weight (sum to one)
-                     const double   T_dmb,         // gas temperature (K)
-                     const double   P,             // gas pressure (Pa)
-                     const double   xH2O,          // mole fraction H2O
-                     const double   xCO2,          // mole fraction CO2
-                     const double   xCO_not_used , // mole fraction CO (interface only, not used)
-                     const double   xCH4_not_used, // mole fraction CH4 (interface only, not used)
-                     const double   fvsoot);       // volume fraction soot (not ppmv)
+        void get_k_a(std::vector<double> &kabs,     // absorption coefficient (1/m)
+                     std::vector<double> &awts,     // gas weight (sum to one)
+                     const double   T_dmb,          // gas temperature (K)
+                     const double   P,              // gas pressure (Pa)
+                     const double   fvsoot,         // volume fraction soot (not ppmv)
+                     const double   xH2O,           // mole fraction H2O
+                     const double   xCO2,           // mole fraction CO2
+                     const double   xCO_not_used,   // mole fraction CO (interface only, not used)
+                     const double   xCH4_not_used); // mole fraction CH4 (interface only, not used)
 
-        void get_k_a_1band(double         &kabs,   // absorption coefficient (1/m)
-                           double         &awts,   // gas weight (sum to one)
-                           const int      iband,   // band/gas to get k_a for
-                           const double   T,       // gas temperature (K)
-                           const double   P,       // gas pressure (Pa)
-                           const double   xH2O,    // mole fraction h2o
-                           const double   xCO2,    // mole fraction co2
-                           const double   xCO,     // mole fraction co
-                           const double   xCH4,    // mole fraction ch4
-                           const double   fvsoot); // volume fraction soot (not ppmv)
+        void get_k_a_1band(double         &kabs,            // absorption coefficient (1/m)
+                           double         &awts,            // gas weight (sum to one)
+                           const int      iband,            // band/gas to get k_a for
+                           const double   T,                // gas temperature (K)
+                           const double   P,                // gas pressure (Pa)
+                           const double   fvsoot,           // volume fraction soot (not ppmv)
+                           const double   xH2O,             // mole fraction h2o
+                           const double   xCO2,             // mole fraction co2
+                           const double   xCO_not_used,     // mole fraction co
+                           const double   xCH4_not_used);   // mole fraction ch4
         
     //////////////////// CONSTRUCTOR FUNCTIONS /////////////////
     

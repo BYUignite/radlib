@@ -45,7 +45,7 @@ def ex_Sb1(method, fvs, nGG=24):
         x[i] = x[i-1] + dx
     
     if method=='rcslw':
-        rad = rad_rcslw(nGG, P, Tconst, xh2o, xco2, xco, fvs)
+        rad = rad_rcslw(nGG, Tconst, P, fvs, xh2o, xco2, xco)
     elif method=='wsgg':
         rad = rad_wsgg()
     elif method=='planckmean':

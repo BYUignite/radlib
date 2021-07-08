@@ -42,13 +42,13 @@ program simple_interface_fort
 
     call rad_planck_mean(r_pm)
     call rad_wsgg(r_wsgg)
-    call rad_rcslw(r_rcslw, size(kabs_rcslw)-1, P, T, xH2O, xCO2, xCO, fvsoot)
+    call rad_rcslw(r_rcslw, size(kabs_rcslw)-1, T, P, fvsoot, xH2O, xCO2, xCO)
 
     !------------------ compute absorption coefficients and weights
 
-    call get_k_a(r_pm,    kabs_pm, awts_pm,       T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
-    call get_k_a(r_wsgg , kabs_wsgg, awts_wsgg,   T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
-    call get_k_a(r_rcslw, kabs_rcslw, awts_rcslw, T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
+    call get_k_a(r_pm,    kabs_pm, awts_pm,       T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+    call get_k_a(r_wsgg , kabs_wsgg, awts_wsgg,   T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+    call get_k_a(r_rcslw, kabs_rcslw, awts_rcslw, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
 
     !------------------ output results
 

@@ -41,11 +41,11 @@ class rad {
                              std::vector<double> &awts,    ///< gas weight (sum to one)
                              const double   T,             ///< gas temperature (K)
                              const double   P,             ///< gas pressure (Pa)
+                             const double   fvsoot,        ///< volume fraction soot (not ppmv)
                              const double   xH2O,          ///< mole fraction h2o
                              const double   xCO2,          ///< mole fraction co2
                              const double   xCO,           ///< mole fraction co
-                             const double   xCH4,          ///< mole fraction ch4
-                             const double   fvsoot)        ///< volume fraction soot (not ppmv)
+                             const double   xCH4)          ///< mole fraction ch4
                              = 0;                          ///< ABSTRACT BASE CLASS 
 
         virtual void get_k_a_1band(double         &kabs,   ///< absorption coefficient (1/m)
@@ -53,11 +53,11 @@ class rad {
                                    const int      iband,   ///< band/gas to get k_a for
                                    const double   T,       ///< gas temperature (K)
                                    const double   P,       ///< gas pressure (Pa)
+                                   const double   fvsoot,  ///< volume fraction soot (not ppmv)
                                    const double   xH2O,    ///< mole fraction h2o
                                    const double   xCO2,    ///< mole fraction co2
                                    const double   xCO,     ///< mole fraction co
-                                   const double   xCH4,    ///< mole fraction ch4
-                                   const double   fvsoot)  ///< volume fraction soot (not ppmv)
+                                   const double   xCH4)    ///< mole fraction ch4
                                    = 0;                    ///< ABSTRACT BASE CLASS 
 
         int get_nGG(){ return nGG; }
@@ -68,8 +68,8 @@ class rad {
     public: 
     
         rad(const int p_nGG, const int p_nGGa) {
-                nGG  = p_nGG;
-                nGGa = p_nGGa;
+            nGG  = p_nGG;
+            nGGa = p_nGGa;
         }
 
         virtual ~rad(){}

@@ -130,7 +130,7 @@ void parallel_planes(rad                  *RAD,
     vector<vector<double>> awts(nx, vector<double>(RAD->get_nGGa()));
 
     for(int i=0; i<nx; ++i)
-        RAD->get_k_a(kabs[i], awts[i], T[i], P, xH2O[i], xCO2[i], xCO[i], xCH4[i], fvsoot[i]);
+        RAD->get_k_a(kabs[i], awts[i], T[i], P, fvsoot[i], xH2O[i], xCO2[i], xCO[i], xCH4[i]);
 
     vector<double> Ilo(RAD->get_nGGa(), 0.0);
     vector<double> Ihi(RAD->get_nGGa(), 0.0);

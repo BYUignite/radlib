@@ -56,8 +56,8 @@ def ex_S4(method, nGG=24):
     Tavg /= nx
     
     if method=='rcslw':
-        #rad = rad_rcslw(nGG, P, Tmax, xh2o, xco2, xco, fvs)  # CHANGE: use T=Tmax or T=Tavg for plot
-        rad = rad_rcslw(nGG, P, Tavg, xh2o, xco2, xco, fvs)  # CHANGE: use T=Tmax or T=Tavg for plot
+        #rad = rad_rcslw(nGG, Tmax, P, fvs, xh2o, xco2, xco)  # CHANGE: use T=Tmax or T=Tavg for plot
+        rad = rad_rcslw(nGG, Tavg, P, fvs, xh2o, xco2, xco)  # CHANGE: use T=Tmax or T=Tavg for plot
     elif method=='wsgg':
         rad = rad_wsgg()
     elif method=='planckmean':

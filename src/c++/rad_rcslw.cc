@@ -19,21 +19,21 @@ using namespace std;
 ////////////////////////////////////////////////////////////////////////////////
 /** Constructor function
  *  @param p_nGG        \input   number of gray gases not including the gray gas
- *  @param p_P          \input   system pressure (Pa); set once, assumed constant
  *  @param TbTref       \input   black temperature and reference temperature (K); set once, assumed constant
+ *  @param p_P          \input   system pressure (Pa); set once, assumed constant
+ *  @param fvsoot       \input   soot volume fraction
  *  @param xH2O         \input   H2O mole fraction
  *  @param xCO2         \input   CO2 mole fraction
  *  @param xCO          \input   CO mole fraction
- *  @param fvsoot       \input   soot volume fraction
  */
 
 rad_rcslw::rad_rcslw(const int    p_nGG,
-                     const double p_P,
                      const double TbTref,
+                     const double p_P,
+                     const double fvsoot,
                      const double xH2O,
                      const double xCO2,
-                     const double xCO,
-                     const double fvsoot) :
+                     const double xCO) :
         rad(p_nGG, p_nGG + 1){
 
     P     = p_P/101325;      // atm
@@ -85,11 +85,11 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
  *  @param iband           \input which band to compute
  *  @param T               \input  gas temperature
  *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
+ *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O            \input  mole fraction H2O
  *  @param xCO2            \input  mole fraction CO2
  *  @param xCO             \input  mole fraction CO
  *  @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
- *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
  */
 
 void rad_rcslw::get_k_a_1band(double         &kabs,
@@ -97,11 +97,11 @@ void rad_rcslw::get_k_a_1band(double         &kabs,
                               const int      iband,
                               const double   T,
                               const double   P_not_used,
+                              const double   fvsoot,
                               const double   xH2O,
                               const double   xCO2,
                               const double   xCO,
-                              const double   xCH4_not_used,
-                              const double   fvsoot){
+                              const double   xCH4_not_used){
 
     if(iband < 0 || iband >= nGGa) {
         cerr << "\n\n***** rad_rcslw::get_k_a_1band: iband out of range *****\n" << endl; 
@@ -144,22 +144,22 @@ void rad_rcslw::get_k_a_1band(double         &kabs,
  *  @param awts            \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
  *  @param T               \input  gas temperature
  *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
+ *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O            \input  mole fraction H2O
  *  @param xCO2            \input  mole fraction CO2
  *  @param xCO             \input  mole fraction CO
  *  @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
- *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
  */
 
 void rad_rcslw::get_k_a(vector<double> &kabs,
                         vector<double> &awts,
                         const double   T,
                         const double   P_not_used,
+                        const double   fvsoot,
                         const double   xH2O,
                         const double   xCO2,
                         const double   xCO,
-                        const double   xCH4_not_used,
-                        const double   fvsoot){
+                        const double   xCH4_not_used){
 
     vector<double> C(nGG);
     vector<double> Ct(nGGa);
@@ -193,7 +193,7 @@ void rad_rcslw::get_k_a(vector<double> &kabs,
 
     //double k, a;
     //for(int i=0; i<nGGa; i++){
-    //    get_k_a_1band(k, a, i, T, P, xH2O, xCO2, xCO, xCH4_not_used, fvsoot);
+    //    get_k_a_1band(k, a, i, T, P, fvsoot, xH2O, xCO2, xCO, xCH4_not_used);
     //    kabs[i] = k;
     //    awts[i] = a;
     //}

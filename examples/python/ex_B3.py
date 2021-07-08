@@ -49,7 +49,7 @@ def ex_B3(method, nGG=4):
     T_avg    = np.average(T)
     
     if method=='rcslw':
-        rad = rad_rcslw(nGG, P, T_avg, xH2O_avg, xCO2_avg, xco, fvs)
+        rad = rad_rcslw(nGG, T_avg, P, fvs, xH2O_avg, xCO2_avg, xco, fvs)
     elif method=='wsgg':
         rad = rad_wsgg()
     elif method=='planckmean':

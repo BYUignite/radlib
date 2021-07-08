@@ -27,17 +27,17 @@ module rad_module
 
         !----------------------------------------------------------------------
 
-        function rad_rcslw_C_interface(nGG, P, TbTref, xH2O, xCO2, xCO, fvsoot) &
+        function rad_rcslw_C_interface(nGG, TbTref, P, fvsoot, xH2O, xCO2, xCO) &
                  result(rad_ptr) bind(C, name="rad_rcslw_C_interface")
             import
             type(C_ptr)    :: rad_ptr
             integer(C_int) :: nGG
-            real(C_double) :: P
             real(C_double) :: TbTref
+            real(C_double) :: P
+            real(C_double) :: fvsoot
             real(C_double) :: xH2O
             real(C_double) :: xCO2
             real(C_double) :: xCO
-            real(C_double) :: fvsoot
         end function rad_rcslw_C_interface
 
         !----------------------------------------------------------------------
@@ -49,7 +49,7 @@ module rad_module
 
         !----------------------------------------------------------------------
 
-        subroutine get_k_a_C_interface(rad_ptr, kabs, awts, T, P, xH2O, xCO2, xCO, xCH4, fvsoot) &
+        subroutine get_k_a_C_interface(rad_ptr, kabs, awts, T, P, fvsoot, xH2O, xCO2, xCO, xCH4) &
                 bind(C, name="get_k_a_C_interface")
             import
             type(C_ptr), value           :: rad_ptr
@@ -57,12 +57,30 @@ module rad_module
             real(C_double), dimension(*) :: awts
             real(C_double)               :: T
             real(C_double)               :: P
+            real(C_double)               :: fvsoot
             real(C_double)               :: xH2O
             real(C_double)               :: xCO2
             real(C_double)               :: xCO
             real(C_double)               :: xCH4
-            real(C_double)               :: fvsoot
         end subroutine get_k_a_C_interface
+
+        !----------------------------------------------------------------------
+
+        subroutine get_k_a_1band_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4) &
+                bind(C, name="get_k_a_1band_C_interface")
+            import
+            type(C_ptr), value           :: rad_ptr
+            real(C_double)               :: kabs
+            real(C_double)               :: awts
+            integer(C_int)               :: iband
+            real(C_double)               :: T
+            real(C_double)               :: P
+            real(C_double)               :: fvsoot
+            real(C_double)               :: xH2O
+            real(C_double)               :: xCO2
+            real(C_double)               :: xCO
+            real(C_double)               :: xCH4
+        end subroutine get_k_a_1band_C_interface
 
         !----------------------------------------------------------------------
 
@@ -70,7 +88,7 @@ module rad_module
 
     !==========================================================================
 
-    public :: rad_planck_mean, rad_wsgg, rad_rcslw, rad_delete, get_k_a
+    public :: rad_planck_mean, rad_wsgg, rad_rcslw, rad_delete, get_k_a, get_k_a_1band
 
     !==========================================================================
     ! set fortran wrapper routines to the C interface functions
@@ -93,16 +111,16 @@ module rad_module
 
         !----------------------------------------------------------------------
 
-        subroutine rad_rcslw(rad_ptr, nGG, P, TbTref, xH2O, xCO2, xCO, fvsoot)
+        subroutine rad_rcslw(rad_ptr, nGG, TbTref, P, fvsoot, xH2O, xCO2, xCO)
             type(C_ptr),      intent(out) :: rad_ptr
             integer,          intent(in)  :: nGG
-            double precision, intent(in)  :: P
             double precision, intent(in)  :: TbTref
+            double precision, intent(in)  :: P
+            double precision, intent(in)  :: fvsoot
             double precision, intent(in)  :: xH2O
             double precision, intent(in)  :: xCO2
             double precision, intent(in)  :: xCO
-            double precision, intent(in)  :: fvsoot
-            rad_ptr = rad_rcslw_C_interface(nGG, P, TbTref, xH2O, xCO2, xCO, fvsoot)
+            rad_ptr = rad_rcslw_C_interface(nGG, TbTref, P, fvsoot, xH2O, xCO2, xCO)
         end subroutine rad_rcslw
 
         !----------------------------------------------------------------------
@@ -115,19 +133,36 @@ module rad_module
 
         !----------------------------------------------------------------------
 
-        subroutine get_k_a(rad_ptr, kabs, awts, T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
+        subroutine get_k_a(rad_ptr, kabs, awts, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
             type(C_ptr),      intent(in)                :: rad_ptr
             double precision, intent(out), dimension(:) :: kabs
             double precision, intent(out), dimension(:) :: awts
             double precision, intent(in)                :: T
             double precision, intent(in)                :: P
+            double precision, intent(in)                :: fvsoot
             double precision, intent(in)                :: xH2O
             double precision, intent(in)                :: xCO2
             double precision, intent(in)                :: xCO
             double precision, intent(in)                :: xCH4
-            double precision, intent(in)                :: fvsoot
-            call get_k_a_C_interface(rad_ptr, kabs, awts, T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
+            call get_k_a_C_interface(rad_ptr, kabs, awts, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
         end subroutine get_k_a
+
+        !----------------------------------------------------------------------
+
+        subroutine get_k_a_1band(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+            type(C_ptr),      intent(in)                :: rad_ptr
+            double precision, intent(out)               :: kabs
+            double precision, intent(out)               :: awts
+            integer,          intent(in)                :: iband
+            double precision, intent(in)                :: T
+            double precision, intent(in)                :: P
+            double precision, intent(in)                :: fvsoot
+            double precision, intent(in)                :: xH2O
+            double precision, intent(in)                :: xCO2
+            double precision, intent(in)                :: xCO
+            double precision, intent(in)                :: xCH4
+            call get_k_a_1band_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+        end subroutine get_k_a_1band
 
     !==========================================================================
 

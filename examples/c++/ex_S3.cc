@@ -69,7 +69,7 @@ int main() {
     Tavg /= nx;
     xH2O_avg /= nx;
 
-    rad *rcslw = new rad_rcslw(nGG, P, Tavg, xH2O_avg, xco2, xco, fvs);    // results are better if Tref in rcslw constructor is set to 1000 K.
+    rad *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xH2O_avg, xco2, xco);    // results are better if Tref in rcslw constructor is set to 1000 K.
 
     //--------------------- get q, Q
 

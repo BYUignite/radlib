@@ -49,11 +49,11 @@ void rad_planck_mean::get_k_a_1band(double       &kabs,
                                     const int    iband,
                                     const double T,
                                     const double P,
+                                    const double fvsoot,
                                     const double xH2O,
                                     const double xCO2,
                                     const double xCO,
-                                    const double xCH4,
-                                    const double fvsoot){
+                                    const double xCH4){
 
     if(iband != 0) {
         cerr << "\n\n***** rad_planck_mean::get_k_a_1band: iband should be zero since there is only one band in this model *****\n" << endl; 
@@ -109,15 +109,15 @@ void rad_planck_mean::get_k_a_1band(double       &kabs,
  *  Given the gas state, set the k and a vectors.
  *  These can then be accessed by the user.
  *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
+ *  @param kabs            \output absorption coefficients (1/m); size = 1 here (1 gas)
+ *  @param awts            \output weights (unitless; sums to 1); size = 1 here (1 gas)
  *  @param T               \input gas temperature
  *  @param P_not_used      \input Pressure (Pa)
+ *  @param fvsoot          \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O            \input mole fraction H2O
  *  @param xCO2            \input mole fraction CO2
  *  @param xCO             \input mole fraction CO
  *  @param xCH4_not_used   \input mole fraction CH4
- *  @param fvsoot          \input soot volume fraction = rho*Ysoot/rhosoot
- *  @param kabs            \output absorption coefficients (1/m); size = 1 here (1 gas)
- *  @param awts            \output weights (unitless; sums to 1); size = 1 here (1 gas)
  *  
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
  * 
@@ -134,16 +134,16 @@ void rad_planck_mean::get_k_a(vector<double> &kabs,
                               vector<double> &awts,
                               const double   T,
                               const double   P,
+                              const double   fvsoot,
                               const double   xH2O,
                               const double   xCO2,
                               const double   xCO,
-                              const double   xCH4,
-                              const double   fvsoot){
+                              const double   xCH4){
 
     double k;
     double a;
 
-    get_k_a_1band(k, a, 0, T, P, xH2O, xCO2, xCO, xCH4, fvsoot);
+    get_k_a_1band(k, a, 0, T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
 
     kabs.resize(1);  kabs[0] = k;
     awts.resize(1);  awts[0] = a; 

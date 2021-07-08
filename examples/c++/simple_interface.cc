@@ -33,13 +33,13 @@ int main() {
 
     rad *planckmean = new rad_planck_mean();
     rad *wsgg       = new rad_wsgg();
-    rad *rcslw      = new rad_rcslw(4, P, T, xH2O, xCO2, xCO, fvsoot);
+    rad *rcslw      = new rad_rcslw(4, T, P, fvsoot, xH2O, xCO2, xCO);
 
     //----------------- compute absorption coefficients and weights
 
-    planckmean->get_k_a(kabs_pm, awts_pm,       T, P, xH2O, xCO2, xCO, xCH4, fvsoot);
-    wsgg->get_k_a(      kabs_wsgg, awts_wsgg,   T, P, xH2O, xCO2, xCO, xCH4, fvsoot);
-    rcslw->get_k_a(     kabs_rcslw, awts_rcslw, T, P, xH2O, xCO2, xCO, xCH4, fvsoot);
+    planckmean->get_k_a(kabs_pm, awts_pm,       T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
+    wsgg->get_k_a(      kabs_wsgg, awts_wsgg,   T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
+    rcslw->get_k_a(     kabs_rcslw, awts_rcslw, T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
 
     //----------------- output results
 

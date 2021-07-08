@@ -63,11 +63,11 @@ const double rad_wsgg::kh2o[5]={0.000000e+000, 8.047859e-002, 9.557208e-001, 8.0
  *  @param iband  \input which band to compute
  *  @param T      \input gas temperature (K)
  *  @param P      \input pressure (Pa)
+ *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O   \input mole fraction H2O
  *  @param xCO2   \input mole fraction CO2
  *  @param xCO    \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
  *  @param xCH4   \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
  * 
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
  * 
@@ -93,11 +93,11 @@ void rad_wsgg::get_k_a_1band(double       &kabs,
                              const int    iband,
                              const double T_dmb,
                              const double P,
+                             const double fvsoot,
                              const double xH2O,
                              const double xCO2,
                              const double xCO_not_used,
-                             const double xCH4_not_used,
-                             const double fvsoot){
+                             const double xCH4_not_used){
 
     if(iband < 0 || iband >= nGGa) {
         cerr << "\n\n***** rad_wsgg::get_k_a_1band: iband out of range *****\n" << endl; 
@@ -238,11 +238,11 @@ void rad_wsgg::get_k_a_1band(double       &kabs,
  *  @param awts   \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
  *  @param T      \input gas temperature (K)
  *  @param P      \input pressure (Pa)
+ *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O   \input mole fraction H2O
  *  @param xCO2   \input mole fraction CO2
  *  @param xCO    \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
  *  @param xCH4   \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
  * 
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
  * 
@@ -267,11 +267,11 @@ void rad_wsgg::get_k_a(vector<double> &kabs,
                        vector<double> &awts,
                        const double   T_dmb,
                        const double   P,
+                       const double   fvsoot,
                        const double   xH2O,
                        const double   xCO2,
                        const double   xCO_not_used,
-                       const double   xCH4_not_used,
-                       const double   fvsoot){
+                       const double   xCH4_not_used){
 
     //------------------------
 
@@ -281,7 +281,7 @@ void rad_wsgg::get_k_a(vector<double> &kabs,
 
     double k, a;
     for(int i=0; i<nGGa; i++){
-        get_k_a_1band(k, a, i, T_dmb, P, xH2O, xCO2, xCO_not_used, xCH4_not_used, fvsoot);
+        get_k_a_1band(k, a, i, T_dmb, P, fvsoot, xH2O, xCO2, xCO_not_used, xCH4_not_used);
         kabs[i] = k;
         awts[i] = a;
     }

@@ -67,8 +67,8 @@ int main() {
     }
     Tavg /= nx;
 
-    //rad *rcslw = new rad_rcslw(nGG, P, Tavg, xh2o, xco2, xco, fvs); // TT gives better results than Tavg
-    rad *rcslw = new rad_rcslw(nGG, P, TT, xh2o, xco2, xco, fvs);     // TT gives better results than Tavg 
+    //rad *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xh2o, xco2, xco); // TT gives better results than Tavg
+    rad *rcslw = new rad_rcslw(nGG, TT, P, fvs, xh2o, xco2, xco);     // TT gives better results than Tavg 
 
     //--------------------- get q, Q
 

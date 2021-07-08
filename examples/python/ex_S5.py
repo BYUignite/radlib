@@ -51,7 +51,7 @@ def ex_S5(method, nGG=24, use_Tmax=False):
     Tavg /= nx
     
     if method=='rcslw':
-        rad = rad_rcslw(nGG, P, TT if use_Tmax else Tavg, xh2o, xco2, xco, fvs)     # TT gives better results than Tavg
+        rad = rad_rcslw(nGG, TT if use_Tmax else Tavg, P, fvs, xh2o, xco2, xco)     # TT gives better results than Tavg
     elif method=='wsgg':
         rad = rad_wsgg()
     elif method=='planckmean':

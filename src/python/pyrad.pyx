@@ -23,6 +23,16 @@ cdef extern from "../c++/rad.h":
                      const double, 
                      const double, 
                      const double) 
+        void get_k_a_1band(double&, 
+                           double&,
+                           const int, 
+                           const double, 
+                           const double, 
+                           const double, 
+                           const double, 
+                           const double, 
+                           const double, 
+                           const double) 
 
 #--------------------------------------------------------------------------------
 
@@ -70,18 +80,35 @@ cdef class pyrad:
     def get_k_a(self,
                 double T,
                 double P,
+                double fvsoot,
                 double xH2O,
                 double xCO2,
                 double xCO,
-                double xCH4,
-                double fvsoot):
+                double xCH4):
         
         cdef vector[double] kabs
         cdef vector[double] awts
 
-        self.radptr.get_k_a(kabs, awts, T,P,xH2O,xCO2,xCO,xCH4,fvsoot)
+        self.radptr.get_k_a(kabs, awts, T,P,fvsoot,xH2O,xCO2,xCO,xCH4)
 
         return np.array(kabs), np.array(awts)
+
+    def get_k_a_1band(self,
+                      int    iband,
+                      double T,
+                      double P,
+                      double fvsoot,
+                      double xH2O,
+                      double xCO2,
+                      double xCO,
+                      double xCH4):
+        
+        cdef double kabs
+        cdef double awts
+
+        self.radptr.get_k_a_1band(kabs, awts, iband, T,P,fvsoot,xH2O,xCO2,xCO,xCH4)
+
+        return kabs, awts
 
 #--------------------------------------------------------------------------------
 
@@ -119,14 +146,14 @@ cdef class pyrad_rcslw(pyrad):
 
     def __cinit__(self, 
                   const int    p_nGG,
-                  const double p_P,
                   const double TbTref,
+                  const double p_P,
+                  const double fvsoot,
                   const double xH2O,
                   const double xCO2,
-                  const double xCO,
-                  const double fvsoot):
+                  const double xCO):
         if type(self) is pyrad_rcslw:
-            self.rad_rcslwptr = self.radptr = new rad_rcslw(p_nGG,p_P,TbTref,xH2O,xCO2,xCO,fvsoot)
+            self.rad_rcslwptr = self.radptr = new rad_rcslw(p_nGG,TbTref,p_P,fvsoot,xH2O,xCO2,xCO)
 
     def __dealloc__(self):
         if type(self) is pyrad_rcslw:

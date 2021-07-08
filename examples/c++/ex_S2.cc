@@ -77,7 +77,7 @@ int main() {
             xCO2[i] = (x[i]<=Lhot) ? xco2_1 : xco2_2;
         }
 
-        rad *rcslw = new rad_rcslw(nGG, P, TT, xh2o, xco2_avg, xco, fvs);
+        rad *rcslw = new rad_rcslw(nGG, TT, P, fvs, xh2o, xco2_avg, xco);
 
         //--------------------- get q, Q
 

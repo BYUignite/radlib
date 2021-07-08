@@ -76,7 +76,7 @@ int main() {
             T[i] = (x[i]<=Lhot) ? Thot : Tcold;
         }
 
-        rad *rcslw = new rad_rcslw(nGG, P, Tavg, xh2o, xco2, xco, fvs);
+        rad *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xh2o, xco2, xco);
 
         //--------------------- get q, Q
 

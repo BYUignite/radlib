@@ -111,7 +111,7 @@ def parallel_planes(RAD,
     awts = np.empty_like(kabs)
 
     for i in range(nx):
-        kabs[i,:], awts[i,:] = RAD.get_k_a(T[i], P, xH2O[i], xCO2[i], xCO[i], xCH4[i], fvsoot[i])
+        kabs[i,:], awts[i,:] = RAD.get_k_a(T[i], P, fvsoot[i], xH2O[i], xCO2[i], xCO[i], xCH4[i])
 
     if LzeroIbc:
         Ilo = np.zeros(RAD.get_nGGa())

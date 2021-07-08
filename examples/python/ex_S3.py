@@ -53,7 +53,7 @@ def ex_S3(method, nGG=24):
     xH2O_avg /= nx
     
     if method=='rcslw':
-        rad = rad_rcslw(nGG, P, Tavg, xH2O_avg, xco2, xco, fvs)
+        rad = rad_rcslw(nGG, Tavg, P, fvs, xH2O_avg, xco2, xco)
     elif method=='wsgg':
         rad = rad_wsgg()
     elif method=='planckmean':

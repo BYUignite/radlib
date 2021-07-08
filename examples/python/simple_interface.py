@@ -28,13 +28,13 @@ fvsoot = 0.0
 
 planckmean = rad_planck_mean()
 wsgg       = rad_wsgg()
-rcslw      = rad_rcslw(4, P, T, xH2O, xCO2, xCO, fvsoot)
+rcslw      = rad_rcslw(4, T, P, fvsoot, xH2O, xCO2, xCO)
 
 #----------------- compute absorption coefficients and weights
 
-kabs_pm,    awts_pm     = planckmean.get_k_a(T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
-kabs_wsgg,  awts_wsgg   = wsgg.get_k_a(      T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
-kabs_rcslw, awts_rcslw  = rcslw.get_k_a(     T, P, xH2O, xCO2, xCO, xCH4, fvsoot)
+kabs_pm,    awts_pm     = planckmean.get_k_a(T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+kabs_wsgg,  awts_wsgg   = wsgg.get_k_a(      T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+kabs_rcslw, awts_rcslw  = rcslw.get_k_a(     T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
 
 #----------------- output results
 
