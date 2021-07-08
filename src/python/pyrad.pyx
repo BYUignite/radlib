@@ -23,16 +23,16 @@ cdef extern from "../c++/rad.h":
                      const double, 
                      const double, 
                      const double) 
-        void get_k_a_1band(double&, 
-                           double&,
-                           const int, 
-                           const double, 
-                           const double, 
-                           const double, 
-                           const double, 
-                           const double, 
-                           const double, 
-                           const double) 
+        void get_k_a_oneband(double&, 
+                             double&,
+                             const int, 
+                             const double, 
+                             const double, 
+                             const double, 
+                             const double, 
+                             const double, 
+                             const double, 
+                             const double) 
 
 #--------------------------------------------------------------------------------
 
@@ -93,20 +93,20 @@ cdef class pyrad:
 
         return np.array(kabs), np.array(awts)
 
-    def get_k_a_1band(self,
-                      int    iband,
-                      double T,
-                      double P,
-                      double fvsoot,
-                      double xH2O,
-                      double xCO2,
-                      double xCO,
-                      double xCH4):
+    def get_k_a_oneband(self,
+                        int    iband,
+                        double T,
+                        double P,
+                        double fvsoot,
+                        double xH2O,
+                        double xCO2,
+                        double xCO,
+                        double xCH4):
         
         cdef double kabs
         cdef double awts
 
-        self.radptr.get_k_a_1band(kabs, awts, iband, T,P,fvsoot,xH2O,xCO2,xCO,xCH4)
+        self.radptr.get_k_a_oneband(kabs, awts, iband, T,P,fvsoot,xH2O,xCO2,xCO,xCH4)
 
         return kabs, awts
 

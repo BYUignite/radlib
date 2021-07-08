@@ -66,8 +66,8 @@ module rad_module
 
         !----------------------------------------------------------------------
 
-        subroutine get_k_a_1band_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4) &
-                bind(C, name="get_k_a_1band_C_interface")
+        subroutine get_k_a_oneband_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4) &
+                bind(C, name="get_k_a_oneband_C_interface")
             import
             type(C_ptr), value           :: rad_ptr
             real(C_double)               :: kabs
@@ -80,7 +80,7 @@ module rad_module
             real(C_double)               :: xCO2
             real(C_double)               :: xCO
             real(C_double)               :: xCH4
-        end subroutine get_k_a_1band_C_interface
+        end subroutine get_k_a_oneband_C_interface
 
         !----------------------------------------------------------------------
 
@@ -88,7 +88,7 @@ module rad_module
 
     !==========================================================================
 
-    public :: rad_planck_mean, rad_wsgg, rad_rcslw, rad_delete, get_k_a, get_k_a_1band
+    public :: rad_planck_mean, rad_wsgg, rad_rcslw, rad_delete, get_k_a, get_k_a_oneband
 
     !==========================================================================
     ! set fortran wrapper routines to the C interface functions
@@ -149,7 +149,7 @@ module rad_module
 
         !----------------------------------------------------------------------
 
-        subroutine get_k_a_1band(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+        subroutine get_k_a_oneband(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
             type(C_ptr),      intent(in)                :: rad_ptr
             double precision, intent(out)               :: kabs
             double precision, intent(out)               :: awts
@@ -161,8 +161,8 @@ module rad_module
             double precision, intent(in)                :: xCO2
             double precision, intent(in)                :: xCO
             double precision, intent(in)                :: xCH4
-            call get_k_a_1band_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
-        end subroutine get_k_a_1band
+            call get_k_a_oneband_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+        end subroutine get_k_a_oneband
 
     !==========================================================================
 

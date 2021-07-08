@@ -63,18 +63,18 @@ extern "C"{
     }
     //-------------------------------------------------------------------------
 
-    void get_k_a_1band_C_interface(rad    *rad_ptr,
-                                   double *kabs,
-                                   double *awts,
-                                   int    *iband,
-                                   double *T,
-                                   double *P,
-                                   double *fvsoot,    
-                                   double *xH2O,
-                                   double *xCO2,
-                                   double *xCO,
-                                   double *xCH4){
+    void get_k_a_oneband_C_interface(rad    *rad_ptr,
+                                     double *kabs,
+                                     double *awts,
+                                     int    *iband,
+                                     double *T,
+                                     double *P,
+                                     double *fvsoot,    
+                                     double *xH2O,
+                                     double *xCO2,
+                                     double *xCO,
+                                     double *xCH4){
 
-        rad_ptr->get_k_a_1band(*kabs, *awts, *iband, *T, *P, *fvsoot, *xH2O, *xCO2, *xCO, *xCH4);
+        rad_ptr->get_k_a_oneband(*kabs, *awts, *iband, *T, *P, *fvsoot, *xH2O, *xCO2, *xCO, *xCH4);
     }
 }

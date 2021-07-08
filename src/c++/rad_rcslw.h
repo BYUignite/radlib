@@ -67,16 +67,16 @@ class rad_rcslw : public rad {
                      const double   xCO,            // mole fraction CO
                      const double   xCH4_not_used); // mole fraction CH4 (interface only, not used)
 
-        void get_k_a_1band(double         &kabs,            // absorption coefficient (1/m)
-                           double         &awts,            // gas weight (sum to one)
-                           const int      iband,            // band/gas to get k_a for
-                           const double   T,                // gas temperature (K)
-                           const double   P_not_used,       // gas pressure (Pa)
-                           const double   fvsoot,           // volume fraction soot (not ppmv)
-                           const double   xH2O,             // mole fraction h2o
-                           const double   xCO2,             // mole fraction co2
-                           const double   xCO,              // mole fraction co
-                           const double   xCH4_not_used);   // mole fraction ch4
+        void get_k_a_oneband(double         &kabs,            // absorption coefficient (1/m)
+                             double         &awts,            // gas weight (sum to one)
+                             const int      iband,            // band/gas to get k_a for
+                             const double   T,                // gas temperature (K)
+                             const double   P_not_used,       // gas pressure (Pa)
+                             const double   fvsoot,           // volume fraction soot (not ppmv)
+                             const double   xH2O,             // mole fraction h2o
+                             const double   xCO2,             // mole fraction co2
+                             const double   xCO,              // mole fraction co
+                             const double   xCH4_not_used);   // mole fraction ch4
 
     private:
 

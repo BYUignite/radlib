@@ -88,19 +88,19 @@ const double rad_wsgg::kh2o[5]={0.000000e+000, 8.047859e-002, 9.557208e-001, 8.0
  * This soot addition was suggested by H. Bordbar.
  */
 
-void rad_wsgg::get_k_a_1band(double       &kabs,
-                             double       &awts,
-                             const int    iband,
-                             const double T_dmb,
-                             const double P,
-                             const double fvsoot,
-                             const double xH2O,
-                             const double xCO2,
-                             const double xCO_not_used,
-                             const double xCH4_not_used){
+void rad_wsgg::get_k_a_oneband(double       &kabs,
+                               double       &awts,
+                               const int    iband,
+                               const double T_dmb,
+                               const double P,
+                               const double fvsoot,
+                               const double xH2O,
+                               const double xCO2,
+                               const double xCO_not_used,
+                               const double xCH4_not_used){
 
     if(iband < 0 || iband >= nGGa) {
-        cerr << "\n\n***** rad_wsgg::get_k_a_1band: iband out of range *****\n" << endl; 
+        cerr << "\n\n***** rad_wsgg::get_k_a_oneband: iband out of range *****\n" << endl; 
         exit(0); 
     }
 
@@ -281,7 +281,7 @@ void rad_wsgg::get_k_a(vector<double> &kabs,
 
     double k, a;
     for(int i=0; i<nGGa; i++){
-        get_k_a_1band(k, a, i, T_dmb, P, fvsoot, xH2O, xCO2, xCO_not_used, xCH4_not_used);
+        get_k_a_oneband(k, a, i, T_dmb, P, fvsoot, xH2O, xCO2, xCO_not_used, xCH4_not_used);
         kabs[i] = k;
         awts[i] = a;
     }

@@ -44,19 +44,19 @@ const double rad_planck_mean::pmCoefs_CH4[5]   = {6.6334, -0.0035686, 1.6682E-08
  *             Reference: Williams, Shaddix, et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
  */
 
-void rad_planck_mean::get_k_a_1band(double       &kabs,
-                                    double       &awts,
-                                    const int    iband,
-                                    const double T,
-                                    const double P,
-                                    const double fvsoot,
-                                    const double xH2O,
-                                    const double xCO2,
-                                    const double xCO,
-                                    const double xCH4){
+void rad_planck_mean::get_k_a_oneband(double       &kabs,
+                                      double       &awts,
+                                      const int    iband,
+                                      const double T,
+                                      const double P,
+                                      const double fvsoot,
+                                      const double xH2O,
+                                      const double xCO2,
+                                      const double xCO,
+                                      const double xCH4){
 
     if(iband != 0) {
-        cerr << "\n\n***** rad_planck_mean::get_k_a_1band: iband should be zero since there is only one band in this model *****\n" << endl; 
+        cerr << "\n\n***** rad_planck_mean::get_k_a_oneband: iband should be zero since there is only one band in this model *****\n" << endl; 
         exit(0); 
     }
 
@@ -143,7 +143,7 @@ void rad_planck_mean::get_k_a(vector<double> &kabs,
     double k;
     double a;
 
-    get_k_a_1band(k, a, 0, T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
+    get_k_a_oneband(k, a, 0, T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
 
     kabs.resize(1);  kabs[0] = k;
     awts.resize(1);  awts[0] = a; 

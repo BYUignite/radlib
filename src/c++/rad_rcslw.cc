@@ -92,19 +92,19 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
  *  @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
  */
 
-void rad_rcslw::get_k_a_1band(double         &kabs,
-                              double         &awts,
-                              const int      iband,
-                              const double   T,
-                              const double   P_not_used,
-                              const double   fvsoot,
-                              const double   xH2O,
-                              const double   xCO2,
-                              const double   xCO,
-                              const double   xCH4_not_used){
+void rad_rcslw::get_k_a_oneband(double         &kabs,
+                                double         &awts,
+                                const int      iband,
+                                const double   T,
+                                const double   P_not_used,
+                                const double   fvsoot,
+                                const double   xH2O,
+                                const double   xCO2,
+                                const double   xCO,
+                                const double   xCH4_not_used){
 
     if(iband < 0 || iband >= nGGa) {
-        cerr << "\n\n***** rad_rcslw::get_k_a_1band: iband out of range *****\n" << endl; 
+        cerr << "\n\n***** rad_rcslw::get_k_a_oneband: iband out of range *****\n" << endl; 
         exit(0); 
     }
 
@@ -193,7 +193,7 @@ void rad_rcslw::get_k_a(vector<double> &kabs,
 
     //double k, a;
     //for(int i=0; i<nGGa; i++){
-    //    get_k_a_1band(k, a, i, T, P, fvsoot, xH2O, xCO2, xCO, xCH4_not_used);
+    //    get_k_a_oneband(k, a, i, T, P, fvsoot, xH2O, xCO2, xCO, xCH4_not_used);
     //    kabs[i] = k;
     //    awts[i] = a;
     //}
