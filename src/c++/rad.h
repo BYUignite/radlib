@@ -44,8 +44,8 @@ class rad {
                              const double   fvsoot,        ///< volume fraction soot (not ppmv)
                              const double   xH2O,          ///< mole fraction h2o
                              const double   xCO2,          ///< mole fraction co2
-                             const double   xCO,           ///< mole fraction co
-                             const double   xCH4)          ///< mole fraction ch4
+                             const double   xCO=0,         ///< mole fraction co
+                             const double   xCH4=0)        ///< mole fraction ch4
                              = 0;                          ///< ABSTRACT BASE CLASS 
 
         virtual void get_k_a_oneband(double         &kabs,   ///< absorption coefficient (1/m)
@@ -56,8 +56,8 @@ class rad {
                                      const double   fvsoot,  ///< volume fraction soot (not ppmv)
                                      const double   xH2O,    ///< mole fraction h2o
                                      const double   xCO2,    ///< mole fraction co2
-                                     const double   xCO,     ///< mole fraction co
-                                     const double   xCH4)    ///< mole fraction ch4
+                                     const double   xCO=0,   ///< mole fraction co
+                                     const double   xCH4=0)  ///< mole fraction ch4
                                      = 0;                    ///< ABSTRACT BASE CLASS 
 
         int get_nGG(){ return nGG; }

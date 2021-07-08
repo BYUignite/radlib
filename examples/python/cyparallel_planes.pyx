@@ -70,13 +70,13 @@ cdef I_IT(np.ndarray[FLOAT, ndim=1] x,
 def parallel_planes(                          RAD,
                     FLOAT                     L,
                     INT                       ntheta, 
-                    FLOAT                     P, 
                     np.ndarray[FLOAT, ndim=1] T,
+                    FLOAT                     P, 
+                    np.ndarray[FLOAT, ndim=1] fvsoot,
                     np.ndarray[FLOAT, ndim=1] xH2O,
                     np.ndarray[FLOAT, ndim=1] xCO2,
                     np.ndarray[FLOAT, ndim=1] xCO,
                     np.ndarray[FLOAT, ndim=1] xCH4,
-                    np.ndarray[FLOAT, ndim=1] fvsoot,
                     bint                      LzeroIbc = False):
     '''
     Compute radiative heat flux (q) and volumetric heat source (Q) profiles between parallel planes.
@@ -118,7 +118,7 @@ def parallel_planes(                          RAD,
     cdef np.ndarray[FLOAT, ndim=1] Ilo, Ihi
 
     for i in range(nx):
-        kabs[i,:], awts[i,:] = RAD.get_k_a(T[i], P, fvsoot[i], xH2O[i], xCO2[i], xCO[i], xCH4[i], fvsoot[i])
+        kabs[i,:], awts[i,:] = RAD.get_k_a(T[i], P, fvsoot[i], xH2O[i], xCO2[i], xCO[i], xCH4[i])
 
     if LzeroIbc:
         Ilo = np.zeros(RAD.get_nGGa())

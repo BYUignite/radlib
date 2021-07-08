@@ -33,6 +33,11 @@ target_sources(            ex_B3.x PRIVATE ex_B3.cc parallel_planes.cc)
 target_include_directories(ex_B3.x PRIVATE "${CMAKE_SOURCE_DIR}/src/c++" "${CMAKE_SOURCE_DIR}/data/rcslw_data")
 target_link_libraries(     ex_B3.x radlib)
 
+add_executable(ex_Sb1.x)
+target_sources(            ex_Sb1.x PRIVATE ex_Sb1.cc parallel_planes.cc)
+target_include_directories(ex_Sb1.x PRIVATE "${CMAKE_SOURCE_DIR}/src/c++" "${CMAKE_SOURCE_DIR}/data/rcslw_data")
+target_link_libraries(     ex_Sb1.x radlib)
+
 install(TARGETS simple_interface.x
                 ex_S1.x
                 ex_S2.x
@@ -40,4 +45,5 @@ install(TARGETS simple_interface.x
                 ex_S4.x
                 ex_S5.x
                 ex_B3.x
+                ex_Sb1.x
         DESTINATION "${CMAKE_CURRENT_SOURCE_DIR}")

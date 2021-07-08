@@ -83,8 +83,8 @@ cdef class pyrad:
                 double fvsoot,
                 double xH2O,
                 double xCO2,
-                double xCO,
-                double xCH4):
+                double xCO=0.0,
+                double xCH4=0.0):
         
         cdef vector[double] kabs
         cdef vector[double] awts
@@ -100,8 +100,8 @@ cdef class pyrad:
                         double fvsoot,
                         double xH2O,
                         double xCO2,
-                        double xCO,
-                        double xCH4):
+                        double xCO=0.0,
+                        double xCH4=0.0):
         
         cdef double kabs
         cdef double awts

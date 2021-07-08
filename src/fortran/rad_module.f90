@@ -142,9 +142,17 @@ module rad_module
             double precision, intent(in)                :: fvsoot
             double precision, intent(in)                :: xH2O
             double precision, intent(in)                :: xCO2
-            double precision, intent(in)                :: xCO
-            double precision, intent(in)                :: xCH4
-            call get_k_a_C_interface(rad_ptr, kabs, awts, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+            double precision, intent(in), optional      :: xCO
+            double precision, intent(in), optional      :: xCH4
+            
+            double precision :: xxCO
+            double precision :: xxCH4
+
+            xxCO  = merge(xCO,  0.0d0, present(xCO))
+            xxCH4 = merge(xCH4, 0.0d0, present(xCH4))
+
+
+            call get_k_a_C_interface(rad_ptr, kabs, awts, T, P, fvsoot, xH2O, xCO2, xxCO, xxCH4)
         end subroutine get_k_a
 
         !----------------------------------------------------------------------
@@ -159,9 +167,16 @@ module rad_module
             double precision, intent(in)                :: fvsoot
             double precision, intent(in)                :: xH2O
             double precision, intent(in)                :: xCO2
-            double precision, intent(in)                :: xCO
-            double precision, intent(in)                :: xCH4
-            call get_k_a_oneband_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+            double precision, intent(in), optional      :: xCO
+            double precision, intent(in), optional      :: xCH4
+
+            double precision :: xxCO
+            double precision :: xxCH4
+
+            xxCO  = merge(xCO,  0.0d0, present(xCO))
+            xxCH4 = merge(xCH4, 0.0d0, present(xCH4))
+
+            call get_k_a_oneband_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xxCO, xxCH4)
         end subroutine get_k_a_oneband
 
     !==========================================================================

@@ -29,6 +29,9 @@ int main() {
     vector<double> kabs_pm, kabs_wsgg, kabs_rcslw;
     vector<double> awts_pm, awts_wsgg, awts_rcslw;
 
+    double k;
+    double a;
+
     //----------------- create radiation objects
 
     rad *planckmean = new rad_planck_mean();
@@ -38,8 +41,8 @@ int main() {
     //----------------- compute absorption coefficients and weights
 
     planckmean->get_k_a(kabs_pm, awts_pm,       T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
-    wsgg->get_k_a(      kabs_wsgg, awts_wsgg,   T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
-    rcslw->get_k_a(     kabs_rcslw, awts_rcslw, T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
+    wsgg->get_k_a(      kabs_wsgg, awts_wsgg,   T, P, fvsoot, xH2O, xCO2);
+    rcslw->get_k_a(     kabs_rcslw, awts_rcslw, T, P, fvsoot, xH2O, xCO2, xCO);
 
     //----------------- output results
 
@@ -58,20 +61,29 @@ int main() {
     cout << endl;
     cout << endl << "Planck Mean:";
     cout << endl << "   kabs (1/m),   awts";
-    for(int i=0; i<kabs_pm.size(); i++)
+    for(int i=0; i<kabs_pm.size(); i++) {
         cout << endl << setw(14) << kabs_pm[i] << setw(14) << awts_pm[i];
+        //planckmean->get_k_a_oneband(k, a, i, T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
+        //cout << endl << setw(14) << k << setw(14) << a;
+    }
 
     cout << endl;
     cout << endl << "WSGG:";
     cout << endl << "   kabs (1/m),   awts";
-    for(int i=0; i<kabs_wsgg.size(); i++)
+    for(int i=0; i<kabs_wsgg.size(); i++) {
         cout << endl << setw(14) << kabs_wsgg[i] << setw(14) << awts_wsgg[i];
+        //wsgg->get_k_a_oneband(k, a, i, T, P, fvsoot, xH2O, xCO2);
+        //cout << endl << setw(14) << k << setw(14) << a;
+    }
 
     cout << endl;
     cout << endl << "RCSLW:";
     cout << endl << "   kabs (1/m),   awts";
-    for(int i=0; i<kabs_rcslw.size(); i++)
+    for(int i=0; i<kabs_rcslw.size(); i++) {
         cout << endl << setw(14) << kabs_rcslw[i] << setw(14) << awts_rcslw[i];
+        //rcslw->get_k_a_oneband(k, a, i, T, P, fvsoot, xH2O, xCO2, xCO);
+        //cout << endl << setw(14) << k << setw(14) << a;
+    }
 
     //----------------- cleanup
 

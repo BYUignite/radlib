@@ -28,6 +28,9 @@ program simple_interface_fort
     double precision, dimension(5) :: kabs_rcslw
     double precision, dimension(5) :: awts_rcslw
 
+    double precision :: k
+    double precision :: a
+
     type(C_ptr)                    :: r_pm
     type(C_ptr)                    :: r_wsgg
     type(C_ptr)                    :: r_rcslw
@@ -47,8 +50,8 @@ program simple_interface_fort
     !------------------ compute absorption coefficients and weights
 
     call get_k_a(r_pm,    kabs_pm, awts_pm,       T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
-    call get_k_a(r_wsgg , kabs_wsgg, awts_wsgg,   T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
-    call get_k_a(r_rcslw, kabs_rcslw, awts_rcslw, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+    call get_k_a(r_wsgg , kabs_wsgg, awts_wsgg,   T, P, fvsoot, xH2O, xCO2)
+    call get_k_a(r_rcslw, kabs_rcslw, awts_rcslw, T, P, fvsoot, xH2O, xCO2, xCO)
 
     !------------------ output results
 
@@ -67,12 +70,16 @@ program simple_interface_fort
     write(*,*) "Planck Mean:"
     write(*,*) "   kabs (1/m),   awts"
     write(*,fmt2) kabs_pm(1), awts_pm(1)
+    !call get_k_a_oneband(r_pm,    k, a, 0,       T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+    !write(*,fmt2) k, a
 
     write(*,*)
     write(*,*) "WSGG:"
     write(*,*) "   kabs (1/m),   awts"
     do i = 1, 5
         write(*,fmt2) kabs_wsgg(i), awts_wsgg(i)
+        !call get_k_a_oneband(r_wsgg,    k, a, i-1,      T, P, fvsoot, xH2O, xCO2)
+        !write(*,fmt2) k, a
     enddo
 
     write(*,*)
@@ -80,6 +87,8 @@ program simple_interface_fort
     write(*,*) "   kabs (1/m),   awts"
     do i = 1, 5
         write(*,fmt2) kabs_rcslw(i), awts_rcslw(i)
+        !call get_k_a_oneband(r_rcslw,    k, a, i-1,      T, P, fvsoot, xH2O, xCO2, xCO)
+        !write(*,fmt2) k, a
     enddo
 
 end program simple_interface_fort

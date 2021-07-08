@@ -62,7 +62,7 @@ def ex_S2(method, nGG=24):
             xCO2[i] = xco2_1 if x[i] <= Lhot else xco2_2
     
         if method=='rcslw':
-            rad = rad_rcslw(nGG, P, TT, xh2o, xco2_avg, xco, fvs)
+            rad = rad_rcslw(nGG, TT, P, fvs, xh2o, xco2_avg, xco)
         elif method=='wsgg':
             rad = rad_wsgg()
         elif method=='planckmean':
@@ -72,7 +72,7 @@ def ex_S2(method, nGG=24):
     
         #--------------------- get q, Q
     
-        x, xQ, q, Q = parallel_planes(rad, L, ntheta, P, T, xH2O, xCO2, xCO, xCH4, fvsoot, True)
+        x, xQ, q, Q = parallel_planes(rad, L, ntheta, T, P, fvsoot, xH2O, xCO2, xCO, xCH4, True)
     
         #-------------------------------------------------------------------------
     

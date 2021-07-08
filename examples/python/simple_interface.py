@@ -33,8 +33,8 @@ rcslw      = rad_rcslw(4, T, P, fvsoot, xH2O, xCO2, xCO)
 #----------------- compute absorption coefficients and weights
 
 kabs_pm,    awts_pm     = planckmean.get_k_a(T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
-kabs_wsgg,  awts_wsgg   = wsgg.get_k_a(      T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
-kabs_rcslw, awts_rcslw  = rcslw.get_k_a(     T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+kabs_wsgg,  awts_wsgg   = wsgg.get_k_a(      T, P, fvsoot, xH2O, xCO2)
+kabs_rcslw, awts_rcslw  = rcslw.get_k_a(     T, P, fvsoot, xH2O, xCO2, xCO)
 
 #----------------- output results
 
@@ -50,16 +50,22 @@ print()
 print("Planck Mean:")
 print("   kabs (1/m),   awts")
 for i in range(len(kabs_pm)):
-    print(f"{kabs_pm[i]:14.8f}{awts_pm[i]:14.8f}")
+    #print(f"{kabs_pm[i]:14.8f}{awts_pm[i]:14.8f}")
+    k, a = planckmean.get_k_a_oneband(i, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
+    print(f"{k:14.8f}{a:14.8f}")
 
 print()
 print("WSGG:")
 print("   kabs (1/m),   awts")
 for i in range(len(kabs_wsgg)):
-    print(f"{kabs_wsgg[i]:14.8f}{awts_wsgg[i]:14.8f}")
+    #print(f"{kabs_wsgg[i]:14.8f}{awts_wsgg[i]:14.8f}")
+    k, a = wsgg.get_k_a_oneband(i, T, P, fvsoot, xH2O, xCO2)
+    print(f"{k:14.8f}{a:14.8f}")
 
 print()
 print("RCSLW:")
 print("   kabs (1/m),   awts")
 for i in range(len(kabs_rcslw)):
-    print(f"{kabs_rcslw[i]:14.8f}{awts_rcslw[i]:14.8f}")
+    #print(f"{kabs_rcslw[i]:14.8f}{awts_rcslw[i]:14.8f}")
+    k, a = rcslw.get_k_a_oneband(i, T, P, fvsoot, xH2O, xCO2, xCO)
+    print(f"{k:14.8f}{a:14.8f}")

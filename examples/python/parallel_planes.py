@@ -66,13 +66,13 @@ def I_IT(x:     NDArray[Any],
 def parallel_planes(RAD,
                     L:        float,
                     ntheta:   int, 
-                    P:        float, 
                     T:        NDArray[Any],
+                    P:        float, 
+                    fvsoot:   NDArray[Any],
                     xH2O:     NDArray[Any],
                     xCO2:     NDArray[Any],
                     xCO:      NDArray[Any],
                     xCH4:     NDArray[Any],
-                    fvsoot:   NDArray[Any],
                     LzeroIbc: bool = False) -> Tuple[NDArray[Any], NDArray[Any], NDArray[Any], NDArray[Any]]:
     '''
     Compute radiative heat flux (q) and volumetric heat source (Q) profiles between parallel planes.

@@ -74,7 +74,7 @@ def ex_S1(method, nGG=24):
     
         #--------------------- get q, Q
     
-        x, xQ, q, Q = parallel_planes(rad, L, ntheta, P, T, xH2O, xCO2, xCO, xCH4, fvsoot, True)
+        x, xQ, q, Q = parallel_planes(rad, L, ntheta, T, P, fvsoot, xH2O, xCO2, xCO, xCH4, True)
     
         #-------------------------------------------------------------------------
     

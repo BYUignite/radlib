@@ -55,7 +55,7 @@ def ex_Sb1(method, fvs, nGG=24):
     
     #------------------- get q, Q
     
-    x, xQ, q, Q = parallel_planes(rad, L, ntheta, P, T, xH2O, xCO2, xCO, xCH4, fvsoot, True)
+    x, xQ, q, Q = parallel_planes(rad, L, ntheta, T, P, fvsoot, xH2O, xCO2, xCO, xCH4, True)
     
     print("# x (m), Q (kW/m3)")
     for i in range(len(xQ)):
@@ -74,4 +74,4 @@ def ex_Sb1(method, fvs, nGG=24):
 ################################################################################
     
 if __name__=='__main__':
-    xQ, Q = ex_S3('rcslw', 24)
+    xQ, Q = ex_Sb1('rcslw', 1.0E-7, 24)

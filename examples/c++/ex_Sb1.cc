@@ -12,13 +12,13 @@ using namespace std;
 void parallel_planes(rad                  *RAD,
                      const double         L,
                      const int            ntheta,
-                     const double         P, 
                      const vector<double> &T,
+                     const double         P, 
+                     const vector<double> &fvsoot,
                      const vector<double> &xH2O,
                      const vector<double> &xCO2,
                      const vector<double> &xCO,
                      const vector<double> &xCH4,
-                     const vector<double> &fvsoot,
                      vector<double>       &q,
                      vector<double>       &Q,
                      vector<double>       &x,
@@ -69,7 +69,7 @@ int main() {
     vector<double> q;    
     vector<double> Q;
 
-    parallel_planes(rcslw, L, ntheta, P, T, xH2O, xCO2, xCO, xCH4, fvsoot, q, Q, x, xQ, true);
+    parallel_planes(rcslw, L, ntheta, T, P, fvsoot, xH2O, xCO2, xCO, xCH4, q, Q, x, xQ, true);
 
     //-------------------------------------------------------------------------
 

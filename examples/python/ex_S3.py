@@ -63,7 +63,7 @@ def ex_S3(method, nGG=24):
     
     #------------------- get q, Q
     
-    x, xQ, q, Q = parallel_planes(rad, L, ntheta, P, T, xH2O, xCO2, xCO, xCH4, fvsoot)
+    x, xQ, q, Q = parallel_planes(rad, L, ntheta, T, P, fvsoot, xH2O, xCO2, xCO, xCH4)
     
     print("# x (m), Q (kW/m3)")
     for i in range(len(xQ)):
