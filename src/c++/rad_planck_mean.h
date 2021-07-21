@@ -15,7 +15,7 @@
  *  A single "gas" is assumed.
  *  This is a simple, commonly used model in combustion, but is best for 
  *  situations that are optically thin with small radiative fractions.
- *  get_k_a is the primary interface.
+ *  get_k_a, and get_k_a_oneband are the primary interfaces.
  */
 
 class rad_planck_mean : public rad {

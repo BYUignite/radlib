@@ -15,7 +15,7 @@
 
 /** Class implementing rad object.
  * Abstract base class upon which specific radiation property models are built.
- * get_k_a is the primary interface.
+ * get_k_a, and get_k_a_oneband are the primary interfaces.
  */
 
 class rad {

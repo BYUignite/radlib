@@ -15,7 +15,7 @@
  *  Radiation properties for the Rank Correlated, SLW model.
  *  A variable number of gray gases may be used.
  *  This is a very accurate model, but somewhat more expensive to compute than others.
- *  get_k_a is the primary interface.
+ *  get_k_a, and get_k_a_oneband are the primary interfaces.
  */
 
 class rad_rcslw : public rad {

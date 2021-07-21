@@ -4,10 +4,10 @@ find_package(Doxygen)
 if(DOXYGEN_FOUND)
     add_custom_target(docs
         COMMENT "Building doxygen documentation"
-        COMMAND rm -rf ../../docs/doxygen/html
-        COMMAND mkdir  ../../docs/doxygen/html
-        COMMAND doxygen -s ../../docs/Doxyfile
-        WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
+        COMMAND rm -rf doxygen/html
+        COMMAND mkdir  doxygen/html
+        COMMAND doxygen -s Doxyfile
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         VERBATIM
     )
 else()

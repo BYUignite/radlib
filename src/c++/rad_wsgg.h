@@ -14,7 +14,7 @@
  *  Radiation properties for the WSGG model (Bordbar 2020).
  *  Four gray gases and one clear gas are assumed.
  *  This is somewhat less accurate than the RCSLW model, but less computationally expensive.
- *  get_k_a is the primary interface.
+ *  get_k_a, and get_k_a_oneband are the primary interfaces.
  */
 
 class rad_wsgg : public rad {
