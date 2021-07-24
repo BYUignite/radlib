@@ -1,5 +1,5 @@
-#find_package(Python3 COMPONENTS Interpreter Development)
-find_package(Python3 COMPONENTS Interpreter)
+find_program(Python3_EXECUTABLE NAMES python python3)
+#find_package(Python3 COMPONENTS Interpreter)
 
 if (Python3_EXECUTABLE AND BUILD_PYTHON_INTERFACE)
 
