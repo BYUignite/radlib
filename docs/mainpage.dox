@@ -45,15 +45,24 @@ The code is intended to be built on Linux and MacOS systems, (or the Linux subsy
 * A Fortran (Fortran 90 or above) compiler to build the (optional) Fortran interface,
 * Matplotlib, Numpy, and Jupyter (optional) to run the Python examples.
 
-To build the code, the user edits the ```build/user_config``` file to set the installation location, and a flag indicating if the Python interface is to be built (on by default). The default installation location is ```radlib/installed```. The commands run are
+To build the code, the user creates and enters a top-level ```build``` directory, then runs 
 ```
-cmake -C user_config ../source
+cmake ..
 make
 make install
-make doxygen
 ```
 
-To run the python interface, the PYTHONPATH environment variable needs to be updated to include the Python module location. This is detailed upon successful installation of the code.
+The top-level ```CMakeLists.txt``` file has build options that can be set at the top of the file. These options can also be set at the command line, for instance
+```
+cmake -DBUILD_PYTHON_INTERFACE=OFF ..
+```
+
+The default installation directory is ```radlib/installed```, but this can be changed through the ```CMAKE_INSTALL_PREFIX``` variable.
+
+To run the python interface, the PYTHONPATH environment variable needs to be updated to include the Python module location. This is detailed upon successful installation of the code, for instance:
+```
+export PYTHONPATH="/home/user/codes/radlib/installed/lib/python3.8/site-packages:$PYTHONPATH"
+```
 
 ## Code Ocean Capsule
 A Code Ocean capsule is available that provides a fully executable version of the code. 
