@@ -55,35 +55,21 @@ const double rad_wsgg::kco2[5]={0.000000e+000, 3.388079e-002, 4.544269e-001, 4.6
 
 const double rad_wsgg::kh2o[5]={0.000000e+000, 7.703541e-002, 8.242941e-001, 6.854761e+000, 6.593653e+001};
 
-//const double rad_wsgg::bco2[20]={8.495135e-001, -1.496812e+000, 1.361406e+000, -5.551699e-001, 8.076589e-002,
-//                                 -1.103102e-001, 9.363958e-001, -1.250799e+000, 6.527827e-001, -1.206959e-001,
-//                                 1.731716e-001, -5.174223e-001, 8.256840e-001, -4.998864e-001, 1.008743e-001,
-//                                 3.995426e-002, 1.423006e-001, -1.649481e-001, 5.140768e-002, -3.497246e-003};
-//
-//const double rad_wsgg::bh2o[20]={6.670204e-001, -1.228413e+000, 1.428908e+000, -6.267906e-001, 9.628539e-002,
-//                                 2.343433e-001, -3.192256e-001, 8.867348e-001, -5.927787e-001, 1.185824e-001,
-//                                 -1.793041e-001, 1.683454e+000, -2.136989e+000, 1.020422e+000, -1.723960e-001,
-//                                 3.455969e-001, -7.510442e-001, 6.313180e-001, -2.416500e-001, 3.530972e-002};
-//
-//const double rad_wsgg::kco2[5]={0.000000e+000, 3.272772e-002, 4.229655e-001, 4.905367e+000, 1.085440e+002};
-//
-//const double rad_wsgg::kh2o[5]={0.000000e+000, 8.047859e-002, 9.557208e-001, 8.005283e+001, 7.613186e+001};
-
 ///////////////////////////////////////////////////////////////////////////////
 /** **This is the class interface function**
  *  Given the gas state, set the k and a vectors.
  *  These can then be accessed by the user.
  *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
- *  @param kabs            \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
- *  @param awts            \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
- *  @param iband  \input which band to compute
- *  @param T      \input gas temperature (K)
- *  @param P      \input pressure (Pa)
- *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
- *  @param xH2O   \input mole fraction H2O
- *  @param xCO2   \input mole fraction CO2
- *  @param xCO    \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- *  @param xCH4   \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+ *  @param kabs           \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
+ *  @param awts           \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
+ *  @param iband          \input which band to compute
+ *  @param T_dmb          \input gas temperature (K)
+ *  @param P              \input pressure (Pa)
+ *  @param fvsoot         \input soot volume fraction = rho*Ysoot/rhosoot
+ *  @param xH2O           \input mole fraction H2O
+ *  @param xCO2           \input mole fraction CO2
+ *  @param xCO_not_used   \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+ *  @param xCH4_not_used  \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
  * 
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
  * 
@@ -250,15 +236,15 @@ void rad_wsgg::get_k_a_oneband(double       &kabs,
  *  Given the gas state, set the k and a vectors.
  *  These can then be accessed by the user.
  *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
- *  @param kabs   \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
- *  @param awts   \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
- *  @param T      \input gas temperature (K)
- *  @param P      \input pressure (Pa)
- *  @param fvsoot \input soot volume fraction = rho*Ysoot/rhosoot
- *  @param xH2O   \input mole fraction H2O
- *  @param xCO2   \input mole fraction CO2
- *  @param xCO    \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- *  @param xCH4   \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+ *  @param kabs          \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
+ *  @param awts          \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
+ *  @param T_dmb         \input gas temperature (K)
+ *  @param P             \input pressure (Pa)
+ *  @param fvsoot        \input soot volume fraction = rho*Ysoot/rhosoot
+ *  @param xH2O          \input mole fraction H2O
+ *  @param xCO2          \input mole fraction CO2
+ *  @param xCO_not_used  \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+ *  @param xCH4_not_used \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
  * 
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
  * 

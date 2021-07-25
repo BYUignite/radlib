@@ -290,22 +290,6 @@ SUBGROUPING            = YES
 
 TYPEDEF_HIDES_STRUCT   = NO
 
-# The SYMBOL_CACHE_SIZE determines the size of the internal cache use to
-# determine which symbols to keep in memory and which to flush to disk.
-# When the cache is full, less often used symbols will be written to disk.
-# For small to medium size projects (<1000 input files) the default value is
-# probably good enough. For larger projects a too small cache size can cause
-# doxygen to be busy swapping symbols to and from disk most of the time
-# causing a significant performance penality.
-# If the system has enough physical memory increasing the cache will improve the
-# performance by keeping more symbols in memory. Note that the value works on
-# a logarithmic scale so increasing the size by one will rougly double the
-# memory usage. The cache size is given by this formula:
-# 2^(16+SYMBOL_CACHE_SIZE). The valid range is 0..9, the default is 0,
-# corresponding to a cache size of 2^16 = 65536 symbols
-
-SYMBOL_CACHE_SIZE      = 0
-
 #---------------------------------------------------------------------------
 # Build related configuration options
 #---------------------------------------------------------------------------
@@ -499,12 +483,6 @@ MAX_INITIALIZER_LINES  = 1
 # list will mention the files that were used to generate the documentation.
 
 SHOW_USED_FILES        = YES
-
-# If the sources in your project are distributed over multiple directories
-# then setting the SHOW_DIRECTORIES tag to YES will show the directory hierarchy
-# in the documentation. The default is NO.
-
-SHOW_DIRECTORIES       = YES
 
 # Set the SHOW_FILES tag to NO to disable the generation of the Files page.
 # This will remove the Files entry from the Quick Index and from the
@@ -841,12 +819,6 @@ HTML_STYLESHEET        =
 
 HTML_TIMESTAMP         = NO
 
-# If the HTML_ALIGN_MEMBERS tag is set to YES, the members of classes,
-# files or namespaces will be aligned in HTML using tables. If set to
-# NO a bullet list will be used.
-
-HTML_ALIGN_MEMBERS     = YES
-
 # If the HTML_DYNAMIC_SECTIONS tag is set to YES then the generated HTML
 # documentation will contain sections that can be hidden and shown after the
 # page has loaded. For this to work a browser that supports
@@ -1012,11 +984,6 @@ ENUM_VALUES_PER_LINE   = 4
 
 GENERATE_TREEVIEW      = NO
 
-# By enabling USE_INLINE_TREES, doxygen will generate the Groups, Directories,
-# and Class Hierarchy pages using a tree view instead of an ordered list.
-
-USE_INLINE_TREES       = NO
-
 # If the treeview is enabled (see GENERATE_TREEVIEW) then this tag can be
 # used to set the initial width (in pixels) of the frame in which the tree
 # is shown.
@@ -1090,7 +1057,7 @@ COMPACT_LATEX          = NO
 # by the printer. Possible values are: a4, a4wide, letter, legal and
 # executive. If left blank a4wide will be used.
 
-PAPER_TYPE             = a4wide
+PAPER_TYPE             = letter
 
 # The EXTRA_PACKAGES tag can be to specify one or more names of LaTeX
 # packages that should be included in the LaTeX output.
@@ -1223,18 +1190,6 @@ GENERATE_XML           = NO
 # put in front of it. If left blank `xml' will be used as the default path.
 
 XML_OUTPUT             = xml
-
-# The XML_SCHEMA tag can be used to specify an XML schema,
-# which can be used by a validating XML parser to check the
-# syntax of the XML files.
-
-XML_SCHEMA             =
-
-# The XML_DTD tag can be used to specify an XML DTD,
-# which can be used by a validating XML parser to check the
-# syntax of the XML files.
-
-XML_DTD                =
 
 # If the XML_PROGRAMLISTING tag is set to YES Doxygen will
 # dump the program listings (including syntax highlighting
@@ -1392,11 +1347,6 @@ ALLEXTERNALS           = NO
 
 EXTERNAL_GROUPS        = YES
 
-# The PERL_PATH should be the absolute path and name of the perl script
-# interpreter (i.e. the result of `which perl').
-
-PERL_PATH              = /usr/bin/perl
-
 #---------------------------------------------------------------------------
 # Configuration options related to the dot tool
 #---------------------------------------------------------------------------
@@ -1409,15 +1359,6 @@ PERL_PATH              = /usr/bin/perl
 # powerful graphs.
 
 CLASS_DIAGRAMS         = YES
-
-# You can define message sequence charts within doxygen comments using the \msc
-# command. Doxygen will then run the mscgen tool (see
-# http://www.mcternan.me.uk/mscgen/) to produce the chart and insert it in the
-# documentation. The MSCGEN_PATH tag allows you to specify the directory where
-# the mscgen tool resides. If left empty the tool is assumed to be found in the
-# default search path.
-
-MSCGEN_PATH            =
 
 # If set to YES, the inheritance and collaboration graphs will hide
 # inheritance and usage relations if the target is undocumented
@@ -1441,7 +1382,7 @@ HAVE_DOT               = YES
 # DOTFONTPATH environment variable or by setting DOT_FONTPATH to the directory
 # containing the font.
 
-DOT_FONTNAME           = FreeSans
+DOT_FONTNAME           = 
 
 # The DOT_FONTSIZE tag can be used to set the size of the font of dot graphs.
 # The default size is 10pt.

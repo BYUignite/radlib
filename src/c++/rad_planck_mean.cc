@@ -26,12 +26,12 @@ const double rad_planck_mean::pmCoefs_CH4[5]   = {6.6334, -0.0035686, 1.6682E-08
  *  @param awts            \output weight (unitless; sums to 1); size = 1 here (1 gas)
  *  @param iband           \input which band to compute (PM only has one band, so this is not used here)
  *  @param T               \input gas temperature
- *  @param P_not_used      \input Pressure (Pa)
+ *  @param P               \input Pressure (Pa)
+ *  @param fvsoot          \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O            \input mole fraction H2O
  *  @param xCO2            \input mole fraction CO2
  *  @param xCO             \input mole fraction CO
- *  @param xCH4_not_used   \input mole fraction CH4
- *  @param fvsoot          \input soot volume fraction = rho*Ysoot/rhosoot
+ *  @param xCH4            \input mole fraction CH4
  *  
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
  * 
@@ -116,12 +116,12 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
  *  @param kabs            \output absorption coefficients (1/m); size = 1 here (1 gas)
  *  @param awts            \output weights (unitless; sums to 1); size = 1 here (1 gas)
  *  @param T               \input gas temperature
- *  @param P_not_used      \input Pressure (Pa)
+ *  @param P               \input Pressure (Pa)
  *  @param fvsoot          \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O            \input mole fraction H2O
  *  @param xCO2            \input mole fraction CO2
  *  @param xCO             \input mole fraction CO
- *  @param xCH4_not_used   \input mole fraction CH4
+ *  @param xCH4            \input mole fraction CH4
  *  
  *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
  * 
