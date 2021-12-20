@@ -22,10 +22,3 @@ elseif(!Python3_EXECUTABLE AND BUILD_PYTHON_INTERFACE)
     message([FATAL_ERROR] "Python not found")
 
 endif()
-
-get_cmake_property(_variableNames VARIABLES)
-list (SORT _variableNames)
-foreach (_variableName ${_variableNames})
-    message(STATUS "${_variableName}=${${_variableName}}")
-endforeach()
-
