@@ -3,7 +3,7 @@ add_executable(writebin.x writebin.cc)
 add_custom_command(TARGET writebin.x POST_BUILD
                    COMMAND writebin.x
                    COMMENT "\nWRITING BINARY RCSLW DATA FILES IN data/rcslw_data"
-                   WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
+                   WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
                    VERBATIM
                   )
 

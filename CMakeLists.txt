@@ -7,10 +7,8 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_BINARY_DIR "${CMAKE_SOURCE_DIR}/build")
 
-############################### PROJECT OPTIONS ###############################
-
-# ---- set installation location ----
-set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/installed" CACHE STRING "installation location")
+# ---- installation location ----
+set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}")
 
 # ---- interface options ----
 option(BUILD_PYTHON_INTERFACE   "build python interface" ON)

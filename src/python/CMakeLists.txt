@@ -3,8 +3,8 @@ find_program(Python3_EXECUTABLE NAMES python python3)
 
 if (Python3_EXECUTABLE AND BUILD_PYTHON_INTERFACE)
 
-    set(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
-    set(SETUP_PY    "${CMAKE_CURRENT_SOURCE_DIR}/setup.py")
+    set(SETUP_PY_IN "${CMAKE_CURRENT_LIST_DIR}/setup.py.in")
+    set(SETUP_PY    "${CMAKE_CURRENT_LIST_DIR}/setup.py")
     configure_file(${SETUP_PY_IN} ${SETUP_PY})
 
     set(OUTPUT      "${CMAKE_BINARY_DIR}/python")
