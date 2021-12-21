@@ -19,4 +19,3 @@ elseif(!Python3_EXECUTABLE AND BUILD_PYTHON_EXAMPLES)
     message([FATAL_ERROR] "Python not found")
 
 endif()
-
