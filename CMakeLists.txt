@@ -1,11 +1,20 @@
+################### PREAMBLE ###############################
+
 cmake_minimum_required(VERSION 3.15)
+
+project(radlib VERSION 2.0.0
+        LANGUAGES CXX)
+
+################### PROJECT-WIDE SETUP #######################
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)      # Release or Debug
 endif()
 
+# ---- set C++ language standard ----
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_BINARY_DIR "${CMAKE_SOURCE_DIR}/build")
+set(CMAKE_CXX_STANDARD_REQUIRED YES)
+set(CMAKE_CXX_EXTENSIONS NO)
 
 # ---- installation location ----
 set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}")
@@ -22,53 +31,40 @@ option(BUILD_FORTRAN_EXAMPLES   "Build Fortran examples" OFF)
 # ---- option to build documentation ----
 option(BUILD_DOCS "Build radlib docs" OFF)
 
-############################### RADLIB ###############################
+################### MAIN PROJECT TARGETS #####################
 
-project(radlib
-        VERSION 1.0
-        LANGUAGES CXX)
+# -------- RCSLW data library --------
+get_filename_component(INSTALLED_RCSLW_DATA_DIR "${PROJECT_SOURCE_DIR}/data/rcslw_data" ABSOLUTE)
+add_subdirectory(data/rcslw_data)
 
-# ------------- RCSLW data files -----------------
+# -------- C++ executable --------
+add_subdirectory(src/c++)
 
-get_filename_component(INSTALLED_RCSLW_DATA_DIR "${CMAKE_INSTALL_PREFIX}/rcslw_data" ABSOLUTE)
-add_subdirectory(data/rcslw_data "${CMAKE_CURRENT_BINARY_DIR}/data/rcslw_data")
+################### OPTIONAL PROJECT TARGETS #################
 
-# ------------- C++ main code -----------------
-
-add_subdirectory(src/c++ "${CMAKE_CURRENT_BINARY_DIR}/src/c++")
-
-
-# ------------- PYTHON INTERFACE -----------------
-if (BUILD_PYTHON_INTERFACE)
-    add_subdirectory(src/python "${CMAKE_CURRENT_BINARY_DIR}/src/python")
+# -------- C++ EXAMPLES --------
+if (BUILD_CXX_EXAMPLES)
+    add_subdirectory(examples/c++)
 endif()
 
-# ------------- FORTRAN INTERFACE -----------------
+# -------- PYTHON INTERFACE + EXAMPLES --------
+if (BUILD_PYTHON_INTERFACE)
+    add_subdirectory(src/python)
+    if (BUILD_PYTHON_EXAMPLES)
+        add_subdirectory(examples/python)
+    endif()
+endif()
+
+# -------- FORTRAN INTERFACE + EXAMPLES --------
 if (BUILD_FORTRAN_INTERFACE)
     enable_language(Fortran)
-    add_subdirectory(src/fortran "${CMAKE_CURRENT_BINARY_DIR}/src/fortran")
+    add_subdirectory(src/fortran)
+    if (BUILD_FORTRAN_EXAMPLES)
+        add_subdirectory(examples/fortran)
+    endif()
 endif()
 
-# ---- allow radlib to be used in other targets ----
-target_include_directories(radlib PUBLIC
-        "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
-        "$<INSTALL_INTERFACE:include>"
-        )
-
-############################### EXAMPLES ###############################
-
-if (BUILD_CXX_EXAMPLES)
-    add_subdirectory(examples/c++ "${CMAKE_CURRENT_BINARY_DIR}/examples/c++")
-ENDIF()
-if (BUILD_FORTRAN_EXAMPLES AND BUILD_FORTRAN_INTERFACE)
-    add_subdirectory(examples/fortran "${CMAKE_CURRENT_BINARY_DIR}/examples/fortran")
-endif()
-if (BUILD_PYTHON_EXAMPLES AND BUILD_PYTHON_INTERFACE)
-    add_subdirectory(examples/python "${CMAKE_CURRENT_BINARY_DIR}/examples/python")
-endif()
-
-############################### DOCUMENTATION ###########################
-
+# -------- DOCUMENTATION --------
 if (BUILD_DOCS)
-    add_subdirectory(docs "${CMAKE_CURRENT_BINARY_DIR}/docs")
+    add_subdirectory(docs)
 endif()
