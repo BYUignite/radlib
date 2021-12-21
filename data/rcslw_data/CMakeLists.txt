@@ -1,7 +1,23 @@
-add_executable(writebin.x writebin.cc)
+############# RCSLW_DATA LIBRARY ################
 
-add_custom_command(TARGET writebin.x POST_BUILD
-                   COMMAND writebin.x
+add_library(RCSLW_data STATIC co2_p0_1.bin co2_p0_25.bin co2_p0_5.bin co2_p15_0.bin co2_p1_0.bin
+                              co2_p2_0.bin co2_p30_0.bin co2_p4_0.bin co2_p50_0.bin co2_p8_0.bin
+                              co_p0_1.bin  co_p0_25.bin  co_p0_5.bin  co_p15_0.bin  co_p1_0.bin
+                              co_p2_0.bin  co_p30_0.bin  co_p4_0.bin  co_p50_0.bin  co_p8_0.bin
+                              h2o_p0_1.bin h2o_p0_25.bin h2o_p0_5.bin h2o_p15_0.bin h2o_p1_0.bin
+                              h2o_p2_0.bin h2o_p30_0.bin h2o_p4_0.bin h2o_p50_0.bin h2o_p8_0.bin)
+
+# -------- library alias for use as imported target --------
+add_library(radlib::RCSLW_data ALIAS RCSLW_data)
+
+set_target_properties(RCSLW_data PROPERTIES LINKER_LANGUAGE CXX)
+
+############# WRITEBIN EXECUTABLE ################
+
+add_executable(rcslw_writebin EXCLUDE_FROM_ALL writebin.cc)
+
+add_custom_command(TARGET rcslw_writebin POST_BUILD
+                   COMMAND rcslw_writebin
                    COMMENT "\nWRITING BINARY RCSLW DATA FILES IN data/rcslw_data"
                    WORKING_DIRECTORY "${CMAKE_CURRENT_LIST_DIR}"
                    VERBATIM
