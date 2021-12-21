@@ -11,13 +11,13 @@ set(CMAKE_BINARY_DIR "${CMAKE_SOURCE_DIR}/build")
 set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}")
 
 # ---- interface options ----
-option(BUILD_PYTHON_INTERFACE   "build python interface" ON)
-option(BUILD_FORTRAN_INTERFACE  "build fortran interface" ON)
+option(BUILD_PYTHON_INTERFACE   "build python interface" OFF)
+option(BUILD_FORTRAN_INTERFACE  "build fortran interface" OFF)
 
-# ---- options to build examples (consistency with corresponding interface is checked) ----
-option(BUILD_CXX_EXAMPLES       "Build C++ examples" ON)
-option(BUILD_PYTHON_EXAMPLES    "Build Python examples" ON)
-option(BUILD_FORTRAN_EXAMPLES   "Build Fortran examples" ON)
+# ---- options to build examples ----
+option(BUILD_CXX_EXAMPLES       "Build C++ examples" OFF)
+option(BUILD_PYTHON_EXAMPLES    "Build Python examples" OFF)
+option(BUILD_FORTRAN_EXAMPLES   "Build Fortran examples" OFF)
 
 # ---- option to build documentation ----
 option(BUILD_DOCS "Build radlib docs" OFF)
