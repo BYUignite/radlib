@@ -36,7 +36,7 @@ int main() {
 
     rad *planckmean = new rad_planck_mean();
     rad *wsgg       = new rad_wsgg();
-    rad *rcslw      = new rad_rcslw(4, T, P, fvsoot, xH2O, xCO2, xCO);
+    rad *rcslw      = new rad_rcslw(4);
 
     //----------------- compute absorption coefficients and weights
 

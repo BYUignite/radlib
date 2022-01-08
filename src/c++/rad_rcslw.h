@@ -99,15 +99,8 @@ class rad_rcslw : public rad {
     
     public: 
     
-        rad_rcslw(const int    p_nGG,
-                  const double TbTref,
-                  const double p_P,
-                  const double fvsoot,
-                  const double xH2O,
-                  const double xCO2,
-                  const double xCO);
+        rad_rcslw(const int p_nGG);
 
         virtual ~rad_rcslw(){}
 
 };
-
