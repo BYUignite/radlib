@@ -1,3 +1,14 @@
+# Publication
+
+This code is described in the following publication:  
+> V.B. Stephens, S. Jensen, I. Wheeler, D.O. Lignell, “RadLib: a radiative heat transfer model library for CFD,” Computer Physics Communications, [272:108227](https://doi.org/10.1016/j.cpc.2021.108227), (2022).
+
+A [Code Ocean Capsule](https://codeocean.com/capsule/0997975/tree/v2) is also available.
+
+A [youtube video](https://www.youtube.com/watch?v=z82ENE5fPoE) demonstrates building the code and running examples.
+
+------------------------------------------------------------------
+
 # Building RadLib
 
 ------------------------------------------------------------------
