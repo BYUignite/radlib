@@ -20,16 +20,16 @@ set(CMAKE_CXX_EXTENSIONS NO)
 set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}")
 
 # ---- interface options ----
-option(BUILD_PYTHON_INTERFACE   "build python interface" OFF)
-option(BUILD_FORTRAN_INTERFACE  "build fortran interface" OFF)
+option(RADLIB_BUILD_PYTHON_INTERFACE   "build python interface" OFF)
+option(RADLIB_BUILD_FORTRAN_INTERFACE  "build fortran interface" OFF)
 
 # ---- options to build examples ----
-option(BUILD_CXX_EXAMPLES       "Build C++ examples" OFF)
-option(BUILD_PYTHON_EXAMPLES    "Build Python examples" OFF)
-option(BUILD_FORTRAN_EXAMPLES   "Build Fortran examples" OFF)
+option(RADLIB_BUILD_CXX_EXAMPLES       "Build C++ examples" OFF)
+option(RADLIB_BUILD_PYTHON_EXAMPLES    "Build Python examples" OFF)
+option(RADLIB_BUILD_FORTRAN_EXAMPLES   "Build Fortran examples" OFF)
 
 # ---- option to build documentation ----
-option(BUILD_DOCS "Build radlib docs" OFF)
+option(RADLIB_BUILD_DOCS "Build radlib docs" OFF)
 
 ################### MAIN PROJECT TARGETS #####################
 
@@ -43,28 +43,28 @@ add_subdirectory(src/c++)
 ################### OPTIONAL PROJECT TARGETS #################
 
 # -------- C++ EXAMPLES --------
-if (BUILD_CXX_EXAMPLES)
+if (RADLIB_BUILD_CXX_EXAMPLES)
     add_subdirectory(examples/c++)
 endif()
 
 # -------- PYTHON INTERFACE + EXAMPLES --------
-if (BUILD_PYTHON_INTERFACE)
+if (RADLIB_BUILD_PYTHON_INTERFACE)
     add_subdirectory(src/python)
-    if (BUILD_PYTHON_EXAMPLES)
+    if (RADLIB_BUILD_PYTHON_EXAMPLES)
         add_subdirectory(examples/python)
     endif()
 endif()
 
 # -------- FORTRAN INTERFACE + EXAMPLES --------
-if (BUILD_FORTRAN_INTERFACE)
+if (RADLIB_BUILD_FORTRAN_INTERFACE)
     enable_language(Fortran)
     add_subdirectory(src/fortran)
-    if (BUILD_FORTRAN_EXAMPLES)
+    if (RADLIB_BUILD_FORTRAN_EXAMPLES)
         add_subdirectory(examples/fortran)
     endif()
 endif()
 
 # -------- DOCUMENTATION --------
-if (BUILD_DOCS)
+if (RADLIB_BUILD_DOCS)
     add_subdirectory(docs)
 endif()

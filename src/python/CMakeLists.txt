@@ -1,7 +1,7 @@
 find_program(Python3_EXECUTABLE NAMES python python3)
 #find_package(Python3 COMPONENTS Interpreter)
 
-if (Python3_EXECUTABLE AND BUILD_PYTHON_INTERFACE)
+if (Python3_EXECUTABLE AND RADLIB_BUILD_PYTHON_INTERFACE)
 
     set(SETUP_PY_IN "${CMAKE_CURRENT_LIST_DIR}/setup.py.in")
     set(SETUP_PY    "${CMAKE_CURRENT_LIST_DIR}/setup.py")
@@ -17,7 +17,7 @@ if (Python3_EXECUTABLE AND BUILD_PYTHON_INTERFACE)
 
     install(CODE "execute_process(COMMAND ${Python3_EXECUTABLE} ${SETUP_PY} install --prefix=${CMAKE_INSTALL_PREFIX})")
 
-elseif(!Python3_EXECUTABLE AND BUILD_PYTHON_INTERFACE)
+elseif(!Python3_EXECUTABLE AND RADLIB_BUILD_PYTHON_INTERFACE)
 
     message([FATAL_ERROR] "Python not found")
 

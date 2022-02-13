@@ -1,4 +1,4 @@
-if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
+if (CMAKE_Fortran_COMPILER AND RADLIB_BUILD_FORTRAN_INTERFACE)
 
     add_library(radlib_fortran)
 
@@ -24,7 +24,7 @@ if (CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
             DESTINATION cmake/radlib_fortran
             )
 
-elseif(!CMAKE_Fortran_COMPILER AND BUILD_FORTRAN_INTERFACE)
+elseif(!CMAKE_Fortran_COMPILER AND RADLIB_BUILD_FORTRAN_INTERFACE)
 
     message([FATAL_ERROR] "No Fortran compiler found")
 
