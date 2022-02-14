@@ -12,6 +12,18 @@ add_library(radlib::radProps ALIAS radProps)    # alias for use as imported targ
 target_compile_features(radProps PUBLIC cxx_std_11)
 set_target_properties(radProps PROPERTIES PUBLIC_HEADER "rad.h;rad_planck_mean.h;rad_rcslw.h;rad_wsgg.h;multilinear_interpolation.h")
 
+# -------- preprocessor directives --------
+
+if(RADLIB_WARN_MODEL_BOUNDS)
+    message(STATUS "Warnings for out-of-bounds model inputs enabled")
+    add_compile_definitions(MODEL_BOUNDS_WARININGS)
+endif()
+
+if(RADLIB_STRICT_MODEL_BOUNDS)
+    message(STATUS "Program termination for out-of-bounds model inputs enabled")
+    add_compile_definitions(MODEL_BOUNDS_ERRORS)
+endif()
+
 # -------- dependencies --------
 target_link_libraries(radProps PRIVATE RCSLW_data)
 

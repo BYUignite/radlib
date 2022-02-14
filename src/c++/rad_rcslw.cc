@@ -61,11 +61,11 @@ rad_rcslw::rad_rcslw(const int p_nGG) : rad(p_nGG, p_nGG + 1){
  *  These can then be accessed by the user.
  * 
  *  Return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
- *  @param kabs            \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
- *  @param awts            \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
+ *  @param &kabs           \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
+ *  @param &awts           \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
  *  @param iband           \input which band to compute
- *  @param T               \input  gas temperature
- *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
+ *  @param p_T             \input  gas temperature
+ *  @param p_P             \input  Pressure (Pa)
  *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O            \input  mole fraction H2O
  *  @param xCO2            \input  mole fraction CO2
@@ -85,7 +85,7 @@ void rad_rcslw::get_k_a_oneband(double         &kabs,
                                 const double   xCH4_not_used){
 
     if(iband < 0 || iband >= nGGa) {
-        cerr << "\n\n***** rad_rcslw::get_k_a_oneband: iband out of range *****\n" << endl; 
+        cerr << "\n***** ERROR rad_rcslw::get_k_a_oneband: iband out of range *****\n" << endl;
         exit(0); 
     }
 
@@ -93,6 +93,19 @@ void rad_rcslw::get_k_a_oneband(double         &kabs,
     Tref     = p_T;
     Tb       = p_T;
     double T = p_T;
+
+#ifdef MODEL_BOUNDS_WARININGS
+    if(T < 300.0 || T > 3000.0)
+        cerr << "\n***** WARNING rad_rcslw::get_k_a_oneband: T is out of range 300-2500 K *****\n" << endl;
+    if(P < 0.1 || P > 50.0)
+        cerr << "\n***** WARNING rad_rcslw::get_k_a_oneband: P is out of range 0.1-50 atm *****\n" << endl;
+#endif
+#ifdef MODEL_BOUNDS_ERRORS
+    if(T < 300.0 || T > 3000.0)
+        exit(0);
+    if(P < 0.1 || P > 50.0)
+        exit(0);
+#endif
 
     set_Falbdf_CO2_CO_H2O_at_P();
 
@@ -162,6 +175,19 @@ void rad_rcslw::get_k_a(vector<double> &kabs,
     Tref     = p_T;
     Tb       = p_T;
     double T = p_T;
+
+#ifdef MODEL_BOUNDS_WARININGS
+    if(T < 300.0 || T > 3000.0)
+        cerr << "\n***** WARNING rad_rcslw::get_k_a: T is out of range 300-2500 K *****\n" << endl;
+    if(P < 0.1 || P > 50.0)
+        cerr << "\n***** WARNING rad_rcslw::get_k_a: P is out of range 0.1-50 atm *****\n" << endl;
+#endif
+#ifdef MODEL_BOUNDS_ERRORS
+    if(T < 300.0 || T > 3000.0)
+        exit(0);
+    if(P < 0.1 || P > 50.0)
+        exit(0);
+#endif
 
     set_Falbdf_CO2_CO_H2O_at_P();
 
@@ -296,7 +322,7 @@ double rad_rcslw::get_FI_albdf(const double F, const double Tg, const double Tb,
 
    int iMi = (iLo+iHi)/2;
    if(it == maxit){
-       cout << "WARNING, NO CONVERGENCE IN" << maxit << "iterations" << "\n";
+       cout << "WARNING: NO CONVERGENCE IN" << maxit << "iterations" << "\n";
        return C_table[iMi] ;
    }
 
@@ -337,7 +363,7 @@ double rad_rcslw::get_FI_albdf(const double F, const double Tg, const double Tb,
 void rad_rcslw::set_Fpts(){
 
     if(nGG > 25){
-        cout << endl << "ERROR: nGG too high for quadrature: nGG max is currently 25" << endl;
+        cout << endl << "ERROR: nGG too high for quadrature. nGG max = 25" << endl;
         exit(0);
     }
 
@@ -431,7 +457,7 @@ void rad_rcslw::set_Falbdf_CO2_CO_H2O_at_P(){
     double f;
 
     if(P < P_table[0] || P > P_table.back() ) {
-        cout << "Pressure = " << P << " atm is out of range\n";
+        cerr << "ERROR Pressure = " << P << " atm is out of range\n";
         exit(0);
     }
     else if(P==P_table[0]){
@@ -529,7 +555,7 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
     ifstream ifile;
     ifile.open(Ptable_file_name, ios::out | ios::binary);
     if(!ifile){
-        cout << endl << "error opening file: " << Ptable_file_name << endl;
+        cout << endl << "Error opening file: " << Ptable_file_name << endl;
         exit(0);
     }
     float data;
@@ -559,7 +585,7 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
     ifstream ifile;
     ifile.open(Ptable_file_name, ios::out | ios::binary);
     if(!ifile){
-        cout << endl << "error opening file: " << Ptable_file_name << endl;
+        cout << endl << "Error opening file: " << Ptable_file_name << endl;
         exit(0);
     }
     float data;
