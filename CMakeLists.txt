@@ -31,6 +31,10 @@ option(RADLIB_BUILD_FORTRAN_EXAMPLES   "Build Fortran examples" OFF)
 # ---- option to build documentation ----
 option(RADLIB_BUILD_DOCS "Build radlib docs" OFF)
 
+# ---- option for strict model bounds ----
+option(RADLIB_WARN_MODEL_BOUNDS     ""      ON)
+option(RADLIB_STRICT_MODEL_BOUNDS   ""      OFF)
+
 ################### MAIN PROJECT TARGETS #####################
 
 # -------- RCSLW data library --------

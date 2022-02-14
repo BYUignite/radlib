@@ -60,8 +60,8 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
         exit(0); 
     }
     if(T < 300.0 || T > 2500.0) {
-        cerr << "\n\n***** rad_planck_mean::get_k_a_oneband: T is out of range 300-2500 K *****\n" << endl; 
-        exit(0); 
+        cerr << "\n\n***** WARNING rad_planck_mean::get_k_a_oneband: T is out of range 300-2500 K *****\n" << endl;
+//        exit(0);
     }
 
     kabs = 0.0;
