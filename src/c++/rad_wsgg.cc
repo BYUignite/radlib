@@ -102,18 +102,9 @@ void rad_wsgg::get_k_a_oneband(double       &kabs,
                                const double xCH4_not_used){
 
     if(iband < 0 || iband >= nGGa) {
-        cerr << "\n\n***** ERROR rad_wsgg::get_k_a_oneband: iband out of range *****\n" << endl;
+        cerr << "\n\n***** rad_wsgg::get_k_a_oneband: iband out of range *****\n" << endl; 
         exit(0); 
     }
-
-#ifdef MODEL_BOUNDS_WARININGS
-    if(T_dmb < 300.0 || T_dmb > 2400.0)
-        cerr << "\n***** WARNING rad_rcslw::get_k_a_oneband: T is out of range 300-2500 K *****\n" << endl;
-#endif
-#ifdef MODEL_BOUNDS_ERRORS
-    if(T_dmb < 300.0 || T_dmb > 2400.0)
-        exit(0);
-#endif
 
     //------------------------
 
@@ -285,6 +276,7 @@ void rad_wsgg::get_k_a(vector<double> &kabs,
                        const double   xCH4_not_used){
 
     //------------------------
+
 
     kabs.resize(nGGa);
     awts.resize(nGGa);

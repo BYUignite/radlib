@@ -20,20 +20,20 @@ set(CMAKE_CXX_EXTENSIONS NO)
 set(CMAKE_INSTALL_PREFIX "${PROJECT_SOURCE_DIR}")
 
 # ---- interface options ----
-option(RADLIB_BUILD_PYTHON_INTERFACE   "build python interface"     OFF)
-option(RADLIB_BUILD_FORTRAN_INTERFACE  "build fortran interface"    OFF)
+option(RADLIB_BUILD_PYTHON_INTERFACE   "build python interface" OFF)
+option(RADLIB_BUILD_FORTRAN_INTERFACE  "build fortran interface" OFF)
 
 # ---- options to build examples ----
-option(RADLIB_BUILD_CXX_EXAMPLES       "Build C++ examples"         OFF)
-option(RADLIB_BUILD_PYTHON_EXAMPLES    "Build Python examples"      OFF)
-option(RADLIB_BUILD_FORTRAN_EXAMPLES   "Build Fortran examples"     OFF)
+option(RADLIB_BUILD_CXX_EXAMPLES       "Build C++ examples" OFF)
+option(RADLIB_BUILD_PYTHON_EXAMPLES    "Build Python examples" OFF)
+option(RADLIB_BUILD_FORTRAN_EXAMPLES   "Build Fortran examples" OFF)
 
 # ---- option to build documentation ----
-option(RADLIB_BUILD_DOCS                "Build radlib docs"         OFF)
+option(RADLIB_BUILD_DOCS "Build radlib docs" OFF)
 
 # ---- option for strict model bounds ----
-option(RADLIB_WARN_MODEL_BOUNDS         "Enables warnings when model inputs are out of bounds"                 ON)
-option(RADLIB_STRICT_MODEL_BOUNDS       "Throws error and terminates when model inputs are out of bounds"      OFF)
+option(RADLIB_WARN_MODEL_BOUNDS     ""      ON)
+option(RADLIB_STRICT_MODEL_BOUNDS   ""      OFF)
 
 ################### MAIN PROJECT TARGETS #####################
 
