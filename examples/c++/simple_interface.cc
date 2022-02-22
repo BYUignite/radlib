@@ -34,9 +34,9 @@ int main() {
 
     //----------------- create radiation objects
 
-    rad *planckmean = new rad_planck_mean();
-    rad *wsgg       = new rad_wsgg();
-    rad *rcslw      = new rad_rcslw(4, T, P, fvsoot, xH2O, xCO2, xCO);
+    radPropModel *planckmean = new rad_planck_mean();
+    radPropModel *wsgg       = new rad_wsgg();
+    radPropModel *rcslw      = new rad_rcslw(4, T, P, fvsoot, xH2O, xCO2, xCO);
 
     //----------------- compute absorption coefficients and weights
 

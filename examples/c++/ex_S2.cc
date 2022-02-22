@@ -6,11 +6,11 @@
 #include <iostream>
 #include <cmath>         // pow
 #include "../../src/c++/rad_rcslw.h"
-#include "../../src/c++/rad.h"
+#include "../../src/c++/radPropModel.h"
 
 using namespace std;
 
-void parallel_planes(rad                  *RAD,
+void parallel_planes(radPropModel                  *RAD,
                      const double         L,
                      const int            ntheta,
                      const vector<double> &T,
@@ -77,7 +77,7 @@ int main() {
             xCO2[i] = (x[i]<=Lhot) ? xco2_1 : xco2_2;
         }
 
-        rad *rcslw = new rad_rcslw(nGG, TT, P, fvs, xh2o, xco2_avg, xco);
+        radPropModel *rcslw = new rad_rcslw(nGG, TT, P, fvs, xh2o, xco2_avg, xco);
 
         //--------------------- get q, Q
 
@@ -88,7 +88,7 @@ int main() {
 
         //-------------------------------------------------------------------------
 
-        cout << endl << Lcold[iLcold] << "  " << q[nx-1]/rad::sigma/pow(TT,4.0);
+        cout << endl << Lcold[iLcold] << "  " << q[nx-1]/radPropModel::sigma/pow(TT,4.0);
 
     } // end loop over Lcold
 
@@ -97,4 +97,3 @@ int main() {
     return 0;
 
 }
-

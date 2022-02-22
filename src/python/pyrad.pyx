@@ -9,9 +9,9 @@ import numpy as np
 
 #================================================================================
 
-cdef extern from "../c++/rad.h":
-    cdef cppclass rad:
-        rad(int, int) except +
+cdef extern from "../c++/radPropModel.h":
+    cdef cppclass radPropModel:
+        radPropModel(int, int) except +
         int get_nGG()
         int get_nGGa()
         void get_k_a(vector[double]&, 
@@ -37,19 +37,19 @@ cdef extern from "../c++/rad.h":
 #--------------------------------------------------------------------------------
 
 cdef extern from "../c++/rad_planck_mean.h":
-    cdef cppclass rad_planck_mean(rad):
+    cdef cppclass rad_planck_mean(radPropModel):
         rad_planck_mean() except +
 
 #--------------------------------------------------------------------------------
 
 cdef extern from "../c++/rad_wsgg.h":
-    cdef cppclass rad_wsgg(rad):
+    cdef cppclass rad_wsgg(radPropModel):
         rad_wsgg() except +
 
 #--------------------------------------------------------------------------------
 
 cdef extern from "../c++/rad_rcslw.h":
-    cdef cppclass rad_rcslw(rad):
+    cdef cppclass rad_rcslw(radPropModel):
         rad_rcslw(const int,
                   const double,
                   const double,
@@ -62,7 +62,7 @@ cdef extern from "../c++/rad_rcslw.h":
 
 cdef class pyrad:
 
-    cdef rad *radptr
+    cdef radPropModel *radptr
 
     def __cinit__(self): #, int nGG, int nGGa):
         pass
@@ -158,4 +158,3 @@ cdef class pyrad_rcslw(pyrad):
     def __dealloc__(self):
         if type(self) is pyrad_rcslw:
             del self.rad_rcslwptr
-

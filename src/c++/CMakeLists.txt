@@ -1,7 +1,7 @@
 ############# RADPROPS LIBRARY ################
 
 # -------- library targets --------
-add_library(radProps rad.h
+add_library(radProps radPropModel.h
                      rad_planck_mean.cc rad_planck_mean.h
                      rad_wsgg.cc rad_wsgg.h
                      rad_rcslw.cc rad_rcslw.h
@@ -10,7 +10,7 @@ add_library(radlib::radProps ALIAS radProps)    # alias for use as imported targ
 
 # -------- target properties --------
 target_compile_features(radProps PUBLIC cxx_std_11)
-set_target_properties(radProps PROPERTIES PUBLIC_HEADER "rad.h;rad_planck_mean.h;rad_rcslw.h;rad_wsgg.h;multilinear_interpolation.h")
+set_target_properties(radProps PROPERTIES PUBLIC_HEADER "radPropModel.h;rad_planck_mean.h;rad_rcslw.h;rad_wsgg.h;multilinear_interpolation.h")
 
 # -------- dependencies --------
 target_link_libraries(radProps PRIVATE RCSLW_data)
