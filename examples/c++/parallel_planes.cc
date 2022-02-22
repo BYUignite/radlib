@@ -5,7 +5,7 @@
 
 #include <cmath>          // M_PI, sin, cos
 #include <iostream>   //doldb
-#include "../../src/c++/rad.h"
+#include "../../src/c++/radPropModel.h"
 
 
 

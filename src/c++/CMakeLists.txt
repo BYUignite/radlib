@@ -1,7 +1,7 @@
 ############# RADPROPS LIBRARY ################
 
 # -------- library targets --------
-add_library(radProps rad.h
+add_library(radProps radPropModel.h
                      rad_planck_mean.cc rad_planck_mean.h
                      rad_wsgg.cc rad_wsgg.h
                      rad_rcslw.cc rad_rcslw.h

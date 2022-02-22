@@ -6,7 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include "../../src/c++/rad_rcslw.h"
-#include "../../src/c++/rad.h"
+#include "../../src/c++/radPropModel.h"
 
 
 using namespace std;
@@ -99,4 +99,3 @@ int main() {
     return 0;
 
 }
-

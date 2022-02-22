@@ -1,6 +1,6 @@
 /**
- * @file rad.h
- * Header file for class rad
+ * @file radPropModel.h
+ * Header file for class radPropModel
  * \brief Abstract base class
  */
 
@@ -13,12 +13,12 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 
-/** Class implementing rad object.
+/** Class implementing radPropModel object.
  * Abstract base class upon which specific radiation property models are built.
  * get_k_a, and get_k_a_oneband are the primary interfaces.
  */
 
-class rad {
+class radPropModel {
 
 
     //////////////////// DATA MEMBERS //////////////////////
@@ -67,12 +67,12 @@ class rad {
     
     public: 
     
-        rad(const int p_nGG, const int p_nGGa) {
+        radPropModel(const int p_nGG, const int p_nGGa) {
             nGG  = p_nGG;
             nGGa = p_nGGa;
         }
 
-        virtual ~rad(){}
+        virtual ~radPropModel(){}
 
 };
 

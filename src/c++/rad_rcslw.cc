@@ -34,7 +34,7 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
                      const double xH2O,
                      const double xCO2,
                      const double xCO) :
-        rad(p_nGG, p_nGG + 1){
+        radPropModel(p_nGG, p_nGG + 1){
 
     P     = p_P/101325;      // atm
     Tref  = TbTref;
@@ -619,4 +619,3 @@ double rad_rcslw::F_albdf_soot(const double C, const double Tg, const double Tb,
     }
     return 1.0 - 15.0/pow(M_PI,4)*sum;
 }
-

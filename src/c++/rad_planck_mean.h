@@ -6,7 +6,7 @@
 #pragma once
 
 #include <vector>
-#include "rad.h"
+#include "radPropModel.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@
  *  get_k_a, and get_k_a_oneband are the primary interfaces.
  */
 
-class rad_planck_mean : public rad {
+class rad_planck_mean : public radPropModel {
 
     //////////////////// DATA MEMBERS //////////////////////
 
@@ -60,6 +60,6 @@ class rad_planck_mean : public rad {
     public: 
     
         rad_planck_mean()
-            : rad(1, 1){}
+            : radPropModel(1, 1){}
 
 };
