@@ -6,11 +6,11 @@
 #include <iostream>
 #include <cmath>         // M_PI
 #include "../../src/c++/rad_rcslw.h"
-#include "../../src/c++/rad.h"
+#include "../../src/c++/radPropModel.h"
 
 using namespace std;
 
-void parallel_planes(rad                  *RAD,
+void parallel_planes(radPropModel                  *RAD,
                      const double         L,
                      const int            ntheta,
                      const vector<double> &T,
@@ -67,8 +67,8 @@ int main() {
     }
     Tavg /= nx;
 
-    //rad *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xh2o, xco2, xco); // TT gives better results than Tavg
-    rad *rcslw = new rad_rcslw(nGG, TT, P, fvs, xh2o, xco2, xco);     // TT gives better results than Tavg 
+    //radPropModel *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xh2o, xco2, xco); // TT gives better results than Tavg
+    radPropModel *rcslw = new rad_rcslw(nGG, TT, P, fvs, xh2o, xco2, xco);     // TT gives better results than Tavg
 
     //--------------------- get q, Q
 
@@ -92,4 +92,3 @@ int main() {
     return 0;
 
 }
-

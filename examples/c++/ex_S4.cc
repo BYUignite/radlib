@@ -5,11 +5,11 @@
 
 #include <iostream>
 #include "../../src/c++/rad_rcslw.h"
-#include "../../src/c++/rad.h"
+#include "../../src/c++/radPropModel.h"
 
 using namespace std;
 
-void parallel_planes(rad                  *RAD,
+void parallel_planes(radPropModel                  *RAD,
                      const double         L,
                      const int            ntheta,
                      const vector<double> &T,
@@ -72,8 +72,8 @@ int main() {
     }
     Tavg /= nx;
 
-    //rad *rcslw = new rad_rcslw(nGG, Tmax, P, fvs, xh2o, xco2, xco);   // CHANGE: use T=Tmax or T=Tavg for plot
-    rad *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xh2o, xco2, xco);    // CHANGE: use T=Tmax or T=Tavg for plot
+    //radPropModel *rcslw = new rad_rcslw(nGG, Tmax, P, fvs, xh2o, xco2, xco);   // CHANGE: use T=Tmax or T=Tavg for plot
+    radPropModel *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xh2o, xco2, xco);    // CHANGE: use T=Tmax or T=Tavg for plot
 
     //--------------------- get q, Q
 
@@ -97,4 +97,3 @@ int main() {
     return 0;
 
 }
-

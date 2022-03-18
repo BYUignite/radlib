@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "rad.h"
+#include "radPropModel.h"
 #include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,7 +17,7 @@
  *  get_k_a, and get_k_a_oneband are the primary interfaces.
  */
 
-class rad_wsgg : public rad {
+class rad_wsgg : public radPropModel {
 
     //////////////////// DATA MEMBERS //////////////////////
 
@@ -60,7 +60,7 @@ class rad_wsgg : public rad {
     public: 
     
         rad_wsgg()
-            : rad(4, 5){}
+            : radPropModel(4, 5){}
 
         virtual ~rad_wsgg(){}
 

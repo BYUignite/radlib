@@ -5,11 +5,11 @@
 
 #include <iostream>
 #include "rad_rcslw.h"
-#include "rad.h"
+#include "radPropModel.h"
 
 using namespace std;
 
-void parallel_planes(rad                  *RAD,
+void parallel_planes(radPropModel         *RAD,
                      const double         L,
                      const int            ntheta,
                      const vector<double> &T,
@@ -62,7 +62,7 @@ int main() {
         x[i] = x[i-1] + dx;
     }
 
-    rad *rcslw = new rad_rcslw(nGG, Tconst, P, fvs, xh2o, xco2, xco);
+    radPropModel *rcslw = new rad_rcslw(nGG, Tconst, P, fvs, xh2o, xco2, xco);
 
     //--------------------- get q, Q
 
@@ -86,4 +86,3 @@ int main() {
     return 0;
 
 }
-

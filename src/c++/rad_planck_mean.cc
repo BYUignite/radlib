@@ -25,8 +25,8 @@ const double rad_planck_mean::pmCoefs_CH4[5]   = {6.6334, -0.0035686, 1.6682E-08
  *  @param kabs            \output absorption coefficient (1/m); size = 1 here (1 gas)
  *  @param awts            \output weight (unitless; sums to 1); size = 1 here (1 gas)
  *  @param iband           \input which band to compute (PM only has one band, so this is not used here)
- *  @param T               \input gas temperature
- *  @param P               \input Pressure (Pa)
+ *  @param p_T             \input gas temperature
+ *  @param p_P             \input Pressure (Pa)
  *  @param fvsoot          \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O            \input mole fraction H2O
  *  @param xCO2            \input mole fraction CO2
@@ -47,8 +47,8 @@ const double rad_planck_mean::pmCoefs_CH4[5]   = {6.6334, -0.0035686, 1.6682E-08
 void rad_planck_mean::get_k_a_oneband(double       &kabs,
                                       double       &awts,
                                       const int    iband,
-                                      const double T,
-                                      const double P,
+                                      const double p_T,
+                                      const double p_P,
                                       const double fvsoot,
                                       const double xH2O,
                                       const double xCO2,
@@ -59,10 +59,15 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
         cerr << "\n\n***** rad_planck_mean::get_k_a_oneband: iband should be zero since there is only one band in this model *****\n" << endl; 
         exit(0); 
     }
-    if(T < 300.0 || T > 2500.0) {
-        cerr << "\n\n***** WARNING rad_planck_mean::get_k_a_oneband: T is out of range 300-2500 K *****\n" << endl;
+//    if(p_T < 300.0 || p_T > 2500.0) {
+//        cerr << "\n\n***** rad_planck_mean::get_k_a_oneband: T is out of range 300-2500 K *****\n" << endl;
 //        exit(0);
-    }
+//    }
+
+    double T;
+    if (p_T < 300.0) T = 300.0;
+    else if (p_T > 2500.0) T = 2500.0;
+    else T = p_T;
 
     kabs = 0.0;
     awts = 1.0;
@@ -74,14 +79,14 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
 
     if(xH2O != 0.0){
         K = pmCoefs_H2O[0] + Ti*(pmCoefs_H2O[1] + Ti*(pmCoefs_H2O[2] + Ti*(pmCoefs_H2O[3] + Ti*(pmCoefs_H2O[4] + Ti*(pmCoefs_H2O[5])))));
-        kabs += xH2O*P/101325.0*K;
+        kabs += xH2O*p_P/101325.0*K;
     }
 
     //------------- CO2
 
     if(xCO2 != 0.0){
         K = pmCoefs_CO2[0] + Ti*(pmCoefs_CO2[1] + Ti*(pmCoefs_CO2[2] + Ti*(pmCoefs_CO2[3] + Ti*(pmCoefs_CO2[4] + Ti*(pmCoefs_CO2[5])))));
-        kabs += xCO2*P/101325.0*K;
+        kabs += xCO2*p_P/101325.0*K;
     }
 
     //------------- CO
@@ -91,14 +96,14 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
             K = pmCoefs_CO_lo[0] + T*(pmCoefs_CO_lo[1] + T*(pmCoefs_CO_lo[2] + T*(pmCoefs_CO_lo[3] + T*(pmCoefs_CO_lo[4]))));
         else
             K = pmCoefs_CO_hi[0] + T*(pmCoefs_CO_hi[1] + T*(pmCoefs_CO_hi[2] + T*(pmCoefs_CO_hi[3] + T*(pmCoefs_CO_hi[4]))));
-        kabs += xCO*P/101325.0*K;
+        kabs += xCO*p_P/101325.0*K;
     }
 
     //------------- CH4
 
     if(xCH4 != 0.0){
         K = pmCoefs_CH4[0] + T*(pmCoefs_CH4[1] + T*(pmCoefs_CH4[2] + T*(pmCoefs_CH4[3] + T*(pmCoefs_CH4[4]))));
-        kabs += xCH4*P/101325.0*K;
+        kabs += xCH4*p_P/101325.0*K;
     }
 
     //------------- soot
@@ -115,8 +120,8 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
  *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
  *  @param kabs            \output absorption coefficients (1/m); size = 1 here (1 gas)
  *  @param awts            \output weights (unitless; sums to 1); size = 1 here (1 gas)
- *  @param T               \input gas temperature
- *  @param P               \input Pressure (Pa)
+ *  @param p_T             \input gas temperature
+ *  @param p_P             \input Pressure (Pa)
  *  @param fvsoot          \input soot volume fraction = rho*Ysoot/rhosoot
  *  @param xH2O            \input mole fraction H2O
  *  @param xCO2            \input mole fraction CO2
@@ -136,8 +141,8 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
 
 void rad_planck_mean::get_k_a(vector<double> &kabs,
                               vector<double> &awts,
-                              const double   T,
-                              const double   P,
+                              const double   p_T,
+                              const double   p_P,
                               const double   fvsoot,
                               const double   xH2O,
                               const double   xCO2,
@@ -147,7 +152,7 @@ void rad_planck_mean::get_k_a(vector<double> &kabs,
     double k;
     double a;
 
-    get_k_a_oneband(k, a, 0, T, P, fvsoot, xH2O, xCO2, xCO, xCH4);
+    get_k_a_oneband(k, a, 0, p_T, p_P, fvsoot, xH2O, xCO2, xCO, xCH4);
 
     kabs.resize(1);  kabs[0] = k;
     awts.resize(1);  awts[0] = a; 

@@ -7,7 +7,7 @@
 
 #include <string>
 #include <vector> 
-#include "rad.h"
+#include "radPropModel.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -18,7 +18,7 @@
  *  get_k_a, and get_k_a_oneband are the primary interfaces.
  */
 
-class rad_rcslw : public rad {
+class rad_rcslw : public radPropModel {
 
 
     //////////////////// DATA MEMBERS //////////////////////
@@ -99,7 +99,13 @@ class rad_rcslw : public rad {
     
     public: 
     
-        rad_rcslw(const int p_nGG);
+        rad_rcslw(const int    p_nGG,
+                  const double TbTref,
+                  const double p_P,
+                  const double fvsoot,
+                  const double xH2O,
+                  const double xCO2,
+                  const double xCO);
 
         virtual ~rad_rcslw(){}
 

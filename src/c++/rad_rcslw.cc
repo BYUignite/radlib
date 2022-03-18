@@ -27,7 +27,18 @@ using namespace std;
  *  @param xCO          \input   CO mole fraction
  */
 
-rad_rcslw::rad_rcslw(const int p_nGG) : rad(p_nGG, p_nGG + 1){
+rad_rcslw::rad_rcslw(const int    p_nGG,
+                     const double TbTref,
+                     const double p_P,
+                     const double fvsoot,
+                     const double xH2O,
+                     const double xCO2,
+                     const double xCO) :
+        radPropModel(p_nGG, p_nGG + 1){
+
+    P     = p_P/101325;      // atm
+    Tref  = TbTref;
+    Tb    = TbTref;
 
     Cmin = 0.0001;
     Cmax = 1000.0;
@@ -52,6 +63,14 @@ rad_rcslw::rad_rcslw(const int p_nGG) : rad(p_nGG, p_nGG + 1){
     nTg    =  Tg_table.size();       // 28
     nTb    =  Tb_table.size();       // 28
     ny_H2O =  xH2O_table.size();     //  9
+
+    set_Falbdf_CO2_CO_H2O_at_P();
+
+    Fmin = get_F_albdf(Cmin, Tref, Tref, xCO2, xCO, xH2O, fvsoot);
+    Fmax = get_F_albdf(Cmax, Tref, Tref, xCO2, xCO, xH2O, fvsoot);
+
+    set_Fpts();
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -76,8 +95,8 @@ rad_rcslw::rad_rcslw(const int p_nGG) : rad(p_nGG, p_nGG + 1){
 void rad_rcslw::get_k_a_oneband(double         &kabs,
                                 double         &awts,
                                 const int      iband,
-                                const double   p_T,
-                                const double   p_P,
+                                const double   T,
+                                const double   P_not_used,
                                 const double   fvsoot,
                                 const double   xH2O,
                                 const double   xCO2,
@@ -88,18 +107,6 @@ void rad_rcslw::get_k_a_oneband(double         &kabs,
         cerr << "\n\n***** rad_rcslw::get_k_a_oneband: iband out of range *****\n" << endl; 
         exit(0); 
     }
-
-    P        = p_P/101325;      // atm
-    Tref     = p_T;
-    Tb       = p_T;
-    double T = p_T;
-
-    set_Falbdf_CO2_CO_H2O_at_P();
-
-    Fmin = get_F_albdf(Cmin, Tref, Tref, xCO2, xCO, xH2O, fvsoot);
-    Fmax = get_F_albdf(Cmax, Tref, Tref, xCO2, xCO, xH2O, fvsoot);
-
-    set_Fpts();
 
     //--------------- kabs
 
@@ -146,8 +153,8 @@ void rad_rcslw::get_k_a_oneband(double         &kabs,
 
 void rad_rcslw::get_k_a(vector<double> &kabs,
                         vector<double> &awts,
-                        const double   p_T,
-                        const double   p_P,
+                        const double   T,
+                        const double   P_not_used,
                         const double   fvsoot,
                         const double   xH2O,
                         const double   xCO2,
@@ -157,18 +164,6 @@ void rad_rcslw::get_k_a(vector<double> &kabs,
     vector<double> C(nGG);
     vector<double> Ct(nGGa);
     vector<double> FCt(nGGa);
-
-    P        = p_P/101325;      // atm
-    Tref     = p_T;
-    Tb       = p_T;
-    double T = p_T;
-
-    set_Falbdf_CO2_CO_H2O_at_P();
-
-    Fmin = get_F_albdf(Cmin, Tref, Tref, xCO2, xCO, xH2O, fvsoot);
-    Fmax = get_F_albdf(Cmax, Tref, Tref, xCO2, xCO, xH2O, fvsoot);
-
-    set_Fpts();
 
     for(int j=0; j < nGG; j++)
         C[j] = get_FI_albdf(F_pts[j], T, Tb, xCO2, xCO, xH2O, fvsoot);

@@ -6,12 +6,12 @@
 #include <iostream>
 #include <cmath>
 #include "../../src/c++/rad_rcslw.h"
-#include "../../src/c++/rad.h"
+#include "../../src/c++/radPropModel.h"
 
 
 using namespace std;
 
-void parallel_planes(rad               *RAD,
+void parallel_planes(radPropModel         *RAD,
                      const double         L,
                      const int            ntheta,
                      const vector<double> &T,
@@ -75,7 +75,7 @@ int main() {
     xH2O_avg /= nx;
     xCO2_avg /= nx;
 
-    rad *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xH2O_avg, xCO2_avg, xco);    // results are better if Tref in rcslw constructor is set to 1000 K.
+    radPropModel *rcslw = new rad_rcslw(nGG, Tavg, P, fvs, xH2O_avg, xCO2_avg, xco);    // results are better if Tref in rcslw constructor is set to 1000 K.
 
     //--------------------- get q, Q
 
@@ -99,4 +99,3 @@ int main() {
     return 0;
 
 }
-

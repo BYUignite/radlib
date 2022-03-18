@@ -5,7 +5,7 @@
 
 #include <cmath>          // M_PI, sin, cos
 #include <iostream>   //doldb
-#include "../../src/c++/rad.h"
+#include "../../src/c++/radPropModel.h"
 
 
 
@@ -44,8 +44,8 @@ void I_IT(const vector<double>         &x,
     if(theta <= M_PI/2){
         I[0] = Ilo;
         for(int i=0; i<n-1; ++i){
-            Ib1 = rad::sigma/M_PI*pow(T[i+1],4.0);
-            Ib2 = rad::sigma/M_PI*pow(T[i],4.0);
+            Ib1 = radPropModel::sigma/M_PI*pow(T[i+1],4.0);
+            Ib2 = radPropModel::sigma/M_PI*pow(T[i],4.0);
             dx  = x[i+1] - x[i];
             //I[i+1][0] = I[0][0];          // do the clear gas intensity
             //for(int j=1; j<nGGa; ++j)     // j=1 skips the clear gas, done in previous line
@@ -57,8 +57,8 @@ void I_IT(const vector<double>         &x,
     else{
         I[n-1] = Ihi;
         for(int i=n-1; i>0; --i){
-            Ib1 = rad::sigma/M_PI*pow(T[i-1],4.0);
-            Ib2 = rad::sigma/M_PI*pow(T[i],4.0);
+            Ib1 = radPropModel::sigma/M_PI*pow(T[i-1],4.0);
+            Ib2 = radPropModel::sigma/M_PI*pow(T[i],4.0);
             dx  = x[i] - x[i-1];
             //I[i-1][0] = I[n-1][0];         // do the clear gas intensity
             //for(int j=1; j<nGGa; ++j)      // j=1 skips the clear gas, done in previous line
@@ -74,7 +74,7 @@ void I_IT(const vector<double>         &x,
 /** Compute radiative heat flux (q) and volumetric heat source (Q) profiles between parallel planes.
  *  Solution using simple ray tracing.
  *  Pass in T, P, composition profiles on equally spaced points including boundaries.
- *  @param RAD      \input rad object
+ *  @param RAD      \input radPropModel object
  *  @param L        \input distance (m) between planes
  *  @param ntheta   \input number of ray angles
  *  @param T        \input vector of temperatures at each point (K)
@@ -91,7 +91,7 @@ void I_IT(const vector<double>         &x,
  *  @param LzeroIbc \input bool true to make Ibc=0, false otherwise (default = false)
  */
 
-void parallel_planes(rad                  *RAD,
+void parallel_planes(radPropModel                  *RAD,
                      const double         L,
                      const int            ntheta,
                      const vector<double> &T,
@@ -142,8 +142,8 @@ void parallel_planes(rad                  *RAD,
             Ihi[j] = 0.0;
         }
         else{
-            Ilo[j] = rad::sigma/M_PI*pow(T[0],     4.0)*awts[0][j];
-            Ihi[j] = rad::sigma/M_PI*pow(T.back(), 4.0)*awts[nx-1][j];
+            Ilo[j] = radPropModel::sigma/M_PI*pow(T[0],     4.0)*awts[0][j];
+            Ihi[j] = radPropModel::sigma/M_PI*pow(T.back(), 4.0)*awts[nx-1][j];
         }
     }
 
