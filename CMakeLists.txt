@@ -13,13 +13,15 @@ set(CMAKE_BINARY_DIR "${CMAKE_SOURCE_DIR}/build")
 set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/installed" CACHE STRING "installation location")
 
 # ---- interface options ----
-option(BUILD_PYTHON_INTERFACE   "build python interface" ON)
+option(BUILD_PYTHON_INTERFACE   "build python interface"  ON)
 option(BUILD_FORTRAN_INTERFACE  "build fortran interface" ON)
+option(BUILD_JULIA_INTERFACE    "build julia interface"   OFF)
 
 # ---- options to build examples (consistency with corresponding interface is checked) ----
-option(BUILD_CXX_EXAMPLES       "Build C++ examples" ON)
-option(BUILD_PYTHON_EXAMPLES    "Build Python examples" ON)
-option(BUILD_FORTRAN_EXAMPLES   "Build Fortran examples" ON)
+option(BUILD_CXX_EXAMPLES     "Build C++ examples"     ON)
+option(BUILD_PYTHON_EXAMPLES  "Build Python examples"  ON)
+option(BUILD_JULIA_EXAMPLES   "Build Julia examples"   OFF)
+option(BUILD_FORTRAN_EXAMPLES "Build Fortran examples" ON)
 
 # ---- option to build documentation ----
 option(BUILD_DOCS "Build radlib docs" OFF)
@@ -51,6 +53,11 @@ if (BUILD_FORTRAN_INTERFACE)
     add_subdirectory(src/fortran "${CMAKE_CURRENT_BINARY_DIR}/src/fortran")
 endif()
 
+# ------------- JULIA INTERFACE -----------------
+if (BUILD_JULIA_INTERFACE)
+    add_subdirectory(src/julia "${CMAKE_CURRENT_BINARY_DIR}/src/julia")
+endif()
+
 # ---- allow radlib to be used in other targets ----
 target_include_directories(radlib PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>"
@@ -67,6 +74,9 @@ if (BUILD_FORTRAN_EXAMPLES AND BUILD_FORTRAN_INTERFACE)
 endif()
 if (BUILD_PYTHON_EXAMPLES AND BUILD_PYTHON_INTERFACE)
     add_subdirectory(examples/python "${CMAKE_CURRENT_BINARY_DIR}/examples/python")
+endif()
+if (BUILD_JULIA_EXAMPLES AND BUILD_JULIA_INTERFACE)
+    add_subdirectory(examples/julia "${CMAKE_CURRENT_BINARY_DIR}/examples/julia")
 endif()
 
 ############################### DOCUMENTATION ###########################
