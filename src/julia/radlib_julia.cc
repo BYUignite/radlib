@@ -25,7 +25,11 @@ JLCXX_MODULE define_radlib_module(jlcxx::Module &mod) {
         .method("get_nGG",         &rad::get_nGG)
         .method("get_nGGa",        &rad::get_nGGa);
 
-    mod.add_type<rad_planck_mean>("rad_planck_mean", jlcxx::julia_base_type<rad>());
-                 
+    mod.add_type<rad_planck_mean>("rad_planck_mean", jlcxx::julia_base_type<rad>())
+
+    mod.add_type<rad_wsgg>("rad_wsgg", jlcxx::julia_base_type<rad>());
+
+    mod.add_type<rad_rcslw>("rad_rcslw", jlcxx::julia_base_type<rad>())
+        .constructor<int, double, double, double, double, double, double>();
 }
 

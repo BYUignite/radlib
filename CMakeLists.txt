@@ -15,12 +15,12 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/installed" CACHE STRING "installat
 # ---- interface options ----
 option(BUILD_PYTHON_INTERFACE   "build python interface"  ON)
 option(BUILD_FORTRAN_INTERFACE  "build fortran interface" ON)
-option(BUILD_JULIA_INTERFACE    "build julia interface"   OFF)
+option(BUILD_JULIA_INTERFACE    "build julia interface"   ON)
 
 # ---- options to build examples (consistency with corresponding interface is checked) ----
 option(BUILD_CXX_EXAMPLES     "Build C++ examples"     ON)
 option(BUILD_PYTHON_EXAMPLES  "Build Python examples"  ON)
-option(BUILD_JULIA_EXAMPLES   "Build Julia examples"   OFF)
+option(BUILD_JULIA_EXAMPLES   "Build Julia examples"   ON)
 option(BUILD_FORTRAN_EXAMPLES "Build Fortran examples" ON)
 
 # ---- option to build documentation ----
@@ -75,9 +75,9 @@ endif()
 if (BUILD_PYTHON_EXAMPLES AND BUILD_PYTHON_INTERFACE)
     add_subdirectory(examples/python "${CMAKE_CURRENT_BINARY_DIR}/examples/python")
 endif()
-if (BUILD_JULIA_EXAMPLES AND BUILD_JULIA_INTERFACE)
-    add_subdirectory(examples/julia "${CMAKE_CURRENT_BINARY_DIR}/examples/julia")
-endif()
+# if (BUILD_JULIA_EXAMPLES AND BUILD_JULIA_INTERFACE)
+#     add_subdirectory(examples/julia "${CMAKE_CURRENT_BINARY_DIR}/examples/julia")
+# endif()
 
 ############################### DOCUMENTATION ###########################
 

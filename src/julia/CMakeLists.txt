@@ -2,7 +2,9 @@ find_program(Julia_EXECUTABLE NAMES julia)
 
 if(Julia_EXECUTABLE AND BUILD_JULIA_INTERFACE)
     
-    set(CMAKE_PREFIX_PATH "/Users/dol4/.julia/artifacts/62eae10c647bb4ea186063b758bc3fc5881a34f1")
+    #set(CMAKE_PREFIX_PATH "/Users/dol4/.julia/artifacts/62eae10c647bb4ea186063b758bc3fc5881a34f1")    # whorl
+    #set(CMAKE_PREFIX_PATH "/Users/dol4/.julia/artifacts/434257acf70ce7407e3946f2c8452e814d7cca64")    # fuego
+    set(CMAKE_PREFIX_PATH "/Users/dol4/codes/cxxwrap_julia/build")                                     # fuego
     find_package(JlCxx)
     
     add_library(radlib_julia SHARED radlib_julia.cc)
