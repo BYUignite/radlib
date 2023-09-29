@@ -59,16 +59,21 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
         cerr << "\n\n***** rad_planck_mean::get_k_a_oneband: iband should be zero since there is only one band in this model *****\n" << endl; 
         exit(0); 
     }
-    if(T < 300.0 || T > 2500.0) {
-        cerr << "\n\n***** rad_planck_mean::get_k_a_oneband: T is out of range 300-2500 K *****\n" << endl; 
-        exit(0); 
-    }
+
+    //----- the curve fits are in the range 300<T<2500. If T is out of bounds either quit,
+    //----- or just take T to be the limiting value. 
+    //----- taking the limiting value is used below when the next few lines are commented.
+
+    // if(T < 300.0 || T > 2500.0) {
+    //     cerr << "\n\n***** rad_planck_mean::get_k_a_oneband: T is out of range 300-2500 K *****\n" << endl; 
+    //     exit(0); 
+    // }
 
     kabs = 0.0;
     awts = 1.0;
 
     double K;
-    double Ti = 1000.0/T;
+    double Ti = (T<300) ? 1000.0/300 : ((T>2500) ? 1000.0/2500 : 1000.0 / T);
 
     //------------- H2O
 
@@ -86,25 +91,27 @@ void rad_planck_mean::get_k_a_oneband(double       &kabs,
 
     //------------- CO
 
+    Ti = (T<300) ? 300 : ((T>2500) ? 2500 : T);
+
     if(xCO != 0.0) {
         if(T <= 750.0)
-            K = pmCoefs_CO_lo[0] + T*(pmCoefs_CO_lo[1] + T*(pmCoefs_CO_lo[2] + T*(pmCoefs_CO_lo[3] + T*(pmCoefs_CO_lo[4]))));
+            K = pmCoefs_CO_lo[0] + Ti*(pmCoefs_CO_lo[1] + Ti*(pmCoefs_CO_lo[2] + Ti*(pmCoefs_CO_lo[3] + Ti*(pmCoefs_CO_lo[4]))));
         else
-            K = pmCoefs_CO_hi[0] + T*(pmCoefs_CO_hi[1] + T*(pmCoefs_CO_hi[2] + T*(pmCoefs_CO_hi[3] + T*(pmCoefs_CO_hi[4]))));
+            K = pmCoefs_CO_hi[0] + Ti*(pmCoefs_CO_hi[1] + Ti*(pmCoefs_CO_hi[2] + Ti*(pmCoefs_CO_hi[3] + Ti*(pmCoefs_CO_hi[4]))));
         kabs += xCO*P/101325.0*K;
     }
 
     //------------- CH4
 
     if(xCH4 != 0.0){
-        K = pmCoefs_CH4[0] + T*(pmCoefs_CH4[1] + T*(pmCoefs_CH4[2] + T*(pmCoefs_CH4[3] + T*(pmCoefs_CH4[4]))));
+        K = pmCoefs_CH4[0] + Ti*(pmCoefs_CH4[1] + Ti*(pmCoefs_CH4[2] + Ti*(pmCoefs_CH4[3] + Ti*(pmCoefs_CH4[4]))));
         kabs += xCH4*P/101325.0*K;
     }
 
     //------------- soot
 
     if(fvsoot != 0.0){
-        kabs += 1817 * fvsoot*T;       // 1817 = 3.72*csoot/C2.
+        kabs += 1817 * fvsoot*Ti;       // 1817 = 3.72*csoot/C2.
     }
 }
 
