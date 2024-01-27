@@ -522,7 +522,7 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
                                     vector<double> &myarray){
 
     ifstream ifile;
-    ifile.open(Ptable_file_name, ios::out | ios::binary);
+    ifile.open(Ptable_file_name, ios::in | ios::binary);
     if(!ifile){
         cout << endl << "error opening file: " << Ptable_file_name << endl;
         exit(0);
@@ -552,7 +552,7 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
                                     vector<double> &myarray){
  
     ifstream ifile;
-    ifile.open(Ptable_file_name, ios::out | ios::binary);
+    ifile.open(Ptable_file_name, ios::in | ios::binary);
     if(!ifile){
         cout << endl << "error opening file: " << Ptable_file_name << endl;
         exit(0);
