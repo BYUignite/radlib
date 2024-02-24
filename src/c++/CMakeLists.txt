@@ -1,4 +1,4 @@
-add_library(radlib "")
+add_library(radlib SHARED)
 
 #################### Compile options
 
