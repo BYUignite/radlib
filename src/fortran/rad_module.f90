@@ -148,9 +148,12 @@ module rad_module
             double precision :: xxCO
             double precision :: xxCH4
 
-            xxCO  = merge(xCO,  0.0d0, present(xCO))
-            xxCH4 = merge(xCH4, 0.0d0, present(xCH4))
-
+            if (present(xCO)) then
+                xxCO = xCO
+            end if
+            if (present(xCH4)) then
+                xxCH4 = xCH4
+            end if
 
             call get_k_a_C_interface(rad_ptr, kabs, awts, T, P, fvsoot, xH2O, xCO2, xxCO, xxCH4)
         end subroutine get_k_a
@@ -173,8 +176,12 @@ module rad_module
             double precision :: xxCO
             double precision :: xxCH4
 
-            xxCO  = merge(xCO,  0.0d0, present(xCO))
-            xxCH4 = merge(xCH4, 0.0d0, present(xCH4))
+            if (present(xCO)) then
+                xxCO = xCO
+            end if
+            if (present(xCH4)) then
+                xxCH4 = xCH4
+            end if
 
             call get_k_a_oneband_C_interface(rad_ptr, kabs, awts, iband, T, P, fvsoot, xH2O, xCO2, xxCO, xxCH4)
         end subroutine get_k_a_oneband
