@@ -67,3 +67,5 @@ Optional software for building documentation:
     * Relocatable package ```radlib.cmake``` is located in ```installed/cmake/radlib```
     * Relocatable package ```radlib_fortran.cmake``` located in ```installed/cmake/radlib_fortran```
 
+## Documentation
+Documentation is availale at [ignite.byu.edu/radlib_documentation](https://ignite.byu.edu/radlib_documentation).
