@@ -1,7 +1,5 @@
-/**
- * @file rad_wsgg.cc
- * \brief Source file for child class rad_wsgg
- */
+/// @file rad_wsgg.cc
+/// \brief Source file for child class rad_wsgg
 
 #include <vector>
 #include <iostream>
@@ -56,39 +54,41 @@ const double rad_wsgg::kco2[5]={0.000000e+000, 3.388079e-002, 4.544269e-001, 4.6
 const double rad_wsgg::kh2o[5]={0.000000e+000, 7.703541e-002, 8.242941e-001, 6.854761e+000, 6.593653e+001};
 
 ///////////////////////////////////////////////////////////////////////////////
-/** **This is the class interface function**
- *  Given the gas state, set the k and a vectors.
- *  These can then be accessed by the user.
- *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
- *  @param kabs           \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
- *  @param awts           \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
- *  @param iband          \input which band to compute
- *  @param T_dmb          \input gas temperature (K)
- *  @param P              \input pressure (Pa)
- *  @param fvsoot         \input soot volume fraction = rho*Ysoot/rhosoot
- *  @param xH2O           \input mole fraction H2O
- *  @param xCO2           \input mole fraction CO2
- *  @param xCO_not_used   \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- *  @param xCH4_not_used  \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- * 
- *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
- * 
- *     \f$k_{soot} = F_s fv_{soot}T\f$, where \f$F_s = 3.72 c_{soot}/C_2\f$, where \f$C_2 = 0.014388\, m\cdot K\f$ and
- *             \f$c_{soot} = 36\pi n k/[(n^2 - k^2 +2)^2 + 4 (n k)^2],\f$
- *             where \f$k\f$ is the real part of the complex refractive index, and \f$n\f$ is the imaginary part.
- *             Using Shaddix's model for \f$k\f$, \f$n\f$: \f$k=1.03\f$, \f$n = 1.75\f$, giving \f$F_s = 1817\, K^{-1}m^{-1}\f$.
- *             Reference: Williams, Shaddix, et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
- * 
- * Note, combining the WSGG model with four gray gases and one clear gas with a single gray soot component.
- * The soot absorption coefficient is added to that for each gas (including the clear gas, since
- *     the soot absorption spectrum is "full"). The weights don't need to be changed.
- * In the limit of no soot, we recover gas only, and in the limit of only soot, we recover the expected
- *     behavior. 
- * 
- * \f$dI_j/ds = (kg_j + ks)I_j + (kg_j+ks)a_jIb\f$
- * 
- * This soot addition was suggested by H. Bordbar.
- */
+///
+/// **This is the class interface function**
+/// Given the gas state, set the k and a vectors.
+/// These can then be accessed by the user.
+/// return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
+/// @param kabs           \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
+/// @param awts           \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
+/// @param iband          \input which band to compute
+/// @param T_dmb          \input gas temperature (K)
+/// @param P              \input pressure (Pa)
+/// @param fvsoot         \input soot volume fraction = rho*Ysoot/rhosoot
+/// @param xH2O           \input mole fraction H2O
+/// @param xCO2           \input mole fraction CO2
+/// @param xCO_not_used   \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+/// @param xCH4_not_used  \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+///
+/// See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
+///
+///    \f$k_{soot} = F_s fv_{soot}T\f$, where \f$F_s = 3.72 c_{soot}/C_2\f$, where \f$C_2 = 0.014388\, m\cdot K\f$ and
+///            \f$c_{soot} = 36\pi n k/[(n^2 - k^2 +2)^2 + 4 (n k)^2],\f$
+///            where \f$k\f$ is the real part of the complex refractive index, and \f$n\f$ is the imaginary part.
+///            Using Shaddix's model for \f$k\f$, \f$n\f$: \f$k=1.03\f$, \f$n = 1.75\f$, giving \f$F_s = 1817\, K^{-1}m^{-1}\f$.
+///            Reference: Williams, Shaddix, et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
+///
+/// Note, combining the WSGG model with four gray gases and one clear gas with a single gray soot component.
+/// The soot absorption coefficient is added to that for each gas (including the clear gas, since
+///     the soot absorption spectrum is "full"). The weights don't need to be changed.
+/// In the limit of no soot, we recover gas only, and in the limit of only soot, we recover the expected
+///     behavior. 
+/// 
+/// \f$dI_j/ds = (kg_j + ks)I_j + (kg_j+ks)a_jIb\f$
+/// 
+/// This soot addition was suggested by H. Bordbar.
+///
+///////////////////////////////////////////////////////////////////////////////
 
 void rad_wsgg::get_k_a_oneband(double       &kabs,
                                double       &awts,
@@ -232,38 +232,40 @@ void rad_wsgg::get_k_a_oneband(double       &kabs,
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-/** **This is the class interface function**
- *  Given the gas state, set the k and a vectors.
- *  These can then be accessed by the user.
- *  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
- *  @param kabs          \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
- *  @param awts          \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
- *  @param T_dmb         \input gas temperature (K)
- *  @param P             \input pressure (Pa)
- *  @param fvsoot        \input soot volume fraction = rho*Ysoot/rhosoot
- *  @param xH2O          \input mole fraction H2O
- *  @param xCO2          \input mole fraction CO2
- *  @param xCO_not_used  \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- *  @param xCH4_not_used \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
- * 
- *  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
- * 
- *     \f$k_{soot} = F_s fv_{soot}T\f$, where \f$F_s = 3.72 c_{soot}/C_2\f$, where \f$C_2 = 0.014388\, m\cdot K\f$ and
- *             \f$c_{soot} = 36\pi n k/[(n^2 - k^2 +2)^2 + 4 (n k)^2],\f$
- *             where \f$k\f$ is the real part of the complex refractive index, and \f$n\f$ is the imaginary part.
- *             Using Shaddix's model for \f$k\f$, \f$n\f$: \f$k=1.03\f$, \f$n = 1.75\f$, giving \f$F_s = 1817\, K^{-1}m^{-1}\f$.
- *             Reference: Williams, Shaddix, et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
- * 
- * Note, combining the WSGG model with four gray gases and one clear gas with a single gray soot component.
- * The soot absorption coefficient is added to that for each gas (including the clear gas, since
- *     the soot absorption spectrum is "full"). The weights don't need to be changed.
- * In the limit of no soot, we recover gas only, and in the limit of only soot, we recover the expected
- *     behavior. 
- * 
- * \f$dI_j/ds = (kg_j + ks)I_j + (kg_j+ks)a_jIb\f$
- * 
- * This soot addition was suggested by H. Bordbar.
- */
+///
+/// **This is the class interface function**
+///  Given the gas state, set the k and a vectors.
+///  These can then be accessed by the user.
+///  return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
+///  @param kabs          \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
+///  @param awts          \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
+///  @param T_dmb         \input gas temperature (K)
+///  @param P             \input pressure (Pa)
+///  @param fvsoot        \input soot volume fraction = rho*Ysoot/rhosoot
+///  @param xH2O          \input mole fraction H2O
+///  @param xCO2          \input mole fraction CO2
+///  @param xCO_not_used  \input mole fraction CO     HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+///  @param xCH4_not_used \input mole fraction CH4    HERE FOR THE INTERFACE, NOT USED (... pass in 0.0)
+/// 
+///  See documentation for rad_rcslw::F_albdf_soot for details about the soot absorption coefficient.
+/// 
+///     \f$k_{soot} = F_s fv_{soot}T\f$, where \f$F_s = 3.72 c_{soot}/C_2\f$, where \f$C_2 = 0.014388\, m\cdot K\f$ and
+///             \f$c_{soot} = 36\pi n k/[(n^2 - k^2 +2)^2 + 4 (n k)^2],\f$
+///             where \f$k\f$ is the real part of the complex refractive index, and \f$n\f$ is the imaginary part.
+///             Using Shaddix's model for \f$k\f$, \f$n\f$: \f$k=1.03\f$, \f$n = 1.75\f$, giving \f$F_s = 1817\, K^{-1}m^{-1}\f$.
+///             Reference: Williams, Shaddix, et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
+/// 
+/// Note, combining the WSGG model with four gray gases and one clear gas with a single gray soot component.
+/// The soot absorption coefficient is added to that for each gas (including the clear gas, since
+///     the soot absorption spectrum is "full"). The weights don't need to be changed.
+/// In the limit of no soot, we recover gas only, and in the limit of only soot, we recover the expected
+///     behavior. 
+/// 
+/// \f$dI_j/ds = (kg_j + ks)I_j + (kg_j+ks)a_jIb\f$
+/// 
+/// This soot addition was suggested by H. Bordbar.
+///
+///////////////////////////////////////////////////////////////////////////////
 
 void rad_wsgg::get_k_a(vector<double> &kabs,
                        vector<double> &awts,

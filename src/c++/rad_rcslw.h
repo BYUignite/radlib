@@ -1,7 +1,5 @@
-/**
- * @file rad_rcslw.h
- * \brief Header file for child class rad_rcslw
- */
+/// @file rad_rcslw.h
+/// \brief Header file for child class rad_rcslw
 
 #pragma once
 
@@ -10,13 +8,14 @@
 #include "rad.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-
-/** Class implementing rcslw object.
- *  Radiation properties for the Rank Correlated, SLW model.
- *  A variable number of gray gases may be used.
- *  This is a very accurate model, but somewhat more expensive to compute than others.
- *  get_k_a, and get_k_a_oneband are the primary interfaces.
- */
+///
+/// Class implementing rcslw object.
+/// Radiation properties for the Rank Correlated, SLW model.
+/// A variable number of gray gases may be used.
+/// This is a very accurate model, but somewhat more expensive to compute than others.
+/// get_k_a, and get_k_a_oneband are the primary interfaces.
+///
+////////////////////////////////////////////////////////////////////////////////
 
 class rad_rcslw : public rad {
 

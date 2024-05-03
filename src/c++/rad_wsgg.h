@@ -1,7 +1,5 @@
-/**
- * @file rad_wsgg.h
- * \brief Header file for child class rad_wsgg
- */
+/// @file rad_wsgg.h
+/// \brief Header file for child class rad_wsgg
 
 #pragma once
 
@@ -9,13 +7,14 @@
 #include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
-
-/** Class implementing rad_wsgg object.
- *  Radiation properties for the WSGG model (Bordbar 2020).
- *  Four gray gases and one clear gas are assumed.
- *  This is somewhat less accurate than the RCSLW model, but less computationally expensive.
- *  get_k_a, and get_k_a_oneband are the primary interfaces.
- */
+///
+/// Class implementing rad_wsgg object.
+/// Radiation properties for the WSGG model (Bordbar 2020).
+/// Four gray gases and one clear gas are assumed.
+/// This is somewhat less accurate than the RCSLW model, but less computationally expensive.
+/// get_k_a, and get_k_a_oneband are the primary interfaces.
+///
+////////////////////////////////////////////////////////////////////////////////
 
 class rad_wsgg : public rad {
 

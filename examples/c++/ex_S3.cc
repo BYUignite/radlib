@@ -1,7 +1,5 @@
-/**
- * @file ex_S3.cc
- * \brief Solovjov 2017 example 3
- */
+/// @file ex_S3.cc
+/// \brief Solovjov 2017 example 3
 
 #include <iostream>
 #include "../../src/c++/rad_rcslw.h"

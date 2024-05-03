@@ -17,15 +17,17 @@ using namespace std;
 #define STRINGIFY(thestring) #thestring
 
 ////////////////////////////////////////////////////////////////////////////////
-/** Constructor function
- *  @param p_nGG        \input   number of gray gases not including the gray gas
- *  @param TbTref       \input   black temperature and reference temperature (K); set once, assumed constant
- *  @param p_P          \input   system pressure (Pa); set once, assumed constant
- *  @param fvsoot       \input   soot volume fraction
- *  @param xH2O         \input   H2O mole fraction
- *  @param xCO2         \input   CO2 mole fraction
- *  @param xCO          \input   CO mole fraction
- */
+///
+/// Constructor function
+/// @param p_nGG        \input   number of gray gases not including the gray gas
+/// @param TbTref       \input   black temperature and reference temperature (K); set once, assumed constant
+/// @param p_P          \input   system pressure (Pa); set once, assumed constant
+/// @param fvsoot       \input   soot volume fraction
+/// @param xH2O         \input   H2O mole fraction
+/// @param xCO2         \input   CO2 mole fraction
+/// @param xCO          \input   CO mole fraction
+///
+////////////////////////////////////////////////////////////////////////////////
 
 rad_rcslw::rad_rcslw(const int    p_nGG,
                      const double TbTref,
@@ -74,23 +76,25 @@ rad_rcslw::rad_rcslw(const int    p_nGG,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/** **This is the class interface function**
- *  Given the gas state, set the k and a vectors.
- * 
- *  These can then be accessed by the user.
- * 
- *  Return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
- *  @param kabs            \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
- *  @param awts            \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
- *  @param iband           \input which band to compute
- *  @param T               \input  gas temperature
- *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
- *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
- *  @param xH2O            \input  mole fraction H2O
- *  @param xCO2            \input  mole fraction CO2
- *  @param xCO             \input  mole fraction CO
- *  @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
- */
+///
+/// **This is the class interface function**
+/// Given the gas state, set the k and a vectors.
+///
+/// These can then be accessed by the user.
+///
+/// Return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
+/// @param kabs            \output absorption coefficient (1/m) for band/gas iband: ranges from 0 to nGG inclusive
+/// @param awts            \output weight (unitless; total sums to 1) for band/gas iband: ranges from 0 to nGG inclusive
+/// @param iband           \input which band to compute
+/// @param T               \input  gas temperature
+/// @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
+/// @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
+/// @param xH2O            \input  mole fraction H2O
+/// @param xCO2            \input  mole fraction CO2
+/// @param xCO             \input  mole fraction CO
+/// @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
+///
+////////////////////////////////////////////////////////////////////////////////
 
 void rad_rcslw::get_k_a_oneband(double         &kabs,
                                 double         &awts,
@@ -134,22 +138,24 @@ void rad_rcslw::get_k_a_oneband(double         &kabs,
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/** **This is the class interface function**
- *  Given the gas state, set the k and a vectors.
- * 
- *  These can then be accessed by the user.
- * 
- *  Return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
- *  @param kabs            \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
- *  @param awts            \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
- *  @param T               \input  gas temperature
- *  @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
- *  @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
- *  @param xH2O            \input  mole fraction H2O
- *  @param xCO2            \input  mole fraction CO2
- *  @param xCO             \input  mole fraction CO
- *  @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
- */
+///
+/// **This is the class interface function**
+/// Given the gas state, set the k and a vectors.
+///
+/// These can then be accessed by the user.
+///
+/// Return through arg list the local gray gas coefficients (kabs) and the local weights (awts).
+/// @param kabs            \output absorption coefficients (1/m) for nGG+1 (nGG gray gases + clear gas)
+/// @param awts            \output weights (unitless; sums to 1) for nGG+1 (nGG gray gases + clear gas)
+/// @param T               \input  gas temperature
+/// @param P_not_used      \input  Pressure (Pa)      NOT USED; HERE FOR INTERFACE; P IS SET BY CONSTRUCTOR
+/// @param fvsoot          \input  soot volume fraction = rho*Ysoot/rhosoot
+/// @param xH2O            \input  mole fraction H2O
+/// @param xCO2            \input  mole fraction CO2
+/// @param xCO             \input  mole fraction CO
+/// @param xCH4_not_used   \input  mole fraction CH4  NOT USED; HERE FOR INTERFACE; (... pass in 0.0)
+///
+////////////////////////////////////////////////////////////////////////////////
 
 void rad_rcslw::get_k_a(vector<double> &kabs,
                         vector<double> &awts,
@@ -200,16 +206,18 @@ void rad_rcslw::get_k_a(vector<double> &kabs,
 }
 
 /////////////////////////////////////////////////////////////
-/** Get the albdf function F
- *  @param C      \input  cross section (m2/mol)
- *  @param Tg     \input  gas temperature  
- *  @param Tb     \input  black temperature
- *  @param xCO2   \input  mole fraction CO2
- *  @param xCO    \input  mole fraction CO
- *  @param xH2O   \input  mole fraction H2O
- *  @param fvsoot \input  soot volume fraction
- *  @return the albdf function F
- */
+///
+/// Get the albdf function F
+/// @param C      \input  cross section (m2/mol)
+/// @param Tg     \input  gas temperature  
+/// @param Tb     \input  black temperature
+/// @param xCO2   \input  mole fraction CO2
+/// @param xCO    \input  mole fraction CO
+/// @param xH2O   \input  mole fraction H2O
+/// @param fvsoot \input  soot volume fraction
+/// @return the albdf function F
+///
+/////////////////////////////////////////////////////////////
 
 double rad_rcslw::get_F_albdf(const double C, double Tg, double Tb,
                               double xCO2, double xCO, double xH2O,
@@ -252,16 +260,18 @@ double rad_rcslw::get_F_albdf(const double C, double Tg, double Tb,
 
 
 ///////////////////////////////////////////////////////
-/** Inverse F_albdf: pass in albdf F and get out Cross section C
- *  @param F       \input   albdf
- *  @param Tg      \input   gas temperature
- *  @param Tb      \input   black temperature
- *  @param xCO2    \input   mole fraction CO2
- *  @param xCO     \input   mole fraction CO
- *  @param xH2O    \input   mole fraction H2O
- *  @param fvsoot  \input   soot volume fraction = rho*Ysoot/rhoSoot
- *  @return Cross section C (m2/mol).
- */
+///
+/// Inverse F_albdf: pass in albdf F and get out Cross section C
+/// @param F       \input   albdf
+/// @param Tg      \input   gas temperature
+/// @param Tb      \input   black temperature
+/// @param xCO2    \input   mole fraction CO2
+/// @param xCO     \input   mole fraction CO
+/// @param xH2O    \input   mole fraction H2O
+/// @param fvsoot  \input   soot volume fraction = rho*Ysoot/rhoSoot
+/// @return Cross section C (m2/mol).
+///
+///////////////////////////////////////////////////////
 
 double rad_rcslw::get_FI_albdf(const double F, const double Tg, const double Tb,
                                const double xCO2, const double xCO, const double xH2O,
@@ -324,10 +334,11 @@ double rad_rcslw::get_FI_albdf(const double F, const double Tg, const double Tb,
 
 }
 
-
 ////////////////////////////////////////////////////////////////
-/** Set grid of F points based on Gauss-Legendre Quadrature.
- */
+///
+/// Set grid of F points based on Gauss-Legendre Quadrature.
+///
+////////////////////////////////////////////////////////////////
 
 void rad_rcslw::set_Fpts(){
 
@@ -413,11 +424,13 @@ void rad_rcslw::set_Fpts(){
 }
 
 ////////////////////////////////////////////////////////////////
-/** Read the albdf table for CO2, CO, and H2O.
- *  Separate files are given for various pressures.
- *  Interpolate the files to the desired pressure: P.
- *  Reshape from the given 1D to the 3D (CO/CO2) or 4D (H2O) tables.
- */
+///
+/// Read the albdf table for CO2, CO, and H2O.
+/// Separate files are given for various pressures.
+/// Interpolate the files to the desired pressure: P.
+/// Reshape from the given 1D to the 3D (CO/CO2) or 4D (H2O) tables.
+///
+////////////////////////////////////////////////////////////////
 
 void rad_rcslw::set_Falbdf_CO2_CO_H2O_at_P(){
 
@@ -509,13 +522,15 @@ void rad_rcslw::set_Falbdf_CO2_CO_H2O_at_P(){
 }
     
 /////////////////////////////////////////////////////////////////////////
-/** Import ALBDF files to array; 3D files
- * @param Ptable_file_name \input   file for given species for given pressure
- * @param nx               \input   number of points in first dimension
- * @param ny               \input   number of points in second dimension
- * @param nz               \input   number of points in third dimension
- * @param myarray          \output  array read from file
- */
+///
+/// Import ALBDF files to array; 3D files
+/// @param Ptable_file_name \input   file for given species for given pressure
+/// @param nx               \input   number of points in first dimension
+/// @param ny               \input   number of points in second dimension
+/// @param nz               \input   number of points in third dimension
+/// @param myarray          \output  array read from file
+///
+/////////////////////////////////////////////////////////////////////////
 
 void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
                                     const int nx, const int ny, const int nz,
@@ -538,14 +553,16 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
 }
 
 /////////////////////////////////////////////////////////////////////////
-/** Import ALBDF files to array; 4D files
- * @param Ptable_file_name \input   file for given species for given pressure
- * @param nx               \input   number of points in first dimension
- * @param ny               \input   number of points in second dimension
- * @param nz               \input   number of points in third dimension
- * @param nw               \input   number of points in fourth dimension
- * @param myarray          \output  array read from file
- */
+///
+/// Import ALBDF files to array; 4D files
+/// @param Ptable_file_name \input   file for given species for given pressure
+/// @param nx               \input   number of points in first dimension
+/// @param ny               \input   number of points in second dimension
+/// @param nz               \input   number of points in third dimension
+/// @param nw               \input   number of points in fourth dimension
+/// @param myarray          \output  array read from file
+///
+/////////////////////////////////////////////////////////////////////////
 
 void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
                                     const int nx, const int ny, const int nz, const int nw,
@@ -567,35 +584,37 @@ void rad_rcslw::get_FI_albdf_tables(const string Ptable_file_name,
     
 }
 ////////////////////////////////////////////////////////////////
-/** Get soot albdf F
- *  @param C       \input    cross section (m2/mol)
- *  @param Tg      \input    gas temperature
- *  @param Tb      \input    black temperature
- *  @param fvsoot  \input    soot volume fraction
- *  @return the albdf function F for soot
- *  Note: This comes from Solovjov and Webb, J. Heat Transfer, <a href="https://doi.org/10.1115/1.1350824" target="_blank">123(3):450-457</a> (2001),
- *        and from Chang and Rhee (eq. 5), Int. Comm. Heat and Mass Transfer, <a href="https://doi.org/10.1016/0735-1933(84)90051-4" target="_blank">11(5):451-455</a> (1984).
- *
- *  For computing csoot, see Radiative Heat Transfer, 3rd edition, by Modest, pages 424-425:
-\verbatim
-    ksoot = 1.23, 1.95,  1.30,    0.92,  0.71, for
-    nsoot = 2.21, 2.63,  2.19,    1.89,  2.31,
-            Lee,  Stull, Dalzell, Chang, Felske, respectively
-\endverbatim
- *  See also Williams, Shaddix et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
-\verbatim
-    ksoot = 1.03,    0.56,                0.43,         0.89,     0.80 for
-    nsoot = 1.75,    1.57,                1.90,         1.99,     1.55
-            Shaddix, Dalzell and Sarofim, Lee and Tien, Krishnan, Mountain and Mulholland, respectively
-\endverbatim
- *  Note, these give Planck Mean absorption coefficients of \f$(3.72*c_{soot}/C_2)*fv*T\f$, where \f$C_2 = 0.014388\, m\cdot K\f$.
-\verbatim
-    Hence, (3.72*csoot/C2) = 1361, 1141, 1423, 1476, 835.0 for Lee, Stull, ...
-                           = 1817, 1265, 744.2, 1319, 1785 for Shaddix, Dalzell and Sarofim, ...
-\endverbatim
- * Shaddix's constants give \f$c_{soot} = 7.03\f$, which is the same as the value of 7 presented in Solovjov 2001 for 
- *   Eq. 16 proposed by Hottel and Sarofim in their 1967 textbook Radiative Transfer.
- */
+/**
+ Get soot albdf F
+ @param C       \input    cross section (m2/mol)
+ @param Tg      \input    gas temperature
+ @param Tb      \input    black temperature
+ @param fvsoot  \input    soot volume fraction
+ @return the albdf function F for soot
+ Note: This comes from Solovjov and Webb, J. Heat Transfer, <a href="https://doi.org/10.1115/1.1350824" target="_blank">123(3):450-457</a> (2001),
+       and from Chang and Rhee (eq. 5), Int. Comm. Heat and Mass Transfer, <a href="https://doi.org/10.1016/0735-1933(84)90051-4" target="_blank">11(5):451-455</a> (1984).
+
+ For computing csoot, see Radiative Heat Transfer, 3rd edition, by Modest, pages 424-425:
+ \verbatim
+     ksoot = 1.23, 1.95,  1.30,    0.92,  0.71, for
+     nsoot = 2.21, 2.63,  2.19,    1.89,  2.31,
+             Lee,  Stull, Dalzell, Chang, Felske, respectively
+ \endverbatim
+  *  See also Williams, Shaddix et al. Int. J. Heat and Mass Transfer <a href="https://www.sciencedirect.com/science/article/pii/S0017931006004893" target="_blank">50:1616-1630</a> (2007), 
+ \verbatim
+     ksoot = 1.03,    0.56,                0.43,         0.89,     0.80 for
+     nsoot = 1.75,    1.57,                1.90,         1.99,     1.55
+             Shaddix, Dalzell and Sarofim, Lee and Tien, Krishnan, Mountain and Mulholland, respectively
+ \endverbatim
+  *  Note, these give Planck Mean absorption coefficients of \f$(3.72*c_{soot}/C_2)*fv*T\f$, where \f$C_2 = 0.014388\, m\cdot K\f$.
+ \verbatim
+     Hence, (3.72*csoot/C2) = 1361, 1141, 1423, 1476, 835.0 for Lee, Stull, ...
+                            = 1817, 1265, 744.2, 1319, 1785 for Shaddix, Dalzell and Sarofim, ...
+ \endverbatim
+  * Shaddix's constants give \f$c_{soot} = 7.03\f$, which is the same as the value of 7 presented in Solovjov 2001 for 
+  *   Eq. 16 proposed by Hottel and Sarofim in their 1967 textbook Radiative Transfer.
+**/
+////////////////////////////////////////////////////////////////
 
 double rad_rcslw::F_albdf_soot(const double C, const double Tg, const double Tb, const double fvsoot){
 

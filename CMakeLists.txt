@@ -18,14 +18,14 @@ set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/installed" CACHE STRING "install l
 
 #----- options: interfaces, examples, documentation
 
-option(BUILD_PYTHON_INTERFACE  "build python interface"  ON)
-option(BUILD_FORTRAN_INTERFACE "build fortran interface" ON)
+option(BUILD_PYTHON_INTERFACE  "build python interface"  OFF)
+option(BUILD_FORTRAN_INTERFACE "build fortran interface" OFF)
 
-option(BUILD_CXX_EXAMPLES      "Build C++ examples"      ON)
-option(BUILD_PYTHON_EXAMPLES   "Build Python examples"   ON)
-option(BUILD_FORTRAN_EXAMPLES  "Build Fortran examples"  ON)
+option(BUILD_CXX_EXAMPLES      "Build C++ examples"      OFF)
+option(BUILD_PYTHON_EXAMPLES   "Build Python examples"   OFF)
+option(BUILD_FORTRAN_EXAMPLES  "Build Fortran examples"  OFF)
 
-option(BUILD_DOCS              "Build radlib docs"       ON)
+option(BUILD_DOCS              "Build radlib docs"       OFF)
 
 ############################### RADLIB ###############################
 

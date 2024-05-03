@@ -1,8 +1,6 @@
-/**
- * @file rad.h
- * Header file for class rad
- * \brief Abstract base class
- */
+/// @file rad.h
+/// Header file for class rad
+/// \brief Abstract base class
 
 #ifndef RAD_H
 #define RAD_H
@@ -12,11 +10,12 @@
 #include <vector>
 
 ////////////////////////////////////////////////////////////////////////////////
-
-/** Class implementing rad object.
- * Abstract base class upon which specific radiation property models are built.
- * get_k_a, and get_k_a_oneband are the primary interfaces.
- */
+///
+/// Class implementing rad object.
+/// Abstract base class upon which specific radiation property models are built.
+/// get_k_a, and get_k_a_oneband are the primary interfaces.
+///
+////////////////////////////////////////////////////////////////////////////////
 
 class rad {
 

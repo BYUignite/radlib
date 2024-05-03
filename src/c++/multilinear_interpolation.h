@@ -1,20 +1,18 @@
-/** 
- * @file multilinear_interpolation.h
- * \brief Multilinear interpolation (header only).
- *
- *  Up to five dimensions.
- *  These are hard coded. This is relatively easy to read, but not as general as, 
- *  e.g., https://github.com/parsiad/mlinterp
- *  This version assumes simple arrays.
- *  Pass in the number of dimensions for each array, 
- *     then the grid values for each dimension (arrays),
- *     then the array of function values at each point,
- *     then the locations of the desired points in each dimension.
- *  The grid of function values is mapped to 1-D in row-major form:
- *     For x,y,z indexed by i,j,k, we have f[i][j][k] ==> f[i*nz*ny + j*nz + k]
- *  See LI_2D for specific description of values passed.
- *  LI_3D and LI_4D are tested by comparison of the rcSLW code to the python version.
-**/
+/// @file multilinear_interpolation.h
+/// \brief Multilinear interpolation (header only).
+/// 
+///  Up to five dimensions.
+///  These are hard coded. This is relatively easy to read, but not as general as, 
+///  e.g., https://github.com/parsiad/mlinterp
+///  This version assumes simple arrays.
+///  Pass in the number of dimensions for each array, 
+///     then the grid values for each dimension (arrays),
+///     then the array of function values at each point,
+///     then the locations of the desired points in each dimension.
+///  The grid of function values is mapped to 1-D in row-major form:
+///     For x,y,z indexed by i,j,k, we have f[i][j][k] ==> f[i*nz*ny + j*nz + k]
+///  See LI_2D for specific description of values passed.
+///  LI_3D and LI_4D are tested by comparison of the rcSLW code to the python version.
 
 #include <vector>
 

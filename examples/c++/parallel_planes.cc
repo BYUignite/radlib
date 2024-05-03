@@ -1,7 +1,5 @@
-/**
- * @file parallel_planes.cc
- * \brief 1-D radiative solver, ray tracing.
- */
+/// @file parallel_planes.cc
+/// \brief 1-D radiative solver, ray tracing.
 
 #include <cmath>          // M_PI, sin, cos
 #include <iostream>   //doldb

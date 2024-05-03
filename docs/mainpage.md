@@ -1,8 +1,7 @@
-/**
 
-@mainpage
+\mainpage
 
-<!-- #################################################################### --> 
+<!-- #################################################################### -->
 
 # Overview
 
@@ -30,11 +29,11 @@ The [Planck Mean model](https://tnfworkshop.org/radiation/) is a simple model co
 
 ## WSGG
 
-There are a number of WSGG models that have been published. A particularly attractive version is that by [Bordbar et al. (2020)](https://doi.org/10.1016/j.icheatmasstransfer.2019.104400), which is an extension of an earlier paper by [Bordbar et al. (2014)](http://dx.doi.org/10.1016/j.combustflame.2014.03.013). This model uses four gray and one clear gas, accounts for arbitrary compositions of CO2 and H2O. The model was extended here to include soot (under Bordbar's guidanance) by adding a single mean soot absorption coefficient to each of the \f$\kappa_j\f$ and leaving the \f$a_j\f$ unchanged. Example ex_Sb1 demonstrates the accuracy of the model with soot. 
+There are a number of WSGG models that have been published. A particularly attractive version is that by [Bordbar et al. (2020)](https://doi.org/10.1016/j.icheatmasstransfer.2019.104400) \cite Bordbar_2020, which is an extension of an earlier paper by [Bordbar et al. (2014)](http://dx.doi.org/10.1016/j.combustflame.2014.03.013) \cite Bordbar_2014. This model uses four gray and one clear gas, accounts for arbitrary compositions of CO2 and H2O. The model was extended here to include soot (under Bordbar's guidanance) by adding a single mean soot absorption coefficient to each of the \f$\kappa_j\f$ and leaving the \f$a_j\f$ unchanged. Example ex_Sb1 demonstrates the accuracy of the model with soot. 
 
 ## RCSLW
 
-The RCSLW model is an implementation of the model published by [Solovjov et al. (2017)](http://dx.doi.org/10.1016/j.jqsrt.2017.01.034). This is a highly accurate model that improves on the SLW model by relaxing the need of a reference gas. The model can accommodate an arbitrary number of gases and treats arbitrary compositions of CO2, H2O, CO, and soot.  
+The RCSLW model is an implementation of the model published by [Solovjov et al. (2017)](http://dx.doi.org/10.1016/j.jqsrt.2017.01.034) \cite Solovjov_2017. This is a highly accurate model that improves on the SLW model by relaxing the need of a reference gas. The model can accommodate an arbitrary number of gases and treats arbitrary compositions of CO2, H2O, CO, and soot.  
 
 # Required software, building, and installing the library
 
@@ -69,7 +68,3 @@ A Code Ocean capsule is available that provides a fully executable version of th
 
 ## Video
 A [Youtube video](https://youtu.be/z82ENE5fPoE) is provided that demonstrates downloading, installing, and running the examples.
-
-
-
-*/

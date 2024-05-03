@@ -1,7 +1,5 @@
-/**
- * @file rad_planck_mean.h
- * \brief Header file for child class rad_planck_mean
- */
+/// @file rad_planck_mean.h
+/// \brief Header file for child class rad_planck_mean
 
 #pragma once
 
@@ -9,14 +7,15 @@
 #include "rad.h"
 
 ////////////////////////////////////////////////////////////////////////////////
-
-/** Class implementing rad_planck_mean object.
- *  Radiation properties for the Planck Mean model.
- *  A single "gas" is assumed.
- *  This is a simple, commonly used model in combustion, but is best for 
- *  situations that are optically thin with small radiative fractions.
- *  get_k_a, and get_k_a_oneband are the primary interfaces.
- */
+/// 
+/// Class implementing rad_planck_mean object.
+/// Radiation properties for the Planck Mean model.
+/// A single "gas" is assumed.
+/// This is a simple, commonly used model in combustion, but is best for 
+/// situations that are optically thin with small radiative fractions.
+/// get_k_a, and get_k_a_oneband are the primary interfaces.
+/// 
+////////////////////////////////////////////////////////////////////////////////
 
 class rad_planck_mean : public rad {
 

@@ -1,7 +1,5 @@
-/**
- *  @file simple_interface.cc
- *  \brief Simple interface: demonstrate calling library for one gas state
- */
+/// @file simple_interface.cc
+/// \brief Simple interface: demonstrate calling library for one gas state
 
 #include <vector>
 #include <iostream>

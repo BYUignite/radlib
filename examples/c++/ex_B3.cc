@@ -1,7 +1,5 @@
-/**
- * @file ex_B3.cc
- * \brief Bordbar 2020 example 3
- */
+/// @file ex_B3.cc
+/// \brief Bordbar 2020 example 3
 
 #include <iostream>
 #include <cmath>
