@@ -12,3 +12,23 @@ identifiers:
   - type: doi
     value: 10.5281/zenodo.12536606
 date-released: 2024-06-25
+url: https://github.com/BYUignite/radlib
+preferred-citation:
+  type: article
+  authors:
+  - family-names: Stephens
+    given-names: Victoria
+  - family-names: Jensen
+    given-names: Sally
+  - family-names: Wheeler
+    given-names: Isaac
+  - family-names: Lignell
+    given-names: David O
+    orcid: https://orcid.org/0000-0002-2129-1375
+  doi: 10.5281/zenodo.12536606
+  journal: "Computer Physics Communications"
+  start: 1 # First page number
+  end: 11 # Last page number
+  title: "RadLib: A radiative property library for CFD"
+  volume: 272
+  year: 2022
